@@ -3,42 +3,95 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App1.MainPage">
 
-    <Grid>
+    <Grid Margin="50,50,50,50" >
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-
-        <BoxView Grid.Row="1"/>
-        <Label Text="EVA"
-               HorizontalOptions="Center"
+        
+        <Label Grid.Row="0"
+               Grid.Column="0"
+               Text=""
+               HorizontalOptions="Start"
                VerticalOptions="Center"
-               x:Name="eva"/>
+               Margin="20,30,0,0"
+               x:Name="eva4"/>
 
-        <BoxView Grid.Row="1"/>
-        <Label Grid.Column="1"
-               Text="USUARIO"
-               HorizontalOptions="Center"
-               VerticalOptions="Center" 
-               x:Name="usuario"/>
+        <Label Grid.Row="1"
+               Grid.Column="0"
+               Text=""
+               HorizontalOptions="Start"
+               VerticalOptions="Center"
+               Margin="20,30,0,0"
+               x:Name="eva3"/>
+        
+        <Label Grid.Row="2"
+               Grid.Column="0"
+               Text=""
+               HorizontalOptions="Start"
+               VerticalOptions="Center"
+               Margin="20,30,0,0"
+               x:Name="eva2"/>
+        
+        <Label Grid.Row="3"
+               Grid.Column="0"
+               Text=""
+               HorizontalOptions="Start"
+               VerticalOptions="Center"
+               Margin="20,30,0,0"
+               x:Name="eva1"/>
 
-        <BoxView Grid.Row="1"/>
-        <Entry Grid.Row="1"
-               Text="Mensaje"
+        <Label Grid.Row="0"
+               Grid.Column="1"
+               Text=""
+               HorizontalOptions="End"
+               VerticalOptions="Center"
+               Margin="0,30,20,0"
+               x:Name="usuario4"/>
+
+        <Label Grid.Row="1"
+               Grid.Column="1"
+               Text=""
+               HorizontalOptions="End"
+               VerticalOptions="Center"
+               Margin="0,30,20,0"
+               x:Name="usuario3"/>
+
+        <Label Grid.Row="2"
+               Grid.Column="1"
+               Text=""
+               HorizontalOptions="End"
+               VerticalOptions="Center"
+               Margin="0,30,20,0"
+               x:Name="usuario2"/>
+
+        <Label Grid.Row="3"
+               Grid.Column="1"
+               Text=""
+               HorizontalOptions="End"
+               VerticalOptions="Center"
+               Margin="0,30,20,0"
+               x:Name="usuario1"/>
+
+        <Entry Grid.Row="4"
+               Grid.Column="0"
+               Placeholder="Mensaje"
                VerticalOptions="Center"
                x:Name="mensaje"/>
 
-        <BoxView Grid.Row="1"
-                 Grid.Column="1"/>
-        <Button Grid.Row="1"
+        <Button Grid.Row="4"
                Grid.Column="1"
                Text="Enviar"
                VerticalOptions="Center" 
                Clicked="Button_Clicked"/>
+
     </Grid>
 
 </ContentPage>
