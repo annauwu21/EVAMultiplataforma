@@ -49,7 +49,7 @@ namespace App1
                 //Escribimos la SessionID
                 Console.WriteLine(result.Response);
                 //Extraemos solo el SessionID de la respuesta
-                string sessionID = result.Response.Substring(20, 36);
+                string sessionID = result.Response.Substring(20, 36); //WINDOWS: 20,36 - ANDROID: 19,36 - Hay que tratar el JSON para que coja siempre la SessionID correcta
                 //Escribimos el sessionID Limpio
                 Console.WriteLine("Session ID: " + sessionID);
 
@@ -62,7 +62,9 @@ namespace App1
                         Text = m //Variable que recoge el texo
                     }
                  );
-              
+                Console.WriteLine(result2.Response);
+                Console.WriteLine("Mensaje introducido: " +m);
+                
                 //Convertir json a objeto:
                 Root deserialized = JsonConvert.DeserializeObject<Root>(result2.Response.ToString());
                 
@@ -70,6 +72,9 @@ namespace App1
                 string eva1Antiguo = eva1.Text.ToString();
                 string eva2Antiguo = eva2.Text.ToString();
                 string eva3Antiguo = eva2.Text.ToString();
+
+                //Mostramos la respuesta de EVA por consola
+                Console.WriteLine("Respuesta: " + deserialized.output.generic[0].text.ToString());
 
                 eva1.Text = deserialized.output.generic[0].text.ToString();
                 eva2.Text = eva1Antiguo;
@@ -87,7 +92,7 @@ namespace App1
 
                 mensaje.Text = "";
 
-                //Console.WriteLine(result2.Response);
+               
             }
             catch (ServiceResponseException es)
             {
