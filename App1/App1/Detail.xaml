@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.Detail">
+    <ContentPage.Content>
+        <Grid Margin="50,50,50,50">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Row="0"
+               Grid.Column="0"
+               Grid.ColumnSpan="2"
+               Source="https://estaticos.muyinteresante.es/media/cache/1000x_thumb/uploads/images/gallery/59a9219b5bafe82d1a3c9869/bosque-noruega-nieve_0.jpg"
+               HeightRequest="500"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="FillAndExpand"
+               Aspect="AspectFill"
+               x:Name="imagenEva"/>
+
+            <Label Grid.Row="0"
+               Grid.Column="0"
+               Text=""
+               HorizontalOptions="Start"
+               VerticalOptions="Center"
+               Margin="20,30,0,0"
+               x:Name="eva1"/>
+
+            <Label Grid.Row="0"
+               Grid.Column="1"
+               Text=""
+               HorizontalOptions="End"
+               VerticalOptions="Center"
+               Margin="0,30,20,0"
+               x:Name="usuario1"/>
+
+            <Entry Grid.Row="1"
+               Grid.Column="0"
+               Placeholder="Mensaje"
+               VerticalOptions="Center"
+               x:Name="mensaje"/>
+
+            <Button Grid.Row="1"
+                Grid.Column="1"
+                Text="Enviar"
+                VerticalOptions="Center" 
+                Clicked="Button_Clicked"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
