@@ -78,6 +78,14 @@ namespace App1
 
                 mensaje.Text = "";
 
+                //Sacamos el tipo de respusta IMAGEN/TEXTO
+                Console.WriteLine("RESPONSE_TYPE: " +deserialized.output.generic[0].response_type);
+
+                //Sacamos el intent
+                Console.WriteLine("INTENT: " + deserialized.output.intents[0].intent);
+                //Sacamos el entinty
+                //Console.WriteLine("ENITY: " + deserialized.output.entities[0].entity.ToString()); //El objeto entities no esta hecho
+
 
             }
             catch (ServiceResponseException es)
