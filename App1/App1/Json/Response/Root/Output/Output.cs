@@ -8,7 +8,7 @@ namespace App1
         //cada generic tiene un responsetype y text. el text es lo que necesitamos imprimir
         public List<Generic> generic { get; set; }
         public List<Intent> intents { get; set; }
-        public List<object> entities { get; set; }
+        public List<Entity> entities { get; set; }
     }
 }
 

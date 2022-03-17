@@ -84,7 +84,7 @@ namespace App1
                 //Sacamos el intent
                 Console.WriteLine("INTENT: " + deserialized.output.intents[0].intent);
                 //Sacamos el entinty
-                //Console.WriteLine("ENITY: " + deserialized.output.entities[0].entity.ToString()); //El objeto entities no esta hecho
+                Console.WriteLine("ENTITY: " + deserialized.output.entities[0].entity.ToString());
 
 
             }
