@@ -86,7 +86,6 @@ namespace App1
                 //Sacamos el entinty
                 Console.WriteLine("ENTITY: " + deserialized.output.entities[0].entity.ToString());
 
-
             }
             catch (ServiceResponseException es)
             {

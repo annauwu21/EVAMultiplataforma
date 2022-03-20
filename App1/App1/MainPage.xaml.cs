@@ -24,7 +24,5 @@ namespace App1
             //Metemos la pagina principal
             this.Detail = new NavigationPage(new Detail());
         }
-
-        
     }
 }
