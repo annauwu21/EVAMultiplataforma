@@ -13,10 +13,9 @@ using Xamarin.Forms;
 
 namespace App1
 {
-    public partial class MainPage : MasterDetailPage
+    public partial class Principal : MasterDetailPage
     {
-
-        public MainPage()
+        public Principal()
         {
             InitializeComponent();
             //Metemos el menu desplegable lateral
