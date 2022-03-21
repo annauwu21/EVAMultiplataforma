@@ -9,8 +9,8 @@ namespace App1
         public App()
         {
             InitializeComponent();
-
-            MainPage = new MainPage();
+            //Ponemos la pagina de iniciar session como pagina principal
+            MainPage = new InicioSession();
         }
 
         protected override void OnStart()

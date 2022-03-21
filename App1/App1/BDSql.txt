@@ -1,0 +1,7 @@
+﻿Create database pruebaseva;
+Use pruebaseva;
+
+Create table users(
+	user varchar(30) primary key,
+    pass varchar (30)
+);

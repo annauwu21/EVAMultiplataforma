@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="App1.InicioSession">
+             x:Class="App1.Registrar">
     <ContentPage.Content>
         <StackLayout HorizontalOptions="CenterAndExpand"
                      VerticalOptions="Center"
                        WidthRequest="250">
-            <!-- Place new controls here -->
-            <Label Text="Iniciar Session"
+            <!-- Controles -->
+            <Label Text="Registrar"
                FontAttributes="Bold"
                FontSize="30"
                HorizontalTextAlignment="Center"
@@ -16,11 +16,12 @@
                Keyboard="Text"/>
             <Entry Placeholder="Contraseña" x:Name="Pass"
                Keyboard="Text" IsPassword="True"/>
-            <Button Text="Iniciar Session" Clicked="btnIniciar_Clicked" 
-                BackgroundColor="DarkMagenta" x:Name="btnInicarSessio" IsEnabled="True"/>
+            <Entry Placeholder="Contraseña" x:Name="Pass2"
+               Keyboard="Text" IsPassword="True"/>
             <Button Text="Registrar-se" Clicked="btnRegistrar_Clicked"
                 BackgroundColor="DarkMagenta" x:Name="btnRegistrar"/>
+            <Button Text="Cerrar" Clicked="btnCerrar_Clicked"
+                BackgroundColor="DarkRed" x:Name="btnCerrar"/>
         </StackLayout>
     </ContentPage.Content>
-    
 </ContentPage>
