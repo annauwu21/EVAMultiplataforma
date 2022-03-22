@@ -1,57 +1,73 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="App1.Detail">
+             x:Class="App1.Detail"
+             BackgroundImageSource="https://i.pinimg.com/originals/d8/6f/92/d86f92c6e76d5a4a84dcb779fb6b6447.jpg">
+
     <ContentPage.Content>
-        <Grid Margin="50,50,50,50">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
 
-            <Image Grid.Row="0"
-               Grid.Column="0"
-               Grid.ColumnSpan="2"
-               Source="https://i.pinimg.com/originals/d8/6f/92/d86f92c6e76d5a4a84dcb779fb6b6447.jpg"
-               HeightRequest="500"
-               HorizontalOptions="FillAndExpand"
-               VerticalOptions="FillAndExpand"
-               Aspect="AspectFill"
-               x:Name="imagenEva"/>
+        <CollectionView Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Grid.RowSpan="1"
+                            ItemsSource="{Binding Chats}"
+                            BackgroundColor="#00ffffff">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0"
-               Grid.Column="0"
-               Text=""
-               TextColor= "Blue"
-               HorizontalOptions="Start"
-               VerticalOptions="Center"
-               Margin="20,30,0,0"
-               x:Name="eva1"/>
+                                <Label Grid.Row="0"
+                                       Grid.Column="0"
+                                       Text="{Binding Question}"
+                                       TextColor= "Blue"
+                                       HorizontalOptions="Start"/>
 
-            <Label Grid.Row="0"
-               Grid.Column="1"
-               Text=""
-               TextColor="OrangeRed"
-               HorizontalOptions="End"
-               VerticalOptions="Center"
-               Margin="0,30,20,0"
-               x:Name="usuario1"/>
 
-            <Entry Grid.Row="1"
-               Grid.Column="0"
-               Placeholder="Mensaje"
-               VerticalOptions="Center"
-               x:Name="mensaje"/>
+                                <Label Grid.Row="0"
+                                       Grid.Column="1"
+                                       Text="{Binding Response}"
+                                       TextColor="OrangeRed"
+                                       HorizontalOptions="End"/>
 
-            <Button Grid.Row="1"
-                Grid.Column="1"
-                Text="Enviar"
-                VerticalOptions="Center" 
-                Clicked="Button_Clicked"/>
-        </Grid>
+                         
+
+
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.Footer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Entry Grid.Row="0"
+                               Grid.Column="0"
+                               Placeholder="Mensaje"
+                               VerticalOptions="Center"
+                               x:Name="question"/>
+
+                        <Button Grid.Row="0"
+                            Grid.Column="1"
+                            Text="Enviar"
+                            VerticalOptions="Center" 
+                            Clicked="Button_Clicked"/>
+                    </Grid>
+                </CollectionView.Footer>
+            </CollectionView>
+
     </ContentPage.Content>
 </ContentPage>

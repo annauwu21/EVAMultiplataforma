@@ -1,10 +1,13 @@
-﻿using IBM.Cloud.SDK.Core.Authentication.Iam;
+﻿using App1.Models;
+using App1.ViewModels;
+using IBM.Cloud.SDK.Core.Authentication.Iam;
 using IBM.Cloud.SDK.Core.Http.Exceptions;
 using IBM.Watson.Assistant.v2;
 using IBM.Watson.Assistant.v2.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,19 +20,28 @@ namespace App1
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Detail : ContentPage
     {
+        //PrincipalViewModel pw = new PrincipalViewModel();
+        public IList<Chat> Monkeys { get; private set; }
+
+
+        public static List<Chat> addList = new List<Chat>();
+
+        int contador = 0;
+
         public Detail()
         {
             InitializeComponent();
+            Monkeys = new List<Chat>();
         }
 
         private void Button_Clicked(object sender, EventArgs e)
         {
             //imagenEva.Source = ImageSource.FromResource("App1.Images.eva.jpeg");
 
-            var m = mensaje.Text.ToString();
+            var m = question.Text.ToString();
 
-            usuario1.Text = usuario1.Text + "\n\r " + m;
-            eva1.Text = eva1.Text + "\n\r\n\r\n\r";
+            //usuario1.Text = usuario1.Text + "\n\r " + m;
+            //eva1.Text = eva1.Text + "\n\r\n\r\n\r";
 
             try
             {
@@ -44,13 +56,11 @@ namespace App1
                 var result = assistant.CreateSession(assistantId: "7ca45e38-0155-4856-8c0b-86e574c514b6");
                 //Escribimos la SessionID
                 Console.WriteLine(result.Response);
-                //Extraemos solo el SessionID de la respuesta
-                string sessionID = result.Response.Substring(20, 36); //WINDOWS: 20,36 - ANDROID: 19,36 - Hay que tratar el JSON para que coja siempre la SessionID correcta
-                //Escribimos el sessionID Limpio
-                Console.WriteLine("Session ID: " + sessionID);
-
                 //Convertir json de la sessionID a objeto:
                 Session s = JsonConvert.DeserializeObject<Session>(result.Response.ToString());
+
+                //Escribimos el sessionID Limpio
+                Console.WriteLine("Session ID: " + s);
 
                 //Mandamos un mensaje de prueba
                 var result2 = assistant.Message(
@@ -69,15 +79,27 @@ namespace App1
 
                 //Desplazar y mostrar mensaje:
 
-                eva1.Text = eva1.Text + "\n\r " + deserialized.output.generic[0].text.ToString() ;
+                //eva1.Text = eva1.Text + "\n\r " + deserialized.output.generic[0].text.ToString() ;
+
+                
+                
+                Chat chat = new Chat(m, deserialized.output.generic[0].text.ToString()); //Objeto Chat
+                Monkeys.Add(chat);
+
+                addList.Add(chat);
+                for (int i = 0; i < Monkeys.Count; i++)
+                {
+                    DisplayAlert("Error", Monkeys[i].Question.ToString(), "Cerrar");
+
+                }
+                BindingContext = new PrincipalViewModel(addList);
+                //BindingContext = this;
 
                 //Mostramos la respuesta de EVA por consola
                 Console.WriteLine("Respuesta: " + deserialized.output.generic[0].text.ToString());
 
-                usuario1.Text = usuario1.Text + "\n\r\n\r\n\r";
-
-                mensaje.Text = "";
-
+                //usuario1.Text = usuario1.Text + "\n\r\n\r\n\r";
+                question.Text = "";
                 //Sacamos el tipo de respusta IMAGEN/TEXTO
                 Console.WriteLine("RESPONSE_TYPE: " +deserialized.output.generic[0].response_type);
 
