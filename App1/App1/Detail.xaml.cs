@@ -20,18 +20,11 @@ namespace App1
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Detail : ContentPage
     {
-        //PrincipalViewModel pw = new PrincipalViewModel();
-        public IList<Chat> Monkeys { get; private set; }
-
-
-        public static List<Chat> addList = new List<Chat>();
-
-        int contador = 0;
+        public static List<Chat> list = new List<Chat>();
 
         public Detail()
         {
             InitializeComponent();
-            Monkeys = new List<Chat>();
         }
 
         private void Button_Clicked(object sender, EventArgs e)
@@ -84,16 +77,9 @@ namespace App1
                 
                 
                 Chat chat = new Chat(m, deserialized.output.generic[0].text.ToString()); //Objeto Chat
-                Monkeys.Add(chat);
-
-                addList.Add(chat);
-                for (int i = 0; i < Monkeys.Count; i++)
-                {
-                    DisplayAlert("Error", Monkeys[i].Question.ToString(), "Cerrar");
-
-                }
-                BindingContext = new PrincipalViewModel(addList);
-                //BindingContext = this;
+                list.Add(chat);
+                cv.ItemsSource = "";
+                cv.ItemsSource = list;
 
                 //Mostramos la respuesta de EVA por consola
                 Console.WriteLine("Respuesta: " + deserialized.output.generic[0].text.ToString());
