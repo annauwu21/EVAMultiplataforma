@@ -5,8 +5,8 @@
              BackgroundImageSource="https://i.pinimg.com/originals/d8/6f/92/d86f92c6e76d5a4a84dcb779fb6b6447.jpg">
 
     <ContentPage.Content>
-
-        <CollectionView Grid.Row="0"
+        <StackLayout>
+            <CollectionView Grid.Row="0"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             Grid.RowSpan="1"
@@ -26,54 +26,62 @@
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
 
-                                <Label Grid.Row="0"
-                                       Grid.Column="0"
-                                       Text="{Binding Response}"
-                                       TextColor= "Blue"
-                                       HorizontalOptions="Start"/>
+                                <Label  Grid.Row="0"
+                                        Grid.Column="0"
+                                        Text="{Binding Response}"
+                                        TextColor= "Blue"
+                                        HorizontalOptions="Start">
+                                </Label>
 
-                            <Image  Grid.Row="1"
-                                    Grid.Column="0"
-                                    Grid.RowSpan="1"
-                                    Grid.ColumnSpan="1"
-                                    Source=""
-                                    HeightRequest="100"
-                                    HorizontalOptions="Start">
-                            </Image>
-                                
-                            <Label Grid.Row="0"
-                                       Grid.Column="1"
-                                       Text="{Binding Question}"
-                                       TextColor="OrangeRed"
-                                       HorizontalOptions="End"/>
-                        </Grid>
+                                <Image  Grid.Row="1"
+                                        Grid.Column="0"
+                                        Grid.RowSpan="1"
+                                        Grid.ColumnSpan="1"
+                                        IsVisible="{Binding ImageIsVisible}"
+                                        x:Name="chatImage"
+                                        Source=""
+                                        HeightRequest="100"
+                                        HorizontalOptions="Start">
+                                </Image>
+
+                                <Label  Grid.Row="0"
+                                        Grid.Column="1"
+                                        Text="{Binding Question}"
+                                        TextColor="OrangeRed"
+                                        HorizontalOptions="End">
+                                </Label>
+                            </Grid>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-                <CollectionView.Footer>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-
-                        <Entry Grid.Row="0"
-                               Grid.Column="0"
-                               Placeholder="Mensaje"
-                               VerticalOptions="Center"
-                               x:Name="question"/>
-
-                        <Button Grid.Row="0"
-                            Grid.Column="1"
-                            Text="Enviar"
-                            VerticalOptions="Center" 
-                            Clicked="Button_Clicked"/>
-                    </Grid>
-                </CollectionView.Footer>
             </CollectionView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
 
+                <Entry  Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Placeholder="Mensaje"
+                        VerticalOptions="Center"
+                        x:Name="question"/>
+
+                <Button Grid.Row="0"
+                        Grid.Column="3"
+                        Text="Enviar"
+                        VerticalOptions="Center" 
+                        BackgroundColor="White"
+                        TextColor="Black"
+                        BorderColor="Black"
+                        Clicked="Button_Clicked"/>
+            </Grid>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
