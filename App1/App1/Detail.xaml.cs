@@ -29,6 +29,7 @@ namespace App1
 
         private void Button_Clicked(object sender, EventArgs e)
         {
+         
             //imagenEva.Source = ImageSource.FromResource("App1.Images.eva.jpeg");
 
             var m = question.Text.ToString();
@@ -74,8 +75,19 @@ namespace App1
 
                 //eva1.Text = eva1.Text + "\n\r " + deserialized.output.generic[0].text.ToString() ;
 
-                
-                
+                switch (deserialized.output.intents[0].intent.ToString())
+                {
+                    case "Insultos":
+                        cp.BackgroundImageSource = "https://cdn.wamiz.fr/cdn-cgi/image/quality=80,width=1200,height=675,fit=cover/article/main-picture/61090e4759fdb447112947.jpg";
+                        break;
+                    case "Piropos":
+                        cp.BackgroundImageSource = "https://cdn.wamiz.fr/cdn-cgi/image/quality=80,width=1200,height=675,fit=cover/article/main-picture/61090e4759fdb447112947.jpg";
+                        break;
+                    default:
+                        cp.BackgroundImageSource = "https://i.pinimg.com/originals/d8/6f/92/d86f92c6e76d5a4a84dcb779fb6b6447.jpg";
+                        break;
+                }
+
                 Chat chat = new Chat(m, deserialized.output.generic[0].text.ToString()); //Objeto Chat
                 list.Add(chat);
                 cv.ItemsSource = "";
@@ -93,6 +105,9 @@ namespace App1
                 Console.WriteLine("INTENT: " + deserialized.output.intents[0].intent);
                 //Sacamos el entinty
                 Console.WriteLine("ENTITY: " + deserialized.output.entities[0].entity.ToString());
+
+
+               
 
             }
             catch (ServiceResponseException es)
