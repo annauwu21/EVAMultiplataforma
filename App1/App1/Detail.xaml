@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:converters="clr-namespace:App1"
              x:Class="App1.Detail"
              x:Name="cp"
              BackgroundImageSource="https://i.pinimg.com/originals/d8/6f/92/d86f92c6e76d5a4a84dcb779fb6b6447.jpg">
@@ -38,9 +38,8 @@
                                         Grid.Column="0"
                                         Grid.RowSpan="1"
                                         Grid.ColumnSpan="1"
-                                        IsVisible="{Binding ImageIsVisible}"
                                         x:Name="chatImage"
-                                        Source=""
+                                        Source="{Binding MyProperty}"
                                         HeightRequest="100"
                                         HorizontalOptions="Start">
                                 </Image>

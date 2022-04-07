@@ -21,16 +21,18 @@ namespace App1
     public partial class Detail : ContentPage
     {
         public static List<Chat> list = new List<Chat>();
+        public MyViewModel aaa { get; set; }
 
         public Detail()
         {
             InitializeComponent();
+            
         }
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-         
             //imagenEva.Source = ImageSource.FromResource("App1.Images.eva.jpeg");
+
 
             var m = question.Text.ToString();
 
@@ -88,10 +90,13 @@ namespace App1
                         break;
                 }
 
-                Chat chat = new Chat(m, deserialized.output.generic[0].text.ToString()); //Objeto Chat
+                Chat chat = new Chat(m, deserialized.output.generic[0].text.ToString(), "https://www.xtrafondos.com/wallpapers/alan-walker-4721.jpg"); //Objeto Chat
                 list.Add(chat);
                 cv.ItemsSource = "";
                 cv.ItemsSource = list;
+
+                chat.MyProperty = "https://www.xtrafondos.com/wallpapers/alan-walker-4721.jpg";
+
 
                 //Mostramos la respuesta de EVA por consola
                 Console.WriteLine("Respuesta: " + deserialized.output.generic[0].text.ToString());
@@ -105,9 +110,6 @@ namespace App1
                 Console.WriteLine("INTENT: " + deserialized.output.intents[0].intent);
                 //Sacamos el entinty
                 Console.WriteLine("ENTITY: " + deserialized.output.entities[0].entity.ToString());
-
-
-               
 
             }
             catch (ServiceResponseException es)

@@ -14,7 +14,7 @@ namespace App1
     public partial class InicioSession : ContentPage
     {
         Cifrado cifrado = new Cifrado();
-
+        public ImageSource ImageSource { get; private set; }
         public InicioSession()
         {
             InitializeComponent();
@@ -76,6 +76,7 @@ namespace App1
                 {
                     conexionBD.Close();
                 }
+                conexionBD.Close();
             }
             else
             {

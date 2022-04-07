@@ -6,10 +6,10 @@ namespace App1
     {
         public static MySqlConnection conexion()
         {
-            string servidor = "sql11.freesqldatabase.com";
-            string bd = "sql11480498";
-            string usuario = "sql11480498";
-            string password = "caesxtG6i7";
+            string servidor = "localhost";  //"sql11.freesqldatabase.com";
+            string bd = "pruebaseva"; //"sql11480498";
+            string usuario = "root"; // "sql11480498";
+            string password = "PutaBarata00-"; //"caesxtG6i7";
 
             string cadenaConexion = "Database=" + bd + "; Data Source =" + servidor + "; User Id =" + usuario + ";Password=" + password + "";
 
