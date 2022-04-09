@@ -20,8 +20,7 @@ namespace App1
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Detail : ContentPage
     {
-        public static List<Chat> list = new List<Chat>();
-        public MyViewModel aaa { get; set; }
+        public static List<Chat> historial = new List<Chat>(); //<- Lista para guardar los chats (preguntas y respuestas)
 
         public Detail()
         {
@@ -29,87 +28,96 @@ namespace App1
             
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private void Button_Clicked(object sender, EventArgs e) 
         {
-            //imagenEva.Source = ImageSource.FromResource("App1.Images.eva.jpeg");
-
-
-            var m = question.Text.ToString();
-
-            //usuario1.Text = usuario1.Text + "\n\r " + m;
-            //eva1.Text = eva1.Text + "\n\r\n\r\n\r";
+          
+            var question = Question.Text.ToString(); //<- Guardar el mensaje que envia el usuario
 
             try
             {
+                //Crear la autentificación con nuestra ApiKey:
                 IamAuthenticator authenticator = new IamAuthenticator(apikey: "_DPGYFyIP4aUykVS53B4JFawtz261nvV4l9GGLUuN4eb");
 
-                AssistantService assistant = new AssistantService("2021-06-14", authenticator);
-                assistant.SetServiceUrl("https://api.eu-de.assistant.watson.cloud.ibm.com");
+                //Crear el asistente:
+                AssistantService assistant = new AssistantService("2021-06-14", authenticator); //<- Versión y autentificador
+                assistant.SetServiceUrl("https://api.eu-de.assistant.watson.cloud.ibm.com"); //<- URL del servicio 
+                assistant.DisableSslVerification(true); //<- Desabilitar verificación SSL
 
-                assistant.DisableSslVerification(true);
+                //Crear la sesión con el assistantID:
+                var jsonSession = assistant.CreateSession(assistantId: "7ca45e38-0155-4856-8c0b-86e574c514b6");
 
-                //Creem la sessio
-                var result = assistant.CreateSession(assistantId: "7ca45e38-0155-4856-8c0b-86e574c514b6");
-                //Escribimos la SessionID
-                Console.WriteLine(result.Response);
-                //Convertir json de la sessionID a objeto:
-                Session s = JsonConvert.DeserializeObject<Session>(result.Response.ToString());
+                //Convertir json (de sessionID) a objeto:
+                Session session = JsonConvert.DeserializeObject<Session>(jsonSession.Response.ToString());
 
-                //Escribimos el sessionID Limpio
-                Console.WriteLine("Session ID: " + s);
-
-                //Mandamos un mensaje de prueba
-                var result2 = assistant.Message(
-                    assistantId: "7ca45e38-0155-4856-8c0b-86e574c514b6",
-                    sessionId: s.session_id,
+                //Mandar el mensaje a Eva:
+                var jsonResponse = assistant.Message(
+                    assistantId: "7ca45e38-0155-4856-8c0b-86e574c514b6", //<- assistantID
+                    sessionId: session.session_id,  //<- sessionID
                     input: new MessageInput()
                     {
-                        Text = m //Variable que recoge el texo
+                        Text = question //<- Mensaje que envia el usuario
                     }
                  );
-                Console.WriteLine(result2.Response);
-                Console.WriteLine("Mensaje introducido: " + m);
 
-                //Convertir json a objeto:
-                Root deserialized = JsonConvert.DeserializeObject<Root>(result2.Response.ToString());
+                //Convertir json (de la respuesta de Eva) a objeto:
+                Root r = JsonConvert.DeserializeObject<Root>(jsonResponse.Response.ToString());
 
-                //Desplazar y mostrar mensaje:
+                //Guardar información útil de la respuesta de Eva:
+                var intent = r.output.intents[0].intent.ToString();
+                var entity = r.output.entities[0].entity.ToString();
+                var responseType = r.output.generic[0].response_type.ToString();
 
-                //eva1.Text = eva1.Text + "\n\r " + deserialized.output.generic[0].text.ToString() ;
+                //Guardar distintas expresiones de Eva:
+                var normal = "https://i.pinimg.com/originals/d8/6f/92/d86f92c6e76d5a4a84dcb779fb6b6447.jpg";
+                var happy = "https://www.mundogatos.com/Uploads/mundogatos.com/ImagenesGrandes/como-hacer-a-tu-gato-feliz.jpg";
+                var angry = "https://cdn.wamiz.fr/cdn-cgi/image/quality=80,width=1200,height=675,fit=cover/article/main-picture/61090e4759fdb447112947.jpg";
 
-                switch (deserialized.output.intents[0].intent.ToString())
+                //Cambiar la expresión de Eva según su Intent:
+                switch (intent)
                 {
-                    case "Insultos":
-                        cp.BackgroundImageSource = "https://cdn.wamiz.fr/cdn-cgi/image/quality=80,width=1200,height=675,fit=cover/article/main-picture/61090e4759fdb447112947.jpg";
+                    case "Insultos": cp.BackgroundImageSource = angry; break;
+                    case "Piropos": cp.BackgroundImageSource = happy; break;
+                    default: cp.BackgroundImageSource = normal; break;
+                }
+
+                //Comprovar si la respuesta de Eva es un texto o una imagen.
+                switch (responseType)
+                {
+                    case "text":
+                        var response = r.output.generic[0].text.ToString(); //<- Guardar respuesta de Eva
+
+                        Chat Textchat = new Chat(question, response, "", false); //<- Crear un chat sin imagen.
+                        historial.Add(Textchat); //<- Añadir el chat al historial
+
+                        Console.WriteLine("Respuesta (texto): " + response); //<- Imprimir por consola la respuesta de Eva (mensaje)
                         break;
-                    case "Piropos":
-                        cp.BackgroundImageSource = "https://cdn.wamiz.fr/cdn-cgi/image/quality=80,width=1200,height=675,fit=cover/article/main-picture/61090e4759fdb447112947.jpg";
-                        break;
-                    default:
-                        cp.BackgroundImageSource = "https://i.pinimg.com/originals/d8/6f/92/d86f92c6e76d5a4a84dcb779fb6b6447.jpg";
+                    case "image":
+                        var source = r.output.generic[0].source.ToString(); //<- Guardar respuesta de Eva
+
+                        Chat Imagechat = new Chat(question, "", source, true); //<- Crear un chat con imagen.
+                        historial.Add(Imagechat); //<- Añadir el chat al historial
+
+                        Console.WriteLine("Respuesta (imagen): " + source); //<- Imprimir por consola la respuesta de Eva (url de la imagen)
                         break;
                 }
 
-                Chat chat = new Chat(m, deserialized.output.generic[0].text.ToString(), "https://www.xtrafondos.com/wallpapers/alan-walker-4721.jpg"); //Objeto Chat
-                list.Add(chat);
+                //Limpiar el recurso:
                 cv.ItemsSource = "";
-                cv.ItemsSource = list;
 
-                chat.MyProperty = "https://www.xtrafondos.com/wallpapers/alan-walker-4721.jpg";
+                //Poner en el recurso el historial:
+                cv.ItemsSource = historial;
 
+                //Vaciar el campo de texto para escribir un mensaje:
+                Question.Text = "";
 
-                //Mostramos la respuesta de EVA por consola
-                Console.WriteLine("Respuesta: " + deserialized.output.generic[0].text.ToString());
-
-                //usuario1.Text = usuario1.Text + "\n\r\n\r\n\r";
-                question.Text = "";
-                //Sacamos el tipo de respusta IMAGEN/TEXTO
-                Console.WriteLine("RESPONSE_TYPE: " +deserialized.output.generic[0].response_type);
-
-                //Sacamos el intent
-                Console.WriteLine("INTENT: " + deserialized.output.intents[0].intent);
-                //Sacamos el entinty
-                Console.WriteLine("ENTITY: " + deserialized.output.entities[0].entity.ToString());
+                //Imprimir por consola:
+                Console.WriteLine(jsonSession.Response); //<- sessionID (json)
+                Console.WriteLine("Session ID: " + session); //<- sessionID (limpio)
+                Console.WriteLine("Mensaje introducido: " + question); //<- mensaje que envia el usuario
+                Console.WriteLine(jsonResponse.Response); //<- respuesta de Eva (json)
+                Console.WriteLine("RESPONSE_TYPE: " + responseType); //<- tipo de respuesta (text/image)
+                Console.WriteLine("INTENT: " + intent); //<- intent
+                Console.WriteLine("ENTITY: " + entity); //<- entity
 
             }
             catch (ServiceResponseException es)

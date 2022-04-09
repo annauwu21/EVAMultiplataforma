@@ -11,13 +11,16 @@ namespace App1.Models
         
         public string Response { get; set; }
 
-        public string MyProperty { get; set; } = "https://www.xtrafondos.com/wallpapers/alan-walker-4721.jpg";
+        public string Image { get; set; }
+        
+        public bool ImageVisibility { get; set; }
 
-        public Chat(string question, string response, string mypropiety)
+        public Chat(string question, string response, string mypropiety, bool visible)
         {
             Question = question;
             Response = response;
-            MyProperty = mypropiety;
+            Image = mypropiety;
+            ImageVisibility = visible;
         }
     }
 }
