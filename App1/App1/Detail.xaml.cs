@@ -48,7 +48,7 @@ namespace App1
 
                 //Convertir json (de sessionID) a objeto:
                 Session session = JsonConvert.DeserializeObject<Session>(jsonSession.Response.ToString());
-
+              
                 //Mandar el mensaje a Eva:
                 var jsonResponse = assistant.Message(
                     assistantId: "7ca45e38-0155-4856-8c0b-86e574c514b6", //<- assistantID
@@ -62,50 +62,67 @@ namespace App1
                 //Convertir json (de la respuesta de Eva) a objeto:
                 Root r = JsonConvert.DeserializeObject<Root>(jsonResponse.Response.ToString());
 
-                //Guardar información útil de la respuesta de Eva:
-                var intent = r.output.intents[0].intent.ToString();
-                var entity = r.output.entities[0].entity.ToString();
-                var responseType = r.output.generic[0].response_type.ToString();
-
                 //Guardar distintas expresiones de Eva:
                 var normal = "https://i.pinimg.com/originals/d8/6f/92/d86f92c6e76d5a4a84dcb779fb6b6447.jpg";
                 var happy = "https://www.mundogatos.com/Uploads/mundogatos.com/ImagenesGrandes/como-hacer-a-tu-gato-feliz.jpg";
                 var angry = "https://cdn.wamiz.fr/cdn-cgi/image/quality=80,width=1200,height=675,fit=cover/article/main-picture/61090e4759fdb447112947.jpg";
 
-                //Cambiar la expresión de Eva según su Intent:
-                switch (intent)
+                /*Recorrer toda la respuesta de Eva:*/
+                for (int i = 0 ; i <= r.output.generic.Count() ; i++)
                 {
-                    case "Insultos": cp.BackgroundImageSource = angry; break;
-                    case "Piropos": cp.BackgroundImageSource = happy; break;
-                    default: cp.BackgroundImageSource = normal; break;
-                }
+                    //Guardar información útil de la respuesta de Eva:
+                    var intent = r.output.intents[i].intent.ToString();
+                    //var entity = r.output.entities[0].entity.ToString();
+                    var responseType = r.output.generic[i].response_type.ToString();
 
-                //Comprovar si la respuesta de Eva es un texto o una imagen.
-                switch (responseType)
-                {
-                    case "text":
-                        var response = r.output.generic[0].text.ToString(); //<- Guardar respuesta de Eva
+                    DisplayAlert("Error", i.ToString(), "Cerrar");
+                    DisplayAlert("Error", r.output.generic.Count().ToString(), "Cerrar");
+                    DisplayAlert("Error", jsonResponse.Response, "Cerrar");
 
-                        Chat Textchat = new Chat(question, response, "", false); //<- Crear un chat sin imagen.
-                        historial.Add(Textchat); //<- Añadir el chat al historial
+                    //Cambiar la expresión de Eva según su Intent:
+                    switch (intent)
+                    {
+                        case "Insultos": cp.BackgroundImageSource = angry; break;
+                        case "Piropos": cp.BackgroundImageSource = happy; break;
+                        default: cp.BackgroundImageSource = normal; break;
+                    }
 
-                        Console.WriteLine("Respuesta (texto): " + response); //<- Imprimir por consola la respuesta de Eva (mensaje)
-                        break;
-                    case "image":
-                        var source = r.output.generic[0].source.ToString(); //<- Guardar respuesta de Eva
+                    //Comprovar si la respuesta de Eva es un texto o una imagen.
+                    switch (responseType)
+                    {
+                        case "text":
+                            var response = r.output.generic[i].text.ToString(); //<- Guardar respuesta de Eva
 
-                        Chat Imagechat = new Chat(question, "", source, true); //<- Crear un chat con imagen.
-                        historial.Add(Imagechat); //<- Añadir el chat al historial
+                            Chat Textchat = new Chat(question, response, "", false); //<- Crear un chat sin imagen.
+                            historial.Add(Textchat); //<- Añadir el chat al historial
 
-                        Console.WriteLine("Respuesta (imagen): " + source); //<- Imprimir por consola la respuesta de Eva (url de la imagen)
-                        break;
+                            Console.WriteLine("Respuesta (texto): " + response); //<- Imprimir por consola la respuesta de Eva (mensaje)
+
+                            DisplayAlert("Error",response, "Cerrar");
+                            break;
+                        case "image":
+                            var source = r.output.generic[i].source.ToString(); //<- Guardar respuesta de Eva
+
+                            Chat Imagechat = new Chat(question, "", source, true); //<- Crear un chat con imagen.
+                            historial.Add(Imagechat); //<- Añadir el chat al historial
+
+                            Console.WriteLine("Respuesta (imagen): " + source); //<- Imprimir por consola la respuesta de Eva (url de la imagen)
+
+                            DisplayAlert("Error", source, "Cerrar");
+                            break;
+                    }
+
+                    //Limpiar el recurso:
+                    cv.ItemsSource = "";
+
+                    //Poner en el recurso el historial:
+                    cv.ItemsSource = historial;
+
+                    question = "";
                 }
 
                 //Limpiar el recurso:
                 cv.ItemsSource = "";
-
-                //Poner en el recurso el historial:
-                cv.ItemsSource = historial;
 
                 //Vaciar el campo de texto para escribir un mensaje:
                 Question.Text = "";
@@ -115,9 +132,9 @@ namespace App1
                 Console.WriteLine("Session ID: " + session); //<- sessionID (limpio)
                 Console.WriteLine("Mensaje introducido: " + question); //<- mensaje que envia el usuario
                 Console.WriteLine(jsonResponse.Response); //<- respuesta de Eva (json)
-                Console.WriteLine("RESPONSE_TYPE: " + responseType); //<- tipo de respuesta (text/image)
-                Console.WriteLine("INTENT: " + intent); //<- intent
-                Console.WriteLine("ENTITY: " + entity); //<- entity
+                //Console.WriteLine("RESPONSE_TYPE: " + responseType); //<- tipo de respuesta (text/image)
+                //Console.WriteLine("INTENT: " + intent); //<- intent
+                //Console.WriteLine("ENTITY: " + entity); //<- entity
 
             }
             catch (ServiceResponseException es)
