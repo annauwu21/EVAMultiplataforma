@@ -1,5 +1,4 @@
 ﻿using App1.Models;
-using App1.ViewModels;
 using IBM.Cloud.SDK.Core.Authentication.Iam;
 using IBM.Cloud.SDK.Core.Http.Exceptions;
 using IBM.Watson.Assistant.v2;
@@ -13,7 +12,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific.AppCompat;
 using Xamarin.Forms.Xaml;
+using NavigationPage = Xamarin.Forms.NavigationPage;
 
 namespace App1
 {
@@ -22,10 +23,13 @@ namespace App1
     {
         public static List<Chat> historial = new List<Chat>(); //<- Lista para guardar los chats (preguntas y respuestas)
 
+
         public Detail()
         {
             InitializeComponent();
-            
+            NavigationPage.SetHasBackButton(this, false);
+
+
         }
 
         private void Button_Clicked(object sender, EventArgs e) 
@@ -93,22 +97,24 @@ namespace App1
                         case "text":
                             var response = r.output.generic[i].text.ToString(); //<- Guardar respuesta de Eva
 
-                            Chat Textchat = new Chat(question, response, "", false); //<- Crear un chat sin imagen.
+                            Chat Textchat = new Chat(question, response, "", false, true, false); //<- Crear un chat sin imagen.
                             historial.Add(Textchat); //<- Añadir el chat al historial
 
-                            Console.WriteLine("Respuesta (texto): " + response); //<- Imprimir por consola la respuesta de Eva (mensaje)
+                            Chat Spacechat = new Chat(question, response, "", false, false, true); //<- Crear un chat sin imagen.
+                            historial.Add(Spacechat); //<- Añadir el chat al historial
 
-                            DisplayAlert("Error",response, "Cerrar");
+                            Console.WriteLine("Respuesta (texto): " + response); //<- Imprimir por consola la respuesta de Eva (mensaje)
                             break;
                         case "image":
                             var source = r.output.generic[i].source.ToString(); //<- Guardar respuesta de Eva
 
-                            Chat Imagechat = new Chat(question, "", source, true); //<- Crear un chat con imagen.
+                            Chat Imagechat = new Chat(question, "", source, false, true, false); //<- Crear un chat con imagen.
                             historial.Add(Imagechat); //<- Añadir el chat al historial
 
-                            Console.WriteLine("Respuesta (imagen): " + source); //<- Imprimir por consola la respuesta de Eva (url de la imagen)
+                            Chat Spacechat2 = new Chat(question, "", source, true, false, false); //<- Crear un chat con imagen.
+                            historial.Add(Spacechat2); //<- Añadir el chat al historial
 
-                            DisplayAlert("Error", source, "Cerrar");
+                            Console.WriteLine("Respuesta (imagen): " + source); //<- Imprimir por consola la respuesta de Eva (url de la imagen)
                             break;
                     }
 
@@ -118,14 +124,13 @@ namespace App1
                     //Poner en el recurso el historial:
                     cv.ItemsSource = historial;
 
-                    question = "";
+                    //Vaciar el campo de texto para escribir un mensaje:
+                    Question.Text = "";
+
                 }
 
                 //Limpiar el recurso:
                 cv.ItemsSource = "";
-
-                //Vaciar el campo de texto para escribir un mensaje:
-                Question.Text = "";
 
                 //Imprimir por consola:
                 Console.WriteLine(jsonSession.Response); //<- sessionID (json)
@@ -145,6 +150,14 @@ namespace App1
             {
                 Console.WriteLine("Error: " + ex.Message);
             }
+        }
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+
+            DisplayAlert("Error", "Tienes que rellenar las casillas", "Cerrar");
+            //Configuraciones principal = new Configuraciones();
+            //this.Navigation.PushModalAsync(principal);
         }
     }
 }

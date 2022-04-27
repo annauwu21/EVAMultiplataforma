@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific.AppCompat;
 using Xamarin.Forms.Xaml;
 
 namespace App1
@@ -24,7 +25,6 @@ namespace App1
         {
             //Abrimos la ventana REGISTRAR
             Registrar registrar = new Registrar();
-            this.Navigation.PushModalAsync(registrar);
         }
 
         private void btnIniciar_Clicked(object sender, EventArgs e)

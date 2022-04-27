@@ -3,10 +3,49 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:converters="clr-namespace:App1"
              x:Class="App1.Detail"
              x:Name="cp"
-             BackgroundImageSource="https://i.pinimg.com/originals/d8/6f/92/d86f92c6e76d5a4a84dcb779fb6b6447.jpg">
+             BackgroundImageSource="https://i.pinimg.com/originals/d8/6f/92/d86f92c6e76d5a4a84dcb779fb6b6447.jpg"
+             NavigationPage.HasNavigationBar="false">
 
     <ContentPage.Content>
         <StackLayout>
+            <Grid 
+              VerticalOptions="StartAndExpand"
+              HeightRequest="50"
+              Padding="10"
+              RowSpacing="0"
+              ColumnSpacing="0"
+              ColumnDefinitions="50,*,50,50">
+                
+                <Button 
+                    Grid.Column="0"
+                    WidthRequest="50"
+                    HeightRequest="50"
+                    BackgroundColor="Transparent"
+                    TextColor="white"
+                    FontSize="16"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Start"
+                    Text="&#10094;">
+                </Button>
+
+                <Label 
+                    Grid.Column="1"
+                    FontSize="26"
+                    TextColor="White"
+                    Text="EVA">
+                </Label>
+
+                <Image  Grid.Column="2"
+                        Source="https://cdn-icons-png.flaticon.com/512/25/25389.png">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="TapGestureRecognizer_Tapped"
+                            NumberOfTapsRequired="1">
+                        </TapGestureRecognizer>
+                    </Image.GestureRecognizers>
+                </Image>
+                
+            </Grid>
             <CollectionView Grid.Row="0"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
@@ -20,6 +59,7 @@
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
@@ -27,29 +67,61 @@
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
 
-                                <Label  Grid.Row="0"
-                                        Grid.Column="0"
+                                <Frame Grid.Row="0"
+                                       Grid.Column="0"
+                                       CornerRadius="30"
+                                       IsVisible="{Binding ResponseVisibility}"
+                                       IsClippedToBounds="True"
+                                       BackgroundColor="#9869BF"
+                                       BorderColor="#8750B4">
+                                    <Label  
                                         Text="{Binding Response}"
-                                        TextColor= "Blue"
-                                        HorizontalOptions="Start">
-                                </Label>
+                                        TextColor= "black"
+                                        HorizontalOptions="Start"
+                                        LineBreakMode="WordWrap"
+                                        VerticalTextAlignment="Center">
+                                    </Label>
+                                </Frame>
 
-                                <Image  Grid.Row="1"
-                                        Grid.Column="0"
-                                        Grid.RowSpan="1"
-                                        Grid.ColumnSpan="1"
-                                        IsVisible="{Binding ImageVisibility}"
+                                <Frame Grid.Row="1"
+                                       Grid.Column="0"
+                                       Grid.RowSpan="1"
+                                       Grid.ColumnSpan="1"
+                                       CornerRadius="30"
+                                       IsClippedToBounds="True"
+                                       BorderColor="#8750B4"
+                                       BackgroundColor="#9869BF"
+                                       IsVisible="{Binding ImageVisibility}"
+                                       Padding="0"
+                                       Margin="0">
+                                    <Image  
                                         Source="{Binding Image}"
-                                        HeightRequest="100"
-                                        HorizontalOptions="Start">
-                                </Image>
+                                        HeightRequest="200"
+                                        WidthRequest="200"
+                                        VerticalOptions="CenterAndExpand"
+                                        HorizontalOptions="CenterAndExpand"
+                                        Margin="0"
+                                        >
+                                    </Image>
+                                </Frame>
 
-                                <Label  Grid.Row="0"
-                                        Grid.Column="1"
+                                <Frame Grid.Row="0"
+                                       Grid.Column="2"
+                                       CornerRadius="30"
+                                       IsClippedToBounds="True"
+                                       BackgroundColor="White"
+                                       BorderColor="black"
+                                       HorizontalOptions="End"
+                                       IsVisible="{Binding QuestionVisibility}"
+                                       >
+                                    <Label  
                                         Text="{Binding Question}"
-                                        TextColor="OrangeRed"
-                                        HorizontalOptions="End">
-                                </Label>
+                                        TextColor="Black"
+                                        HorizontalOptions="End"
+                                        LineBreakMode="WordWrap"
+                                        VerticalTextAlignment="Center">
+                                    </Label>
+                                </Frame>
                             </Grid>
                         </Frame>
                     </DataTemplate>

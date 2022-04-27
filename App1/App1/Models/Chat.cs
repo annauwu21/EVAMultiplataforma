@@ -15,12 +15,18 @@ namespace App1.Models
         
         public bool ImageVisibility { get; set; }
 
-        public Chat(string question, string response, string mypropiety, bool visible)
+        public bool QuestionVisibility { get; set; }
+
+        public bool ResponseVisibility { get; set; }
+
+        public Chat(string question, string response, string imageSource, bool imageVisible, bool questionVisible, bool responseVisible)
         {
             Question = question;
             Response = response;
-            Image = mypropiety;
-            ImageVisibility = visible;
+            Image = imageSource;
+            ImageVisibility = imageVisible;
+            QuestionVisibility = questionVisible;
+            ResponseVisibility = responseVisible;
         }
     }
 }
