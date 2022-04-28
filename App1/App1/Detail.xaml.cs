@@ -75,13 +75,9 @@ namespace App1
                 for (int i = 0 ; i <= r.output.generic.Count() ; i++)
                 {
                     //Guardar información útil de la respuesta de Eva:
-                    var intent = r.output.intents[i].intent.ToString();
+                    var intent = r.output.intents[0].intent.ToString();
                     //var entity = r.output.entities[0].entity.ToString();
                     var responseType = r.output.generic[i].response_type.ToString();
-
-                    DisplayAlert("Error", i.ToString(), "Cerrar");
-                    DisplayAlert("Error", r.output.generic.Count().ToString(), "Cerrar");
-                    DisplayAlert("Error", jsonResponse.Response, "Cerrar");
 
                     //Cambiar la expresión de Eva según su Intent:
                     switch (intent)
@@ -155,9 +151,8 @@ namespace App1
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
 
-            DisplayAlert("Error", "Tienes que rellenar las casillas", "Cerrar");
-            //Configuraciones principal = new Configuraciones();
-            //this.Navigation.PushModalAsync(principal);
+            Opciones principal = new Opciones();
+            this.Navigation.PushModalAsync(principal);
         }
     }
 }

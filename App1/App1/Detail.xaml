@@ -16,23 +16,11 @@
               ColumnSpacing="0"
               ColumnDefinitions="50,*,50,50">
                 
-                <Button 
-                    Grid.Column="0"
-                    WidthRequest="50"
-                    HeightRequest="50"
-                    BackgroundColor="Transparent"
-                    TextColor="white"
-                    FontSize="16"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Start"
-                    Text="&#10094;">
-                </Button>
+
 
                 <Label 
                     Grid.Column="1"
-                    FontSize="26"
-                    TextColor="White"
-                    Text="EVA">
+                    FontSize="26">
                 </Label>
 
                 <Image  Grid.Column="2"

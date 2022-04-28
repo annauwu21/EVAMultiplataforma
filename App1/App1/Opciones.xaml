@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.Opciones"
+             HeightRequest="1000"
+             WidthRequest="1000">
+    <ContentPage.Content>
+        <StackLayout Margin="20">
+            <Label
+                    Text="EVA"
+                    TextColor= "black"
+                    HorizontalOptions="Start"
+                    FontSize="30"
+                    VerticalTextAlignment="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_6"
+                                          NumberOfTapsRequired="1">
+                        
+                    </TapGestureRecognizer>
+                </Label.GestureRecognizers>
+            </Label>
+            <Label 
+                    Text="Opciones"
+                    TextColor= "black"
+                    FontSize="20"
+                    HorizontalOptions="Start"
+                    VerticalTextAlignment="Center">
+            </Label>
+
+            <Label 
+                    Text=" Tema"
+                    TextColor= "black"
+                    FontSize="18"
+                    HorizontalOptions="Start"
+                    VerticalTextAlignment="Center">
+            </Label>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Frame  BorderColor="Black"
+                        BackgroundColor="White"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        CornerRadius="50"
+                        IsClippedToBounds="True"
+                        HeightRequest="0"
+                        WidthRequest="0"
+                        Margin="5">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"
+                                              NumberOfTapsRequired="1">
+                        </TapGestureRecognizer>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <Frame  BorderColor="Black"
+                        BackgroundColor="Black"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        CornerRadius="50"
+                        IsClippedToBounds="True"
+                        HeightRequest="0"
+                        WidthRequest="0"
+                        Margin="5">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_2"
+                                              NumberOfTapsRequired="1">
+                        </TapGestureRecognizer>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <Frame  BorderColor="Red"
+                        BackgroundColor="PaleVioletRed"
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        CornerRadius="50"
+                        IsClippedToBounds="True"
+                        HeightRequest="0"
+                        WidthRequest="0"
+                        Margin="5">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_3"
+                                              NumberOfTapsRequired="1">
+
+
+                        </TapGestureRecognizer>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <Frame  BorderColor="Blue"
+                        BackgroundColor="LightBlue"
+                        Grid.Row="0"
+                        Grid.Column="3"
+                        CornerRadius="50"
+                        IsClippedToBounds="True"
+                        HeightRequest="0"
+                        WidthRequest="0"
+                        Margin="5">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_4"
+                                              NumberOfTapsRequired="1">
+
+                        </TapGestureRecognizer>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <Frame  BorderColor="Purple"
+                        BackgroundColor="MediumPurple"
+                        Grid.Row="0"
+                        Grid.Column="4"
+                        CornerRadius="50"
+                        IsClippedToBounds="True"
+                        HeightRequest="0"
+                        WidthRequest="0"
+                        Margin="5">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_5"
+                                              NumberOfTapsRequired="1">
+
+                        </TapGestureRecognizer>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <Frame  BorderColor="Green"
+                        BackgroundColor="LightGreen"
+                        Grid.Row="0"
+                        Grid.Column="3"
+                        CornerRadius="50"
+                        IsClippedToBounds="True"
+                        HeightRequest="0"
+                        WidthRequest="0"
+                        Margin="5">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"
+                                              NumberOfTapsRequired="1">
+
+                        </TapGestureRecognizer>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <Frame BorderColor="Black"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="5"
+                        Padding="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Frame Grid.Row="0"
+                           Grid.Column="0"
+                            BorderColor="Purple"
+                            BackgroundColor="MediumPurple"
+                           CornerRadius="30"
+                           HeightRequest="1"
+                           WidthRequest="80"
+                           IsClippedToBounds="True"
+                           x:Name="Bubble1">
+                        </Frame>
+
+                        <Frame Grid.Row="0"
+                           Grid.Column="1"
+                           BorderColor="Black"
+                           BackgroundColor="White"
+                           CornerRadius="30"
+                           HeightRequest="1"
+                           WidthRequest="80"
+                           IsClippedToBounds="True">
+                        </Frame>
+                    </Grid>
+                </Frame>
+
+                <Frame 
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="5"
+                        Padding="10">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label  Grid.Row="0"
+                                Grid.Column="0"
+                                Text="Opción 1"
+                                TextColor= "black"
+                                FontSize="18"
+                                HorizontalOptions="Start">
+                        </Label>
+
+                        <Switch Grid.Row="0"
+                                Grid.Column="2"
+                                HorizontalOptions="End">
+                        </Switch>
+                    </Grid>
+                </Frame>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

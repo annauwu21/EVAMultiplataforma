@@ -4,10 +4,24 @@
              x:Class="App1.Master"
              Title="Master">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="ESTA SERA LA PAGINA DE NOTICIAS"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <StackLayout Margin="20">
+            <Label
+                    Text="EVA"
+                    TextColor= "black"
+                    HorizontalOptions="Start"
+                    FontSize="30"
+                    VerticalTextAlignment="Center">
+            </Label>
+                <Label 
+                    Text="News"
+                    TextColor= "black"
+                    FontSize="20"
+                    HorizontalOptions="Start"
+                    VerticalTextAlignment="Center">
+                </Label>
+
+               
+
+            </StackLayout>
     </ContentPage.Content>
 </ContentPage>
