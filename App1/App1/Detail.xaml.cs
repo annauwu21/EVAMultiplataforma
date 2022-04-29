@@ -28,9 +28,8 @@ namespace App1
         {
             InitializeComponent();
             NavigationPage.SetHasBackButton(this, false);
-
-
         }
+
 
         private void Button_Clicked(object sender, EventArgs e) 
         {
@@ -76,7 +75,7 @@ namespace App1
                 {
                     //Guardar información útil de la respuesta de Eva:
                     var intent = r.output.intents[0].intent.ToString();
-                    //var entity = r.output.entities[0].entity.ToString();
+                    //var entity = r.output.entities[0].entity.ToString(); //<- A veces el campo está vacío y da error. Por eso está comentado
                     var responseType = r.output.generic[i].response_type.ToString();
 
                     //Cambiar la expresión de Eva según su Intent:
@@ -93,35 +92,54 @@ namespace App1
                         case "text":
                             var response = r.output.generic[i].text.ToString(); //<- Guardar respuesta de Eva
 
-                            Chat Textchat = new Chat(question, response, "", false, true, false); //<- Crear un chat sin imagen.
-                            historial.Add(Textchat); //<- Añadir el chat al historial
+                            //Si la respuesta de Eva es más de una, solo mostrar la pregunta una vez.
+                            if (r.output.generic.Count() > 0 && i > 0)
+                            {
+                                Chat Spacechat = new Chat(question, response, "", false, false, true); //<- Crear un chat de texto de respuesta
+                                historial.Add(Spacechat); //<- Añadir el chat al historial
+                            }
+                            else
+                            {
+                                Chat Textchat = new Chat(question, response, "", false, true, false); //<- Crear un chat con la pregunta del usuario
+                                historial.Add(Textchat); //<- Añadir el chat al historial
 
-                            Chat Spacechat = new Chat(question, response, "", false, false, true); //<- Crear un chat sin imagen.
-                            historial.Add(Spacechat); //<- Añadir el chat al historial
+                                Chat Spacechat = new Chat(question, response, "", false, false, true); //<- Crear un chat de texto de respuesta
+                                historial.Add(Spacechat); //<- Añadir el chat al historial
+                            }
 
                             Console.WriteLine("Respuesta (texto): " + response); //<- Imprimir por consola la respuesta de Eva (mensaje)
                             break;
                         case "image":
                             var source = r.output.generic[i].source.ToString(); //<- Guardar respuesta de Eva
 
-                            Chat Imagechat = new Chat(question, "", source, false, true, false); //<- Crear un chat con imagen.
-                            historial.Add(Imagechat); //<- Añadir el chat al historial
+                            //Si la respuesta de Eva es más de una, solo mostrar la pregunta una vez.
+                            if (r.output.generic.Count() > 0 && i > 0)
+                            {
+                                Chat Imagechat = new Chat(question, "", source, true, false, false); //<- Crear un chat con imagen de respuesta.
+                                historial.Add(Imagechat); //<- Añadir el chat al historial
+                            }
+                            else
+                            {
+                                Chat Imagechat = new Chat(question, "", source, false, true, false); //<- Crear un chat con la pregunta del usuario.
+                                historial.Add(Imagechat); //<- Añadir el chat al historial
 
-                            Chat Spacechat2 = new Chat(question, "", source, true, false, false); //<- Crear un chat con imagen.
-                            historial.Add(Spacechat2); //<- Añadir el chat al historial
+                                Chat Spacechat2 = new Chat(question, "", source, true, false, false); //<- Crear un chat con imagen de respuesta.
+                                historial.Add(Spacechat2); //<- Añadir el chat al historial
 
+                                cv.ScrollTo(Spacechat2, position: ScrollToPosition.MakeVisible);
+                            }
+                      
                             Console.WriteLine("Respuesta (imagen): " + source); //<- Imprimir por consola la respuesta de Eva (url de la imagen)
                             break;
                     }
 
-                    //Limpiar el recurso:
+                    //impiar el recurso:
                     cv.ItemsSource = "";
 
                     //Poner en el recurso el historial:
                     cv.ItemsSource = historial;
 
                     //Vaciar el campo de texto para escribir un mensaje:
-                    Question.Text = "";
 
                 }
 

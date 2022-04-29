@@ -40,7 +40,8 @@
                             Grid.RowSpan="1"
                             ItemsSource="{Binding Chats}"
                             BackgroundColor="#00ffffff"
-                            x:Name ="cv">
+                            x:Name ="cv"
+                            ItemsUpdatingScrollMode="KeepLastItemInView">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame>
