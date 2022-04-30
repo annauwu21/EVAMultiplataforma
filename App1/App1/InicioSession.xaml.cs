@@ -25,6 +25,7 @@ namespace App1
         {
             //Abrimos la ventana REGISTRAR
             Registrar registrar = new Registrar();
+            this.Navigation.PushModalAsync(registrar);
         }
 
         private void btnIniciar_Clicked(object sender, EventArgs e)
@@ -54,7 +55,7 @@ namespace App1
                             if (user.Equals(reader.GetString(0)) && pass.Equals(cifrado.descifrar(reader.GetString(1))))
                             {
                                 //Abrimos la ventana principal
-                                Principal principal = new Principal();
+                                Principal principal = new Principal(user);
                                 this.Navigation.PushModalAsync(principal);
                             }
                             else

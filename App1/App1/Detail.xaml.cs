@@ -3,6 +3,7 @@ using IBM.Cloud.SDK.Core.Authentication.Iam;
 using IBM.Cloud.SDK.Core.Http.Exceptions;
 using IBM.Watson.Assistant.v2;
 using IBM.Watson.Assistant.v2.Model;
+using MySqlConnector;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -21,16 +22,85 @@ namespace App1
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Detail : ContentPage
     {
+        public static string user { get; private set; } //<- Guardar el usuario conectado para aplicar las configuraciones
+
+
         public static List<Chat> historial = new List<Chat>(); //<- Lista para guardar los chats (preguntas y respuestas)
 
 
-        public Detail()
+        public Color Bubble1Color { get; private set; } //<- Guardar el color de fondo de Eva.
+        public Color Bubble1Border { get; private set; } //<- Guardar el color del borde de Eva.
+
+        public Detail(string u)
         {
             InitializeComponent();
+
             NavigationPage.SetHasBackButton(this, false);
+
+            //Guardar el usuario conectado:
+            user = u;
+
+            //Buscar por el usuario las configuraciones:
+            string select = "SELECT * FROM users WHERE user LIKE '" + user + "' LIMIT 1"; //<- Sentencía sql
+
+            MySqlConnection conexionBD = Conexion.conexion(); //<- Crear connexión
+            conexionBD.Open(); //<- Abrir la conexión
+
+            MySqlCommand comando = new MySqlCommand(select, conexionBD); //<- Executar sentencía
+
+            MySqlDataReader reader = null; //<- Crear reader
+            reader = comando.ExecuteReader(); //<- Ejecutar reader
+
+            //Si reader encuentra algo:
+            if (reader.HasRows) 
+            {
+                //Leer lineas:
+                while (reader.Read())
+                {
+                    //Cambiar los colores dependiendo de las configuraciones del usuario:
+                    switch (reader.GetString("color"))
+                    {
+                        case "purple":
+                            Bubble1Color = Color.Purple;
+                            Bubble1Border = Color.MediumPurple;
+                        break;
+                        case "green":
+                            Bubble1Color = Color.LightGreen;
+                            Bubble1Border = Color.Green;
+                        break;
+                        case "white":
+                            Bubble1Color = Color.White;
+                            Bubble1Border = Color.Black;
+                        break;
+                        case "black":
+                            Bubble1Color = Color.Black;
+                            Bubble1Border = Color.Black;
+                        break;
+                        case "red":
+                            Bubble1Color = Color.Red;
+                            Bubble1Border = Color.PaleVioletRed;
+                        break;
+                        case "blue":
+                            Bubble1Color = Color.Blue;
+                            Bubble1Border = Color.LightBlue;
+                        break;
+                    }
+                }
+            }
+
+            conexionBD.Close(); //<- Cerrar la conexión
+
+            //Cambiar los colores de los chats ya hablados.
+            foreach (var chat in historial)
+            {
+                chat.Bubble1Border = this.Bubble1Border;
+                chat.Bubble1Color = this.Bubble1Color;
+            }
+
+            //Cargar los chats de esta sessión:
+            cv.ItemsSource = historial;
         }
-
-
+        
         private void Button_Clicked(object sender, EventArgs e) 
         {
           
@@ -95,15 +165,15 @@ namespace App1
                             //Si la respuesta de Eva es más de una, solo mostrar la pregunta una vez.
                             if (r.output.generic.Count() > 0 && i > 0)
                             {
-                                Chat Spacechat = new Chat(question, response, "", false, false, true); //<- Crear un chat de texto de respuesta
+                                Chat Spacechat = new Chat(question, response, "", false, false, true, Bubble1Color, Bubble1Border); //<- Crear un chat de texto de respuesta
                                 historial.Add(Spacechat); //<- Añadir el chat al historial
                             }
                             else
                             {
-                                Chat Textchat = new Chat(question, response, "", false, true, false); //<- Crear un chat con la pregunta del usuario
+                                Chat Textchat = new Chat(question, response, "", false, true, false, Bubble1Color, Bubble1Border); //<- Crear un chat con la pregunta del usuario
                                 historial.Add(Textchat); //<- Añadir el chat al historial
 
-                                Chat Spacechat = new Chat(question, response, "", false, false, true); //<- Crear un chat de texto de respuesta
+                                Chat Spacechat = new Chat(question, response, "", false, false, true, Bubble1Color, Bubble1Border); //<- Crear un chat de texto de respuesta
                                 historial.Add(Spacechat); //<- Añadir el chat al historial
                             }
 
@@ -115,15 +185,15 @@ namespace App1
                             //Si la respuesta de Eva es más de una, solo mostrar la pregunta una vez.
                             if (r.output.generic.Count() > 0 && i > 0)
                             {
-                                Chat Imagechat = new Chat(question, "", source, true, false, false); //<- Crear un chat con imagen de respuesta.
+                                Chat Imagechat = new Chat(question, "", source, true, false, false, Bubble1Color, Bubble1Border); //<- Crear un chat con imagen de respuesta.
                                 historial.Add(Imagechat); //<- Añadir el chat al historial
                             }
                             else
                             {
-                                Chat Imagechat = new Chat(question, "", source, false, true, false); //<- Crear un chat con la pregunta del usuario.
+                                Chat Imagechat = new Chat(question, "", source, false, true, false, Bubble1Color, Bubble1Border); //<- Crear un chat con la pregunta del usuario.
                                 historial.Add(Imagechat); //<- Añadir el chat al historial
 
-                                Chat Spacechat2 = new Chat(question, "", source, true, false, false); //<- Crear un chat con imagen de respuesta.
+                                Chat Spacechat2 = new Chat(question, "", source, true, false, false, Bubble1Color, Bubble1Border); //<- Crear un chat con imagen de respuesta.
                                 historial.Add(Spacechat2); //<- Añadir el chat al historial
 
                                 cv.ScrollTo(Spacechat2, position: ScrollToPosition.MakeVisible);
@@ -140,7 +210,7 @@ namespace App1
                     cv.ItemsSource = historial;
 
                     //Vaciar el campo de texto para escribir un mensaje:
-
+                    Question.Text = "";
                 }
 
                 //Limpiar el recurso:
@@ -168,7 +238,6 @@ namespace App1
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-
             Opciones principal = new Opciones();
             this.Navigation.PushModalAsync(principal);
         }

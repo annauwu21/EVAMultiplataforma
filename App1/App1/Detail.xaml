@@ -16,8 +16,6 @@
               ColumnSpacing="0"
               ColumnDefinitions="50,*,50,50">
                 
-
-
                 <Label 
                     Grid.Column="1"
                     FontSize="26">
@@ -61,8 +59,8 @@
                                        CornerRadius="30"
                                        IsVisible="{Binding ResponseVisibility}"
                                        IsClippedToBounds="True"
-                                       BackgroundColor="#9869BF"
-                                       BorderColor="#8750B4">
+                                       BackgroundColor="{Binding Bubble1Color}"
+                                       BorderColor="{Binding Bubble1Border}">
                                     <Label  
                                         Text="{Binding Response}"
                                         TextColor= "black"
