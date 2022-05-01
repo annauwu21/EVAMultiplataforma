@@ -64,6 +64,15 @@ namespace App1
                             Bubble1.BorderColor = Color.LightBlue;
                             break;
                     }
+
+                    if (reader.GetString("showEVA")=="true")
+                    {
+                        showEva.IsToggled = true;
+                    }
+                    else
+                    {
+                        showEva.IsToggled = false;
+                    }
                 }
             }
 
@@ -150,6 +159,16 @@ namespace App1
 
         private void TapGestureRecognizer_Tapped_6(object sender, EventArgs e)
         {
+            string Eva = showEva.IsToggled.ToString();
+            Eva = Eva.ToLower();
+
+            string update = "UPDATE users SET showEVA = '"+Eva+"' WHERE user LIKE '" + Detail.user + "'";
+            MySqlConnection conexionBD = Conexion.conexion();
+            MySqlCommand comando = new MySqlCommand(update, conexionBD);
+            conexionBD.Open();
+            comando.ExecuteNonQuery();
+            conexionBD.Close();
+
             Principal principal = new Principal(Detail.user);
             this.Navigation.PushModalAsync(principal);
         }

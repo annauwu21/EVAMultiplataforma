@@ -94,31 +94,12 @@
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_3"
                                               NumberOfTapsRequired="1">
-
-
                         </TapGestureRecognizer>
                     </Frame.GestureRecognizers>
                 </Frame>
 
                 <Frame  BorderColor="Blue"
                         BackgroundColor="LightBlue"
-                        Grid.Row="0"
-                        Grid.Column="3"
-                        CornerRadius="50"
-                        IsClippedToBounds="True"
-                        HeightRequest="0"
-                        WidthRequest="0"
-                        Margin="5">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_4"
-                                              NumberOfTapsRequired="1">
-
-                        </TapGestureRecognizer>
-                    </Frame.GestureRecognizers>
-                </Frame>
-
-                <Frame  BorderColor="Purple"
-                        BackgroundColor="MediumPurple"
                         Grid.Row="0"
                         Grid.Column="4"
                         CornerRadius="50"
@@ -127,9 +108,24 @@
                         WidthRequest="0"
                         Margin="5">
                     <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_4"
+                                              NumberOfTapsRequired="1">
+                        </TapGestureRecognizer>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <Frame  BorderColor="Purple"
+                        BackgroundColor="MediumPurple"
+                        Grid.Row="0"
+                        Grid.Column="5"
+                        CornerRadius="50"
+                        IsClippedToBounds="True"
+                        HeightRequest="0"
+                        WidthRequest="0"
+                        Margin="5">
+                    <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_5"
                                               NumberOfTapsRequired="1">
-
                         </TapGestureRecognizer>
                     </Frame.GestureRecognizers>
                 </Frame>
@@ -154,7 +150,7 @@
                 <Frame BorderColor="Black"
                         Grid.Row="1"
                         Grid.Column="0"
-                        Grid.ColumnSpan="5"
+                        Grid.ColumnSpan="6"
                         Padding="10">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -166,11 +162,11 @@
 
                         <Frame Grid.Row="0"
                            Grid.Column="0"
-                            BorderColor="Purple"
-                            BackgroundColor="MediumPurple"
+                           BorderColor="Purple"
+                           BackgroundColor="MediumPurple"
                            CornerRadius="30"
                            HeightRequest="1"
-                           WidthRequest="80"
+                           WidthRequest="115"
                            IsClippedToBounds="True"
                            x:Name="Bubble1">
                         </Frame>
@@ -181,42 +177,47 @@
                            BackgroundColor="White"
                            CornerRadius="30"
                            HeightRequest="1"
-                           WidthRequest="80"
+                           WidthRequest="115"
                            IsClippedToBounds="True">
                         </Frame>
                     </Grid>
                 </Frame>
 
-                <Frame 
+            </Grid>
+
+            <Frame 
                         Grid.Row="2"
                         Grid.Column="0"
                         Grid.ColumnSpan="5"
                         Padding="10">
 
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="222"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
 
-                        <Label  Grid.Row="0"
+                    <Label  Grid.Row="0"
                                 Grid.Column="0"
-                                Text="Opción 1"
+                                Text="Mostrar Eva"
                                 TextColor= "black"
                                 FontSize="18"
-                                HorizontalOptions="Start">
-                        </Label>
+                                HorizontalOptions="Start"
+                                VerticalTextAlignment="Center"
+                                Margin="5">
+                    </Label>
 
-                        <Switch Grid.Row="0"
-                                Grid.Column="2"
-                                HorizontalOptions="End">
-                        </Switch>
-                    </Grid>
-                </Frame>
-            </Grid>
+                    <Switch Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalOptions="End"
+                            Margin="5"
+                            x:Name= "showEva">
+                    </Switch>
+                </Grid>
+            </Frame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

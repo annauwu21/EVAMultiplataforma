@@ -31,6 +31,8 @@ namespace App1
         public Color Bubble1Color { get; private set; } //<- Guardar el color de fondo de Eva.
         public Color Bubble1Border { get; private set; } //<- Guardar el color del borde de Eva.
 
+        public bool showEva { get; private set; } //<- Guardar la configuración de mostrar/no mostrar Eva.
+
         public Detail(string u)
         {
             InitializeComponent();
@@ -84,6 +86,18 @@ namespace App1
                             Bubble1Color = Color.Blue;
                             Bubble1Border = Color.LightBlue;
                         break;
+                    }
+
+                    //Cambiar la configuración mostrar/no mostrar Eva según el usuario:
+                    if (reader.GetString("showEVA") == "true")
+                    {
+                        cp.BackgroundImageSource = "https://i.pinimg.com/originals/d8/6f/92/d86f92c6e76d5a4a84dcb779fb6b6447.jpg";
+                        showEva = true;
+                    }
+                    else
+                    {
+                        cp.BackgroundImageSource = "";
+                        showEva = false;
                     }
                 }
             }
@@ -148,13 +162,17 @@ namespace App1
                     //var entity = r.output.entities[0].entity.ToString(); //<- A veces el campo está vacío y da error. Por eso está comentado
                     var responseType = r.output.generic[i].response_type.ToString();
 
-                    //Cambiar la expresión de Eva según su Intent:
-                    switch (intent)
+                    //Comprobar la configuración del usuario:
+                    if (showEva)
                     {
-                        case "Insultos": cp.BackgroundImageSource = angry; break;
-                        case "Piropos": cp.BackgroundImageSource = happy; break;
-                        default: cp.BackgroundImageSource = normal; break;
-                    }
+                        //Cambiar la expresión de Eva según su Intent:
+                        switch (intent)
+                        {
+                            case "Insultos": cp.BackgroundImageSource = angry; break;
+                            case "Piropos": cp.BackgroundImageSource = happy; break;
+                            default: cp.BackgroundImageSource = normal; break;
+                        }
+                    }             
 
                     //Comprovar si la respuesta de Eva es un texto o una imagen.
                     switch (responseType)

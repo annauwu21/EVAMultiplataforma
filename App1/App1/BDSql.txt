@@ -3,5 +3,7 @@ Use pruebaseva;
 
 Create table users(
 	user varchar(30) primary key,
-    pass varchar (30)
+    pass varchar (30),
+    color varchar (30) default 'purple',
+    showEva varchar(5) default 'true'
 );

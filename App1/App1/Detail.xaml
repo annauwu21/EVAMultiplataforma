@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:converters="clr-namespace:App1"
              x:Class="App1.Detail"
              x:Name="cp"
-             BackgroundImageSource="https://i.pinimg.com/originals/d8/6f/92/d86f92c6e76d5a4a84dcb779fb6b6447.jpg"
              NavigationPage.HasNavigationBar="false">
 
     <ContentPage.Content>

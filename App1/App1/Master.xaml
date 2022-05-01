@@ -23,6 +23,15 @@
                 <CollectionView>
                     <CollectionView.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
+
+                        <x:String></x:String>
+
+                        <x:String>01/05/2022     ¿Quieres dejar de ver a Eva?
+                        Ve al menú de opciones 
+                        para quitar su rostro de
+                        la página principal.
+                        </x:String>
+                        
                         <x:String></x:String>
                         
                         <x:String>30/04/2022     Eva puede cambiar el color del 
