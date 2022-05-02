@@ -194,6 +194,10 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="222"/>
@@ -216,8 +220,99 @@
                             Margin="5"
                             x:Name= "showEva">
                     </Switch>
+
+                    <Label  Grid.Row="1"
+                            Grid.Column="0"
+                            Text="Emociones Eva"
+                            TextColor= "black"
+                            FontSize="18"
+                            HorizontalOptions="Start"
+                            VerticalTextAlignment="Center"
+                            Margin="5">
+                    </Label>
+
+                    <Switch Grid.Row="1"
+                            Grid.Column="1"
+                            HorizontalOptions="End"
+                            Margin="5"
+                            x:Name= "emotionsEva">
+                    </Switch>
+
+                    <Label  Grid.Row="2"
+                                Grid.Column="0"
+                                Text="Sonidos"
+                                TextColor= "black"
+                                FontSize="18"
+                                HorizontalOptions="Start"
+                                VerticalTextAlignment="Center"
+                                Margin="5">
+                    </Label>
+
+                    <Switch Grid.Row="2"
+                            Grid.Column="1"
+                            HorizontalOptions="End"
+                            Margin="5"
+                            x:Name= "sonidos">
+                    </Switch>
+
+                    <Label  Grid.Row="3"
+                            Grid.Column="0"
+                            Text="Colores daltonicos"
+                            TextColor= "black"
+                            FontSize="18"
+                            HorizontalOptions="Start"
+                            VerticalTextAlignment="Center"
+                            Margin="5">
+                    </Label>
+
+                    <Switch Grid.Row="3"
+                            Grid.Column="1"
+                            HorizontalOptions="End"
+                            Margin="5"
+                            x:Name= "daltonico">
+                    </Switch>
                 </Grid>
             </Frame>
+
+
+            <Button
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    WidthRequest="300"
+                    HeightRequest="45"
+                    CornerRadius="30"
+                    Text="Historial"
+                    FontSize="18"
+                    BackgroundColor="White"
+                    BorderColor="Black"
+                    Margin="5">
+            </Button>
+
+            <Button
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    WidthRequest="300"
+                    HeightRequest="45"
+                    CornerRadius="30"
+                    Text="Cerrar sessión"
+                    FontSize="18"
+                    BackgroundColor="White"
+                    BorderColor="Black"
+                    Margin="5">
+            </Button>
+
+            <Button
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    WidthRequest="300"
+                    HeightRequest="45"
+                    CornerRadius="30"
+                    Text="Eliminar sessión"
+                    FontSize="18"
+                    BackgroundColor="White"
+                    BorderColor="Black"
+                    Margin="5">
+            </Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
