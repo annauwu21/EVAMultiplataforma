@@ -43,7 +43,7 @@ namespace App1
             user = u;
 
             //Buscar por el usuario las configuraciones:
-            string select = "SELECT * FROM users WHERE user LIKE '" + user + "' LIMIT 1"; //<- Sentencía sql
+            string select = "SELECT * FROM configurations WHERE user LIKE '" + user + "' LIMIT 1"; //<- Sentencía sql
 
             MySqlConnection conexionBD = Conexion.conexion(); //<- Crear connexión
             conexionBD.Open(); //<- Abrir la conexión

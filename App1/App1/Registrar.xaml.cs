@@ -35,6 +35,7 @@ namespace App1
                     if (pass.Equals(pass2))
                     {
                         string sql = "INSERT INTO users (user, pass) VALUES ('" + user + "', '" + cifrado.cifrar(pass) + "')";
+                        string sql2 = "INSERT INTO configurations (user) VALUES ('" + user + "')";
 
                         MySqlConnection conexionBD = Conexion.conexion();
                         conexionBD.Open();
@@ -44,6 +45,10 @@ namespace App1
                             //Si el usuario se añade, mostramos mensaje
                             MySqlCommand comando = new MySqlCommand(sql, conexionBD);
                             comando.ExecuteNonQuery();
+
+                            MySqlCommand comando2 = new MySqlCommand(sql2, conexionBD);
+                            comando2.ExecuteNonQuery();
+
                             DisplayAlert("Alerta", "Usuario añadido!!!!", "Cerrar");
                             limpiar();
                         }

@@ -20,7 +20,7 @@ namespace App1
             string u = Detail.user;
 
             //Buscar por el usuario las configuraciones:
-            string select = "SELECT * FROM users WHERE user LIKE '" + u + "' LIMIT 1"; //<- Sentencía sql
+            string select = "SELECT * FROM configurations WHERE user LIKE '" + u + "' LIMIT 1"; //<- Sentencía sql
 
             MySqlConnection conexionBD = Conexion.conexion(); //<- Crear connexión
             conexionBD.Open(); //<- Abrir la conexión
@@ -84,7 +84,7 @@ namespace App1
             Bubble1.BorderColor = Color.Green;
             Bubble1.BackgroundColor = Color.LightGreen;
 
-            string update = "UPDATE users SET color = 'green' WHERE user LIKE '" + Detail.user + "'";
+            string update = "UPDATE configurations SET color = 'green' WHERE user LIKE '" + Detail.user + "'";
             MySqlConnection conexionBD = Conexion.conexion();
             MySqlCommand comando = new MySqlCommand(update, conexionBD);
             conexionBD.Open();
@@ -97,7 +97,7 @@ namespace App1
             Bubble1.BorderColor = Color.Black;
             Bubble1.BackgroundColor = Color.White;
 
-            string update = "UPDATE users SET color = 'white' WHERE user LIKE '" + Detail.user + "'";
+            string update = "UPDATE configurations SET color = 'white' WHERE user LIKE '" + Detail.user + "'";
             MySqlConnection conexionBD = Conexion.conexion();
             MySqlCommand comando = new MySqlCommand(update, conexionBD);
             conexionBD.Open();
@@ -110,7 +110,7 @@ namespace App1
             Bubble1.BorderColor = Color.Black;
             Bubble1.BackgroundColor = Color.Black;
 
-            string update = "UPDATE users SET color = 'black' WHERE user LIKE '" + Detail.user + "'";
+            string update = "UPDATE configurations SET color = 'black' WHERE user LIKE '" + Detail.user + "'";
             MySqlConnection conexionBD = Conexion.conexion();
             MySqlCommand comando = new MySqlCommand(update, conexionBD);
             conexionBD.Open();
@@ -123,7 +123,7 @@ namespace App1
             Bubble1.BorderColor = Color.PaleVioletRed;
             Bubble1.BackgroundColor = Color.Red;
 
-            string update = "UPDATE users SET color = 'red' WHERE user LIKE '" + Detail.user + "'";
+            string update = "UPDATE configurations SET color = 'red' WHERE user LIKE '" + Detail.user + "'";
             MySqlConnection conexionBD = Conexion.conexion();
             MySqlCommand comando = new MySqlCommand(update, conexionBD);
             conexionBD.Open();
@@ -136,7 +136,7 @@ namespace App1
             Bubble1.BorderColor = Color.Blue;
             Bubble1.BackgroundColor = Color.LightBlue;
 
-            string update = "UPDATE users SET color = 'blue' WHERE user LIKE '" + Detail.user + "'";
+            string update = "UPDATE configurations SET color = 'blue' WHERE user LIKE '" + Detail.user + "'";
             MySqlConnection conexionBD = Conexion.conexion();
             MySqlCommand comando = new MySqlCommand(update, conexionBD);
             conexionBD.Open();
@@ -149,7 +149,7 @@ namespace App1
             Bubble1.BorderColor = Color.Purple;
             Bubble1.BackgroundColor = Color.MediumPurple;
 
-            string update = "UPDATE users SET color = 'purple' WHERE user LIKE '" + Detail.user + "'";
+            string update = "UPDATE configurations SET color = 'purple' WHERE user LIKE '" + Detail.user + "'";
             MySqlConnection conexionBD = Conexion.conexion();
             MySqlCommand comando = new MySqlCommand(update, conexionBD);
             conexionBD.Open();
@@ -162,7 +162,7 @@ namespace App1
             string Eva = showEva.IsToggled.ToString();
             Eva = Eva.ToLower();
 
-            string update = "UPDATE users SET showEVA = '"+Eva+"' WHERE user LIKE '" + Detail.user + "'";
+            string update = "UPDATE configurations SET showEVA = '" + Eva+"' WHERE user LIKE '" + Detail.user + "'";
             MySqlConnection conexionBD = Conexion.conexion();
             MySqlCommand comando = new MySqlCommand(update, conexionBD);
             conexionBD.Open();
