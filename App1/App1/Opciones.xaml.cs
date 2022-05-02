@@ -65,6 +65,7 @@ namespace App1
                             break;
                     }
 
+                    //Cambiar las configuraciones activadas:
                     if (reader.GetString("showEVA")=="true")
                     {
                         showEva.IsToggled = true;
@@ -72,6 +73,23 @@ namespace App1
                     else
                     {
                         showEva.IsToggled = false;
+                    }
+
+                    if (reader.GetString("showEmotions") == "true")
+                    {
+                        emotionsEva.IsToggled = true;
+                    }
+                    else
+                    {
+                        emotionsEva.IsToggled = false;
+                    }
+                    if (reader.GetString("sound") == "true")
+                    {
+                        sonidos.IsToggled = true;
+                    }
+                    else
+                    {
+                        sonidos.IsToggled = false;
                     }
                 }
             }
@@ -159,14 +177,31 @@ namespace App1
 
         private void TapGestureRecognizer_Tapped_6(object sender, EventArgs e)
         {
-            string Eva = showEva.IsToggled.ToString();
-            Eva = Eva.ToLower();
+            string show = showEva.IsToggled.ToString();
+            show = show.ToLower();
 
-            string update = "UPDATE configurations SET showEVA = '" + Eva+"' WHERE user LIKE '" + Detail.user + "'";
+            string emotions = emotionsEva.IsToggled.ToString();
+            emotions = emotions.ToLower();
+
+            string sounds = sonidos.IsToggled.ToString();
+            sounds = emotions.ToLower();
+
+            string update1 = "UPDATE configurations SET showEVA = '" + show + "' WHERE user LIKE '" + Detail.user + "'";
+            string update2 = "UPDATE configurations SET showEmotions = '" + emotions + "' WHERE user LIKE '" + Detail.user + "'";
+            string update3 = "UPDATE configurations SET showEmotions = '" + sounds + "' WHERE user LIKE '" + Detail.user + "'";
+
             MySqlConnection conexionBD = Conexion.conexion();
-            MySqlCommand comando = new MySqlCommand(update, conexionBD);
+
+            MySqlCommand comando1 = new MySqlCommand(update1, conexionBD);
+            MySqlCommand comando2 = new MySqlCommand(update2, conexionBD);
+            MySqlCommand comando3 = new MySqlCommand(update3, conexionBD);
+
             conexionBD.Open();
-            comando.ExecuteNonQuery();
+
+            comando1.ExecuteNonQuery();
+            comando2.ExecuteNonQuery();
+            comando3.ExecuteNonQuery();
+
             conexionBD.Close();
 
             Principal principal = new Principal(Detail.user);

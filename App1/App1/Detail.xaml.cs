@@ -31,7 +31,10 @@ namespace App1
         public Color Bubble1Color { get; private set; } //<- Guardar el color de fondo de Eva.
         public Color Bubble1Border { get; private set; } //<- Guardar el color del borde de Eva.
 
-        public bool showEva { get; private set; } //<- Guardar la configuración de mostrar/no mostrar Eva.
+        //Guardar la configuracines de Eva:
+        public bool showEva { get; private set; }
+        public bool showEmotions { get; private set; }
+        public bool sound { get; private set; }
 
         public Detail(string u)
         {
@@ -88,7 +91,7 @@ namespace App1
                         break;
                     }
 
-                    //Cambiar la configuración mostrar/no mostrar Eva según el usuario:
+                    //Cambiar la configuraciones de Eva según el usuario:
                     if (reader.GetString("showEVA") == "true")
                     {
                         cp.BackgroundImageSource = "https://i.pinimg.com/originals/d8/6f/92/d86f92c6e76d5a4a84dcb779fb6b6447.jpg";
@@ -98,6 +101,22 @@ namespace App1
                     {
                         cp.BackgroundImageSource = "";
                         showEva = false;
+                    }
+                    if (reader.GetString("showEmotions") == "true")
+                    {
+                        showEmotions = true;
+                    }
+                    else
+                    {
+                        showEmotions = false;
+                    }
+                    if (reader.GetString("sound") == "true")
+                    {
+                        sound = true;
+                    }
+                    else
+                    {
+                        sound = false;
                     }
                 }
             }
@@ -163,7 +182,7 @@ namespace App1
                     var responseType = r.output.generic[i].response_type.ToString();
 
                     //Comprobar la configuración del usuario:
-                    if (showEva)
+                    if (showEva && showEmotions)
                     {
                         //Cambiar la expresión de Eva según su Intent:
                         switch (intent)
@@ -195,6 +214,16 @@ namespace App1
                                 historial.Add(Spacechat); //<- Añadir el chat al historial
                             }
 
+                            string sql = "INSERT INTO history (user, question, response) VALUES ('" + user + "', '" + question + "', '" + response + "')";
+
+                            MySqlConnection conexionBD = Conexion.conexion();
+                            conexionBD.Open();
+
+                            MySqlCommand comando = new MySqlCommand(sql, conexionBD);
+                            comando.ExecuteNonQuery();
+
+                            conexionBD.Close();
+
                             Console.WriteLine("Respuesta (texto): " + response); //<- Imprimir por consola la respuesta de Eva (mensaje)
                             break;
                         case "image":
@@ -216,7 +245,17 @@ namespace App1
 
                                 cv.ScrollTo(Spacechat2, position: ScrollToPosition.MakeVisible);
                             }
-                      
+
+                            string sql1 = "INSERT INTO history (user, question, response) VALUES ('" + user + "', '" + question + "', '" + source + "')";
+
+                            MySqlConnection conexionBD1 = Conexion.conexion();
+                            conexionBD1.Open();
+
+                            MySqlCommand comando1 = new MySqlCommand(sql1, conexionBD1);
+                            comando1.ExecuteNonQuery();
+
+                            conexionBD1.Close();
+
                             Console.WriteLine("Respuesta (imagen): " + source); //<- Imprimir por consola la respuesta de Eva (url de la imagen)
                             break;
                     }
