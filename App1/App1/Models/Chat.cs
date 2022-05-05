@@ -20,10 +20,10 @@ namespace App1.Models
 
         public bool ResponseVisibility { get; set; }
 
-        public Color Bubble1Color { get; set; }
-        public Color Bubble1Border { get; set; }
+        public Color bubbleEva { get; set; }
+        public Color bubbleUser { get; set; }
 
-        public Chat(string question, string response, string imageSource, bool imageVisible, bool questionVisible, bool responseVisible, Color b1C, Color b1B)
+        public Chat(string question, string response, string imageSource, bool imageVisible, bool questionVisible, bool responseVisible, Color bE, Color bU)
         {
             Question = question;
             Response = response;
@@ -31,14 +31,8 @@ namespace App1.Models
             ImageVisibility = imageVisible;
             QuestionVisibility = questionVisible;
             ResponseVisibility = responseVisible;
-            Bubble1Color = b1C;
-            Bubble1Border = b1B;
-        }
-
-        public Chat(Color b1C, Color b1B)
-        {
-            Bubble1Color = b1C;
-            Bubble1Border = b1B;
+            bubbleEva = bE;
+            bubbleUser = bU;
         }
     }
 }

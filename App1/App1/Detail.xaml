@@ -58,8 +58,7 @@
                                        CornerRadius="30"
                                        IsVisible="{Binding ResponseVisibility}"
                                        IsClippedToBounds="True"
-                                       BackgroundColor="{Binding Bubble1Color}"
-                                       BorderColor="{Binding Bubble1Border}">
+                                       BackgroundColor="{Binding bubbleEva}">
                                     <Label  
                                         Text="{Binding Response}"
                                         TextColor= "black"
@@ -75,8 +74,7 @@
                                        Grid.ColumnSpan="1"
                                        CornerRadius="30"
                                        IsClippedToBounds="True"
-                                       BorderColor="#8750B4"
-                                       BackgroundColor="#9869BF"
+                                       BackgroundColor="{Binding bubbleEva}"
                                        IsVisible="{Binding ImageVisibility}"
                                        Padding="0"
                                        Margin="0">
@@ -95,8 +93,7 @@
                                        Grid.Column="2"
                                        CornerRadius="30"
                                        IsClippedToBounds="True"
-                                       BackgroundColor="White"
-                                       BorderColor="black"
+                                       BackgroundColor="{Binding bubbleUser}"
                                        HorizontalOptions="End"
                                        IsVisible="{Binding QuestionVisibility}"
                                        >

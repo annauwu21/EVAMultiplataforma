@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific.AppCompat;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
 using NavigationPage = Xamarin.Forms.NavigationPage;
 
 namespace App1
@@ -28,8 +29,8 @@ namespace App1
         public static List<Chat> historial = new List<Chat>(); //<- Lista para guardar los chats (preguntas y respuestas)
 
 
-        public Color Bubble1Color { get; private set; } //<- Guardar el color de fondo de Eva.
-        public Color Bubble1Border { get; private set; } //<- Guardar el color del borde de Eva.
+        public Color bubbleEva { get; private set; } //<- Guardar el color de fondo de Eva.
+        public Color bubbleUser{ get; private set; } //<- Guardar el color de fondo del usuario.
 
         //Guardar la configuracines de Eva:
         public bool showEva { get; private set; }
@@ -66,28 +67,28 @@ namespace App1
                     switch (reader.GetString("color"))
                     {
                         case "purple":
-                            Bubble1Color = Color.Purple;
-                            Bubble1Border = Color.MediumPurple;
-                        break;
+                            bubbleEva = Color.FromHex("#6656bc");
+                            bubbleUser = Color.FromHex("#d1cedd");
+                            break;
                         case "green":
-                            Bubble1Color = Color.LightGreen;
-                            Bubble1Border = Color.Green;
+                            bubbleEva = Color.FromHex("#bae860");
+                            bubbleUser = Color.FromHex("#d8ed96");
                         break;
                         case "white":
-                            Bubble1Color = Color.White;
-                            Bubble1Border = Color.Black;
-                        break;
+                            bubbleEva = Color.FromHex("#e5c6db");
+                            bubbleUser = Color.FromHex("#d6d3d6");
+                            break;
                         case "black":
-                            Bubble1Color = Color.Black;
-                            Bubble1Border = Color.Black;
-                        break;
+                            bubbleEva = Color.FromHex("#30383a");
+                            bubbleUser = Color.FromHex("#666d70");
+                            break;
                         case "red":
-                            Bubble1Color = Color.Red;
-                            Bubble1Border = Color.PaleVioletRed;
+                            bubbleEva = Color.FromHex("#f43f4f");
+                            bubbleUser = Color.FromHex("#f9b2b7");
                         break;
                         case "blue":
-                            Bubble1Color = Color.Blue;
-                            Bubble1Border = Color.LightBlue;
+                            bubbleEva = Color.FromHex("#75b2dd");
+                            bubbleUser = Color.FromHex("#c4d8e2");
                         break;
                     }
 
@@ -126,15 +127,15 @@ namespace App1
             //Cambiar los colores de los chats ya hablados.
             foreach (var chat in historial)
             {
-                chat.Bubble1Border = this.Bubble1Border;
-                chat.Bubble1Color = this.Bubble1Color;
+                chat.bubbleEva = this.bubbleEva;
+                chat.bubbleUser = this.bubbleUser;
             }
 
             //Cargar los chats de esta sessión:
             cv.ItemsSource = historial;
         }
         
-        private void Button_Clicked(object sender, EventArgs e) 
+        private async void Button_Clicked(object sender, EventArgs e) 
         {
           
             var question = Question.Text.ToString(); //<- Guardar el mensaje que envia el usuario
@@ -202,15 +203,15 @@ namespace App1
                             //Si la respuesta de Eva es más de una, solo mostrar la pregunta una vez.
                             if (r.output.generic.Count() > 0 && i > 0)
                             {
-                                Chat Spacechat = new Chat(question, response, "", false, false, true, Bubble1Color, Bubble1Border); //<- Crear un chat de texto de respuesta
+                                Chat Spacechat = new Chat(question, response, "", false, false, true, bubbleEva, bubbleUser); //<- Crear un chat de texto de respuesta
                                 historial.Add(Spacechat); //<- Añadir el chat al historial
                             }
                             else
                             {
-                                Chat Textchat = new Chat(question, response, "", false, true, false, Bubble1Color, Bubble1Border); //<- Crear un chat con la pregunta del usuario
+                                Chat Textchat = new Chat(question, response, "", false, true, false, bubbleEva, bubbleUser); //<- Crear un chat con la pregunta del usuario
                                 historial.Add(Textchat); //<- Añadir el chat al historial
 
-                                Chat Spacechat = new Chat(question, response, "", false, false, true, Bubble1Color, Bubble1Border); //<- Crear un chat de texto de respuesta
+                                Chat Spacechat = new Chat(question, response, "", false, false, true, bubbleEva, bubbleUser); //<- Crear un chat de texto de respuesta
                                 historial.Add(Spacechat); //<- Añadir el chat al historial
                             }
 
@@ -222,6 +223,8 @@ namespace App1
                             MySqlCommand comando = new MySqlCommand(sql, conexionBD);
                             comando.ExecuteNonQuery();
 
+                            await TextToSpeech.SpeakAsync(response);
+
                             conexionBD.Close();
 
                             Console.WriteLine("Respuesta (texto): " + response); //<- Imprimir por consola la respuesta de Eva (mensaje)
@@ -232,18 +235,18 @@ namespace App1
                             //Si la respuesta de Eva es más de una, solo mostrar la pregunta una vez.
                             if (r.output.generic.Count() > 0 && i > 0)
                             {
-                                Chat Imagechat = new Chat(question, "", source, true, false, false, Bubble1Color, Bubble1Border); //<- Crear un chat con imagen de respuesta.
+                                Chat Imagechat = new Chat(question, "", source, true, false, false, bubbleEva, bubbleUser); //<- Crear un chat con imagen de respuesta.
                                 historial.Add(Imagechat); //<- Añadir el chat al historial
                             }
                             else
                             {
-                                Chat Imagechat = new Chat(question, "", source, false, true, false, Bubble1Color, Bubble1Border); //<- Crear un chat con la pregunta del usuario.
+                                Chat Imagechat = new Chat(question, "", source, false, true, false, bubbleEva, bubbleUser); //<- Crear un chat con la pregunta del usuario.
                                 historial.Add(Imagechat); //<- Añadir el chat al historial
 
-                                Chat Spacechat2 = new Chat(question, "", source, true, false, false, Bubble1Color, Bubble1Border); //<- Crear un chat con imagen de respuesta.
+                                Chat Spacechat2 = new Chat(question, "", source, true, false, false, bubbleEva, bubbleUser); //<- Crear un chat con imagen de respuesta.
                                 historial.Add(Spacechat2); //<- Añadir el chat al historial
 
-                                cv.ScrollTo(Spacechat2, position: ScrollToPosition.MakeVisible);
+                                //cv.ScrollTo(Spacechat2, position: ScrollToPosition.MakeVisible);
                             }
 
                             string sql1 = "INSERT INTO history (user, question, response) VALUES ('" + user + "', '" + question + "', '" + source + "')";

@@ -40,28 +40,28 @@ namespace App1
                     switch (reader.GetString("color"))
                     {
                         case "purple":
-                            Bubble1.BackgroundColor = Color.Purple;
-                            Bubble1.BorderColor = Color.MediumPurple;
+                            Bubble2.BackgroundColor = Color.FromHex("#d1cedd");
+                            Bubble1.BackgroundColor = Color.FromHex("#6656bc");
                             break;
                         case "green":
-                            Bubble1.BackgroundColor = Color.LightGreen;
-                            Bubble1.BorderColor = Color.Green;
+                            Bubble2.BackgroundColor = Color.FromHex("#d8ed96");
+                            Bubble1.BackgroundColor = Color.FromHex("#bae860");
                             break;
                         case "white":
-                            Bubble1.BackgroundColor = Color.White;
-                            Bubble1.BorderColor = Color.Black;
+                            Bubble1.BackgroundColor = Color.FromHex("#e5c6db");
+                            Bubble2.BackgroundColor = Color.FromHex("#d6d3d6");
                             break;
                         case "black":
-                            Bubble1.BackgroundColor = Color.Black;
-                            Bubble1.BorderColor = Color.Black;
+                            Bubble1.BackgroundColor = Color.FromHex("#30383a");
+                            Bubble2.BackgroundColor = Color.FromHex("#666d70");
                             break;
                         case "red":
-                            Bubble1.BackgroundColor = Color.Red;
-                            Bubble1.BorderColor = Color.PaleVioletRed;
+                            Bubble2.BackgroundColor = Color.FromHex("#f9b2b7");
+                            Bubble1.BackgroundColor = Color.FromHex("#f43f4f");
                             break;
                         case "blue":
-                            Bubble1.BackgroundColor = Color.Blue;
-                            Bubble1.BorderColor = Color.LightBlue;
+                            Bubble2.BackgroundColor = Color.FromHex("#c4d8e2");
+                            Bubble1.BackgroundColor = Color.FromHex("#75b2dd");
                             break;
                     }
 
@@ -99,8 +99,11 @@ namespace App1
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            Bubble1.BorderColor = Color.Green;
-            Bubble1.BackgroundColor = Color.LightGreen;
+            Bubble2.BackgroundColor = Color.FromHex("#d8ed96");
+            Bubble1.BackgroundColor = Color.FromHex("#bae860");
+
+            Bubble1.BorderColor = Color.FromHex("");
+            Bubble2.BorderColor = Color.FromHex("");
 
             string update = "UPDATE configurations SET color = 'green' WHERE user LIKE '" + Detail.user + "'";
             MySqlConnection conexionBD = Conexion.conexion();
@@ -112,8 +115,8 @@ namespace App1
 
         private void TapGestureRecognizer_Tapped_1(object sender, EventArgs e)
         {
-            Bubble1.BorderColor = Color.Black;
-            Bubble1.BackgroundColor = Color.White;
+            Bubble1.BackgroundColor = Color.FromHex("#e5c6db");
+            Bubble2.BackgroundColor = Color.FromHex("#d6d3d6");
 
             string update = "UPDATE configurations SET color = 'white' WHERE user LIKE '" + Detail.user + "'";
             MySqlConnection conexionBD = Conexion.conexion();
@@ -125,8 +128,8 @@ namespace App1
 
         private void TapGestureRecognizer_Tapped_2(object sender, EventArgs e)
         {
-            Bubble1.BorderColor = Color.Black;
-            Bubble1.BackgroundColor = Color.Black;
+            Bubble1.BackgroundColor = Color.FromHex("#30383a");
+            Bubble2.BackgroundColor = Color.FromHex("#666d70");
 
             string update = "UPDATE configurations SET color = 'black' WHERE user LIKE '" + Detail.user + "'";
             MySqlConnection conexionBD = Conexion.conexion();
@@ -138,8 +141,11 @@ namespace App1
 
         private void TapGestureRecognizer_Tapped_3(object sender, EventArgs e)
         {
-            Bubble1.BorderColor = Color.PaleVioletRed;
-            Bubble1.BackgroundColor = Color.Red;
+            Bubble2.BackgroundColor = Color.FromHex("#f9b2b7");
+            Bubble1.BackgroundColor = Color.FromHex("#f43f4f");
+
+            Bubble1.BorderColor = Color.FromHex("");
+            Bubble2.BorderColor = Color.FromHex("");
 
             string update = "UPDATE configurations SET color = 'red' WHERE user LIKE '" + Detail.user + "'";
             MySqlConnection conexionBD = Conexion.conexion();
@@ -151,8 +157,11 @@ namespace App1
 
         private void TapGestureRecognizer_Tapped_4(object sender, EventArgs e)
         {
-            Bubble1.BorderColor = Color.Blue;
-            Bubble1.BackgroundColor = Color.LightBlue;
+            Bubble2.BackgroundColor = Color.FromHex("#c4d8e2");
+            Bubble1.BackgroundColor = Color.FromHex("#75b2dd");
+
+            Bubble1.BorderColor = Color.FromHex("");
+            Bubble2.BorderColor = Color.FromHex("");
 
             string update = "UPDATE configurations SET color = 'blue' WHERE user LIKE '" + Detail.user + "'";
             MySqlConnection conexionBD = Conexion.conexion();
@@ -164,8 +173,11 @@ namespace App1
 
         private void TapGestureRecognizer_Tapped_5(object sender, EventArgs e)
         {
-            Bubble1.BorderColor = Color.Purple;
-            Bubble1.BackgroundColor = Color.MediumPurple;
+            Bubble2.BackgroundColor = Color.FromHex("#d1cedd");
+            Bubble1.BackgroundColor = Color.FromHex("#6656bc");
+
+            Bubble1.BorderColor = Color.FromHex("");
+            Bubble2.BorderColor = Color.FromHex("");
 
             string update = "UPDATE configurations SET color = 'purple' WHERE user LIKE '" + Detail.user + "'";
             MySqlConnection conexionBD = Conexion.conexion();

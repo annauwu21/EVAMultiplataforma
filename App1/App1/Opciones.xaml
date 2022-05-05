@@ -50,8 +50,8 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Frame  BorderColor="Black"
-                        BackgroundColor="White"
+                <Frame  
+                        BackgroundColor="#dbd3d3"
                         Grid.Row="0"
                         Grid.Column="0"
                         CornerRadius="50"
@@ -66,8 +66,8 @@
                     </Frame.GestureRecognizers>
                 </Frame>
 
-                <Frame  BorderColor="Black"
-                        BackgroundColor="Black"
+                <Frame  
+                        BackgroundColor="#444f51"
                         Grid.Row="0"
                         Grid.Column="1"
                         CornerRadius="50"
@@ -82,8 +82,8 @@
                     </Frame.GestureRecognizers>
                 </Frame>
 
-                <Frame  BorderColor="Red"
-                        BackgroundColor="PaleVioletRed"
+                <Frame  
+                        BackgroundColor="#fc6675"
                         Grid.Row="0"
                         Grid.Column="2"
                         CornerRadius="50"
@@ -98,8 +98,8 @@
                     </Frame.GestureRecognizers>
                 </Frame>
 
-                <Frame  BorderColor="Blue"
-                        BackgroundColor="LightBlue"
+                <Frame 
+                        BackgroundColor="#a8cee2"
                         Grid.Row="0"
                         Grid.Column="4"
                         CornerRadius="50"
@@ -114,8 +114,8 @@
                     </Frame.GestureRecognizers>
                 </Frame>
 
-                <Frame  BorderColor="Purple"
-                        BackgroundColor="MediumPurple"
+                <Frame  
+                        BackgroundColor="#a5a0d6"
                         Grid.Row="0"
                         Grid.Column="5"
                         CornerRadius="50"
@@ -130,8 +130,8 @@
                     </Frame.GestureRecognizers>
                 </Frame>
 
-                <Frame  BorderColor="Green"
-                        BackgroundColor="LightGreen"
+                <Frame  
+                        BackgroundColor="#ceea82"
                         Grid.Row="0"
                         Grid.Column="3"
                         CornerRadius="50"
@@ -162,8 +162,6 @@
 
                         <Frame Grid.Row="0"
                            Grid.Column="0"
-                           BorderColor="Purple"
-                           BackgroundColor="MediumPurple"
                            CornerRadius="30"
                            HeightRequest="1"
                            WidthRequest="115"
@@ -173,12 +171,11 @@
 
                         <Frame Grid.Row="0"
                            Grid.Column="1"
-                           BorderColor="Black"
-                           BackgroundColor="White"
                            CornerRadius="30"
                            HeightRequest="1"
                            WidthRequest="115"
-                           IsClippedToBounds="True">
+                           IsClippedToBounds="True"
+                           x:Name="Bubble2">
                         </Frame>
                     </Grid>
                 </Frame>
