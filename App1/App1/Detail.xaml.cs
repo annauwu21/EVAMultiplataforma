@@ -36,6 +36,7 @@ namespace App1
         public bool showEva { get; private set; }
         public bool showEmotions { get; private set; }
         public bool sound { get; private set; }
+        public float volume { get; private set; }
 
         public Detail(string u)
         {
@@ -119,6 +120,8 @@ namespace App1
                     {
                         sound = false;
                     }
+
+                    volume = float.Parse(reader.GetString("volume"));
                 }
             }
 
@@ -272,7 +275,15 @@ namespace App1
                     //Vaciar el campo de texto para escribir un mensaje:
                     Question.Text = "";
 
-                    await TextToSpeech.SpeakAsync(response);
+                    if (sound)
+                    {
+                        await TextToSpeech.SpeakAsync(response, new SpeechOptions
+                        {
+                            Pitch = 2.0f,
+                            Volume = volume
+                        });
+                    }
+                    
                 }
 
                 //Limpiar el recurso:

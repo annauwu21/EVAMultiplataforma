@@ -180,7 +180,18 @@
                     </Grid>
                 </Frame>
 
+                <Slider Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="5"
+                        Minimum="0"
+                        Maximum="1"
+                        x:Name="volume">
+
+                </Slider>
+
             </Grid>
+
+        
 
             <Frame 
                         Grid.Row="2"
