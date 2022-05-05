@@ -182,6 +182,8 @@ namespace App1
                     //var entity = r.output.entities[0].entity.ToString(); //<- A veces el campo está vacío y da error. Por eso está comentado
                     var responseType = r.output.generic[i].response_type.ToString();
 
+                    var response = ""; //<- aqui se guardará la respuesta de Eva.
+
                     //Comprobar la configuración del usuario:
                     if (showEva && showEmotions)
                     {
@@ -198,7 +200,7 @@ namespace App1
                     switch (responseType)
                     {
                         case "text":
-                            var response = r.output.generic[i].text.ToString(); //<- Guardar respuesta de Eva
+                            response = r.output.generic[i].text.ToString(); //<- Guardar respuesta de Eva
 
                             //Si la respuesta de Eva es más de una, solo mostrar la pregunta una vez.
                             if (r.output.generic.Count() > 0 && i > 0)
@@ -222,8 +224,6 @@ namespace App1
 
                             MySqlCommand comando = new MySqlCommand(sql, conexionBD);
                             comando.ExecuteNonQuery();
-
-                            await TextToSpeech.SpeakAsync(response);
 
                             conexionBD.Close();
 
@@ -271,6 +271,8 @@ namespace App1
 
                     //Vaciar el campo de texto para escribir un mensaje:
                     Question.Text = "";
+
+                    await TextToSpeech.SpeakAsync(response);
                 }
 
                 //Limpiar el recurso:
