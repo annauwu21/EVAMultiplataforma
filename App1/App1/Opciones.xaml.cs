@@ -346,5 +346,11 @@ namespace App1
             Principal principal = new Principal(Detail.user);
             this.Navigation.PushModalAsync(principal);
         }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            Extra ex = new Extra();
+            this.Navigation.PushModalAsync(ex);
+        }
     }
 }

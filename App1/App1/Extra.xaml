@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.Extra">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Label Text="--- CREADORES DE EVA ---"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="20"
+                FontAttributes="Bold"/>
+
+                <Label Text="" 
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"
+                FontAttributes="Bold"/>
+
+                <Label Text="Director" 
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"
+                FontAttributes="Bold"/>
+
+                <Label Text="Adri Vhalro"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="" 
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"
+                FontAttributes="Bold"/>
+
+                <Label Text="Programadores God" 
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"
+                FontAttributes="Bold"/>
+
+                <Label Text="Anna Gargallo"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Jonathan Granado"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="" 
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"
+                FontAttributes="Bold"/>
+                
+                <Label Text="Planeación" 
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"
+                FontAttributes="Bold"/>
+
+                <Label Text="Adri Vhalro"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Julia Llongeras"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="" 
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"
+                FontAttributes="Bold"/>
+
+                <Label Text="Ilustración"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"
+                FontAttributes="Bold"/>
+
+                <Label Text="Claudia Valero"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Uri Menta"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="@rabbitshollow"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+                
+                <Label Text="" 
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"
+                FontAttributes="Bold"/>
+
+                <Label Text="Musicos"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"
+                FontAttributes="Bold"/>
+
+                <Label Text="Adri Vhalro"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Lucas Gonzalvo"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Marc Valañá"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Nuria Mestre"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Sergi Guisenx"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="" 
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"
+                FontAttributes="Bold"/>
+
+                <Label Text="Asesoramiento"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"
+                FontAttributes="Bold"/>
+
+                <Label Text="Carles Bonet"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Gonzalo Blanca"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="" 
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"
+                FontAttributes="Bold"/>
+
+                <Label Text="*Especial Gracias*"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"
+                FontAttributes="Bold"/>
+
+                <Label Text="Adrian Valero"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Ainoa Kujo"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+                
+
+                <Label Text="Alva Majo"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Blanca Arenas"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Brad Fiedel"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Celia Gonzalvo"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+                
+                <Label Text="DeValen"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Francisco Mesas"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Georgina Vidal"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Gerard Abat"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Ginxu"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Gisela Boj"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Hideaki Anno"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Hirohiko Araki"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="John Buscema "
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Jose"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Julia Alujas"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Nina Romero"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Paula Romero"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Ricardo Rafael"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Roy Thomas"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Sergi Mestre"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Spike Jonze"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Hax"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Aki"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Toby Fox "
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+                <Label Text="Toi Vhalro"
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="16"/>
+
+
+
+            </StackLayout>
+        </ScrollView>
+        
+    </ContentPage.Content>
+</ContentPage>

@@ -17,6 +17,9 @@ using Xamarin.Forms.PlatformConfiguration.AndroidSpecific.AppCompat;
 using Xamarin.Forms.Xaml;
 using Xamarin.Essentials;
 using NavigationPage = Xamarin.Forms.NavigationPage;
+using Plugin.AudioRecorder;
+using System.Reflection;
+using System.IO;
 
 namespace App1
 {
@@ -38,6 +41,7 @@ namespace App1
         public bool sound { get; private set; }
         public float volume { get; private set; }
 
+        private readonly AudioPlayer audioPlayer = new AudioPlayer();
         public Detail(string u)
         {
             InitializeComponent();
