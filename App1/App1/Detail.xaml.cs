@@ -128,8 +128,72 @@ namespace App1
                     volume = float.Parse(reader.GetString("volume"));
                 }
             }
-
+            reader.Close();
             conexionBD.Close(); //<- Cerrar la conexión
+
+            historial.Clear(); //<- borrar el historial de esta sessión
+
+            //Buscar por el usuario el historial:
+            string selectHistory = "SELECT * FROM history WHERE user LIKE '" + u + "' ORDER BY timedate ASC"; //<- Sentencía sql
+            MySqlConnection conexionBDHistory = Conexion.conexion(); //<- Crear connexión
+            conexionBDHistory.Open(); //<- Abrir la conexión
+
+            MySqlCommand comandoHistory = new MySqlCommand(selectHistory, conexionBDHistory); //<- Executar sentencía
+
+            MySqlDataReader readerHistory = null; //<- Crear reader
+            readerHistory = comandoHistory.ExecuteReader(); //<- Ejecutar reader
+
+            //Si reader encuentra algo:
+            if (readerHistory.HasRows)
+            {
+                //Leer lineas:
+                while (readerHistory.Read())
+                {
+                    switch (readerHistory.GetString("tipe"))
+                    {
+                        case "text":
+
+                            //Si la respuesta de Eva es más de una, solo mostrar la pregunta una vez.
+                            //if (r.output.generic.Count() > 0 && i > 0)
+                            //{
+                            //Chat Spacechat = new Chat(question, response, "", false, false, true, bubbleEva, bubbleUser); //<- Crear un chat de texto de respuesta
+                            //historial.Add(Spacechat); //<- Añadir el chat al historial
+                            //}
+                            //else
+                            //{
+                            Chat Textchat = new Chat(readerHistory.GetString("question"), readerHistory.GetString("response"), "", false, true, false, bubbleEva, bubbleUser); //<- Crear un chat con la pregunta del usuario
+                            historial.Add(Textchat); //<- Añadir el chat al historial
+
+                            Chat Spacechat = new Chat(readerHistory.GetString("question"), readerHistory.GetString("response"), "", false, false, true, bubbleEva, bubbleUser); //<- Crear un chat de texto de respuesta
+                            historial.Add(Spacechat); //<- Añadir el chat al historial
+
+                            //}
+
+                            break;
+                        case "image":
+
+                            //Si la respuesta de Eva es más de una, solo mostrar la pregunta una vez.
+                            //if (r.output.generic.Count() > 0 && i > 0)
+                            //{
+                            //Chat Imagechat = new Chat(question, "", source, true, false, false, bubbleEva, bubbleUser); //<- Crear un chat con imagen de respuesta.
+                            // historial.Add(Imagechat); //<- Añadir el chat al historial
+                            //}
+                            //else
+                            //{
+                            Chat Imagechat = new Chat(readerHistory.GetString("question"), "", readerHistory.GetString("response"), false, true, false, bubbleEva, bubbleUser); //<- Crear un chat con la pregunta del usuario.
+                            historial.Add(Imagechat); //<- Añadir el chat al historial
+
+                            Chat Spacechat2 = new Chat(readerHistory.GetString("question"), "", readerHistory.GetString("response"), true, false, false, bubbleEva, bubbleUser); //<- Crear un chat con imagen de respuesta.
+                            historial.Add(Spacechat2); //<- Añadir el chat al historial
+
+                            //cv.ScrollTo(Spacechat2, position: ScrollToPosition.MakeVisible);
+                            //}
+                            break;
+                    }
+                }
+            }
+            readerHistory.Close();
+            conexionBDHistory.Close();
 
             //Cambiar los colores de los chats ya hablados.
             foreach (var chat in historial)
@@ -140,6 +204,7 @@ namespace App1
 
             //Cargar los chats de esta sessión:
             cv.ItemsSource = historial;
+
         }
         
         private async void Button_Clicked(object sender, EventArgs e) 
@@ -224,7 +289,7 @@ namespace App1
                                 historial.Add(Spacechat); //<- Añadir el chat al historial
                             }
 
-                            string sql = "INSERT INTO history (user, question, response) VALUES ('" + user + "', '" + question + "', '" + response + "')";
+                            string sql = "INSERT INTO history (user, question, response, tipe) VALUES ('" + user + "', '" + question + "', '" + response + "', 'text')";
 
                             MySqlConnection conexionBD = Conexion.conexion();
                             conexionBD.Open();
@@ -256,7 +321,7 @@ namespace App1
                                 //cv.ScrollTo(Spacechat2, position: ScrollToPosition.MakeVisible);
                             }
 
-                            string sql1 = "INSERT INTO history (user, question, response) VALUES ('" + user + "', '" + question + "', '" + source + "')";
+                            string sql1 = "INSERT INTO history (user, question, response, tipe) VALUES ('" + user + "', '" + question + "', '" + source + "', 'image')";
 
                             MySqlConnection conexionBD1 = Conexion.conexion();
                             conexionBD1.Open();
@@ -279,7 +344,7 @@ namespace App1
                     //Vaciar el campo de texto para escribir un mensaje:
                     Question.Text = "";
 
-                    if (sound)
+                    if (responseType == "text" && sound)
                     {
                         await TextToSpeech.SpeakAsync(response, new SpeechOptions
                         {
@@ -313,6 +378,12 @@ namespace App1
             }
         }
 
+        protected override void OnAppearing()
+        {
+            int scroll = historial.Count()+1;
+            cv.ScrollTo(scroll, null, ScrollToPosition.End, false);
+
+        }
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
             Opciones principal = new Opciones();

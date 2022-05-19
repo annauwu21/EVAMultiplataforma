@@ -352,5 +352,11 @@ namespace App1
             Extra ex = new Extra();
             this.Navigation.PushModalAsync(ex);
         }
+
+        private void Button_Clicked_1(object sender, EventArgs e)
+        {
+            History h = new History(Detail.user);
+            this.Navigation.PushModalAsync(h);
+        }
     }
 }
