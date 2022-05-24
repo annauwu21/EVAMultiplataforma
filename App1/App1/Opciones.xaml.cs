@@ -355,8 +355,30 @@ namespace App1
 
         private void Button_Clicked_1(object sender, EventArgs e)
         {
-            History h = new History(Detail.user);
-            this.Navigation.PushModalAsync(h);
+            string delete = "DELETE history WHERE user LIKE '" + Detail.user + "';";
+            
+            MySqlConnection conexionBD = Conexion.conexion();
+            MySqlCommand comando = new MySqlCommand(delete, conexionBD);
+            conexionBD.Open();
+            comando.ExecuteNonQuery();
+            conexionBD.Close();
+        }
+
+        private void Button_Clicked_2(object sender, EventArgs e)
+        {
+            InicioSession s = new InicioSession();
+            this.Navigation.PushModalAsync(s);
+        }
+
+        private void Button_Clicked_3(object sender, EventArgs e)
+        {
+            string delete = "DELETE user WHERE user LIKE '" + Detail.user + "';";
+
+            MySqlConnection conexionBD = Conexion.conexion();
+            MySqlCommand comando = new MySqlCommand(delete, conexionBD);
+            conexionBD.Open();
+            comando.ExecuteNonQuery();
+            conexionBD.Close();
         }
     }
 }

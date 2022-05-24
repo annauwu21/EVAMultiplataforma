@@ -1,7 +1,11 @@
-﻿using MySqlConnector;
+﻿using APIEva.Models;
+using MySqlConnector;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,11 +18,12 @@ namespace App1
     public partial class Registrar : ContentPage
     {
         Cifrado cifrado = new Cifrado();
+        HttpClient client;
         public Registrar()
         {
             InitializeComponent();
+            client = new HttpClient ();
         }
-
 
         private void btnRegistrar_Clicked(object sender, EventArgs e)
         {
@@ -34,32 +39,7 @@ namespace App1
                 {
                     if (pass.Equals(pass2))
                     {
-                        string sql = "INSERT INTO users (user, pass) VALUES ('" + user + "', '" + cifrado.cifrar(pass) + "')";
-                        string sql2 = "INSERT INTO configurations (user) VALUES ('" + user + "')";
-
-                        MySqlConnection conexionBD = Conexion.conexion();
-                        conexionBD.Open();
-
-                        try
-                        {
-                            //Si el usuario se añade, mostramos mensaje
-                            MySqlCommand comando = new MySqlCommand(sql, conexionBD);
-                            comando.ExecuteNonQuery();
-
-                            MySqlCommand comando2 = new MySqlCommand(sql2, conexionBD);
-                            comando2.ExecuteNonQuery();
-
-                            DisplayAlert("Alerta", "Usuario añadido!!!!", "Cerrar");
-                            limpiar();
-                        }
-                        catch (MySqlException ex)
-                        {
-                            DisplayAlert("Error", "Error al guardar el usuario: " + ex.Message, "Cerrar");
-                        }
-                        finally
-                        {
-                            conexionBD.Clone();
-                        }
+                        postAsyncUser(user, cifrado.cifrar(pass));
                     }
                     else
                     {
@@ -75,6 +55,27 @@ namespace App1
             catch (MySqlException fex)
             {
                 DisplayAlert("Error", "Problemas con la conexión: " +fex.Message, "Cerrar");
+            }
+        }
+
+        private async Task postAsyncUser(string user, string pass)
+        {
+            JObject jo = new JObject();
+            jo.Add("name_user", user);
+            jo.Add("pass", pass);
+
+            Uri uri = new Uri("https://apieva2022.azurewebsites.net/api/User");
+
+            string json = JsonConvert.SerializeObject(jo);
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = null;
+
+            response = await client.PostAsync(uri, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                DisplayAlert("Mensaje", "Usuario Creado", "Cerrar");
             }
         }
 

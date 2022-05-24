@@ -41,6 +41,7 @@ namespace App1
         public bool sound { get; private set; }
         public float volume { get; private set; }
 
+
         private readonly AudioPlayer audioPlayer = new AudioPlayer();
         public Detail(string u)
         {
@@ -50,6 +51,7 @@ namespace App1
 
             //Guardar el usuario conectado:
             user = u;
+            DisplayAlert("Error", u, "Cerrar");
 
             //Buscar por el usuario las configuraciones:
             string select = "SELECT * FROM configurations WHERE user LIKE '" + user + "' LIMIT 1"; //<- Sentencía sql
@@ -133,67 +135,73 @@ namespace App1
 
             historial.Clear(); //<- borrar el historial de esta sessión
 
-            //Buscar por el usuario el historial:
-            string selectHistory = "SELECT * FROM history WHERE user LIKE '" + u + "' ORDER BY timedate ASC"; //<- Sentencía sql
-            MySqlConnection conexionBDHistory = Conexion.conexion(); //<- Crear connexión
-            conexionBDHistory.Open(); //<- Abrir la conexión
+           //Buscar por el usuario el historial:
+           string selectHistory = "SELECT * FROM history WHERE user LIKE '" + u + "' ORDER BY timedate ASC"; //<- Sentencía sql
+           MySqlConnection conexionBDHistory = Conexion.conexion(); //<- Crear connexión
+           conexionBDHistory.Open(); //<- Abrir la conexión
 
-            MySqlCommand comandoHistory = new MySqlCommand(selectHistory, conexionBDHistory); //<- Executar sentencía
+           MySqlCommand comandoHistory = new MySqlCommand(selectHistory, conexionBDHistory); //<- Executar sentencía
 
-            MySqlDataReader readerHistory = null; //<- Crear reader
-            readerHistory = comandoHistory.ExecuteReader(); //<- Ejecutar reader
+           MySqlDataReader readerHistory = null; //<- Crear reader
+           readerHistory = comandoHistory.ExecuteReader(); //<- Ejecutar reader
 
-            //Si reader encuentra algo:
-            if (readerHistory.HasRows)
-            {
-                //Leer lineas:
-                while (readerHistory.Read())
-                {
-                    switch (readerHistory.GetString("tipe"))
-                    {
-                        case "text":
+           String q = "";
+           //Si reader encuentra algo:
+           if (readerHistory.HasRows)
+           {
+               //Leer lineas:
+               while (readerHistory.Read())
+               {
 
-                            //Si la respuesta de Eva es más de una, solo mostrar la pregunta una vez.
-                            //if (r.output.generic.Count() > 0 && i > 0)
-                            //{
-                            //Chat Spacechat = new Chat(question, response, "", false, false, true, bubbleEva, bubbleUser); //<- Crear un chat de texto de respuesta
-                            //historial.Add(Spacechat); //<- Añadir el chat al historial
-                            //}
-                            //else
-                            //{
-                            Chat Textchat = new Chat(readerHistory.GetString("question"), readerHistory.GetString("response"), "", false, true, false, bubbleEva, bubbleUser); //<- Crear un chat con la pregunta del usuario
-                            historial.Add(Textchat); //<- Añadir el chat al historial
+                   switch (readerHistory.GetString("tipe"))
+                   {
 
-                            Chat Spacechat = new Chat(readerHistory.GetString("question"), readerHistory.GetString("response"), "", false, false, true, bubbleEva, bubbleUser); //<- Crear un chat de texto de respuesta
-                            historial.Add(Spacechat); //<- Añadir el chat al historial
+                       case "text":
 
-                            //}
+                           //Si la respuesta de Eva es más de una, solo mostrar la pregunta una vez.
+                           if (q == readerHistory.GetString("question"))
+                           {
+                               //DisplayAlert("Error", q, "Cerrar");
+                               //DisplayAlert("Error", readerHistory.GetString("question"), "Cerrar");
+                               Chat Spacechat = new Chat(readerHistory.GetString("question"), readerHistory.GetString("response"), "", false, false, true, bubbleEva, bubbleUser); //<- Crear un chat de texto de respuesta
+                               historial.Add(Spacechat); //<- Añadir el chat al historial
+                           }
+                           else
+                           {
+                               Chat Textchat = new Chat(readerHistory.GetString("question"), readerHistory.GetString("response"), "", false, true, false, bubbleEva, bubbleUser); //<- Crear un chat con la pregunta del usuario
+                               historial.Add(Textchat); //<- Añadir el chat al historial
 
-                            break;
-                        case "image":
+                               Chat Spacechat = new Chat(readerHistory.GetString("question"), readerHistory.GetString("response"), "", false, false, true, bubbleEva, bubbleUser); //<- Crear un chat de texto de respuesta
+                               historial.Add(Spacechat); //<- Añadir el chat al historial
 
-                            //Si la respuesta de Eva es más de una, solo mostrar la pregunta una vez.
-                            //if (r.output.generic.Count() > 0 && i > 0)
-                            //{
-                            //Chat Imagechat = new Chat(question, "", source, true, false, false, bubbleEva, bubbleUser); //<- Crear un chat con imagen de respuesta.
-                            // historial.Add(Imagechat); //<- Añadir el chat al historial
-                            //}
-                            //else
-                            //{
-                            Chat Imagechat = new Chat(readerHistory.GetString("question"), "", readerHistory.GetString("response"), false, true, false, bubbleEva, bubbleUser); //<- Crear un chat con la pregunta del usuario.
-                            historial.Add(Imagechat); //<- Añadir el chat al historial
+                           }
 
-                            Chat Spacechat2 = new Chat(readerHistory.GetString("question"), "", readerHistory.GetString("response"), true, false, false, bubbleEva, bubbleUser); //<- Crear un chat con imagen de respuesta.
-                            historial.Add(Spacechat2); //<- Añadir el chat al historial
+                           break;
+                       case "image":
 
-                            //cv.ScrollTo(Spacechat2, position: ScrollToPosition.MakeVisible);
-                            //}
-                            break;
-                    }
-                }
-            }
-            readerHistory.Close();
-            conexionBDHistory.Close();
+                           //Si la respuesta de Eva es más de una, solo mostrar la pregunta una vez.
+                           if (q == readerHistory.GetString("question"))
+                           {
+                               Chat Imagechat = new Chat(readerHistory.GetString("question"), "", readerHistory.GetString("response"), true, false, false, bubbleEva, bubbleUser); //<- Crear un chat con imagen de respuesta.
+                               historial.Add(Imagechat); //<- Añadir el chat al historial
+                           }
+                           //else
+                           {
+                               Chat Imagechat = new Chat(readerHistory.GetString("question"), "", readerHistory.GetString("response"), false, true, false, bubbleEva, bubbleUser); //<- Crear un chat con la pregunta del usuario.
+                               historial.Add(Imagechat); //<- Añadir el chat al historial
+
+                               Chat Spacechat2 = new Chat(readerHistory.GetString("question"), "", readerHistory.GetString("response"), true, false, false, bubbleEva, bubbleUser); //<- Crear un chat con imagen de respuesta.
+                               historial.Add(Spacechat2); //<- Añadir el chat al historial
+
+                               //cv.ScrollTo(Spacechat2, position: ScrollToPosition.MakeVisible);
+                           }
+                           break;
+                   }
+                   q = readerHistory.GetString("question");
+               }
+           }
+           readerHistory.Close();
+           conexionBDHistory.Close();
 
             //Cambiar los colores de los chats ya hablados.
             foreach (var chat in historial)
@@ -289,7 +297,7 @@ namespace App1
                                 historial.Add(Spacechat); //<- Añadir el chat al historial
                             }
 
-                            string sql = "INSERT INTO history (user, question, response, tipe) VALUES ('" + user + "', '" + question + "', '" + response + "', 'text')";
+                            /*string sql = "INSERT INTO history (user, question, response, tipe) VALUES ('" + user + "', '" + question + "', '" + response + "', 'text')";
 
                             MySqlConnection conexionBD = Conexion.conexion();
                             conexionBD.Open();
@@ -297,7 +305,7 @@ namespace App1
                             MySqlCommand comando = new MySqlCommand(sql, conexionBD);
                             comando.ExecuteNonQuery();
 
-                            conexionBD.Close();
+                            conexionBD.Close();*/
 
                             Console.WriteLine("Respuesta (texto): " + response); //<- Imprimir por consola la respuesta de Eva (mensaje)
                             break;
@@ -321,7 +329,7 @@ namespace App1
                                 //cv.ScrollTo(Spacechat2, position: ScrollToPosition.MakeVisible);
                             }
 
-                            string sql1 = "INSERT INTO history (user, question, response, tipe) VALUES ('" + user + "', '" + question + "', '" + source + "', 'image')";
+                            /*string sql1 = "INSERT INTO history (user, question, response, tipe) VALUES ('" + user + "', '" + question + "', '" + source + "', 'image')";
 
                             MySqlConnection conexionBD1 = Conexion.conexion();
                             conexionBD1.Open();
@@ -329,7 +337,7 @@ namespace App1
                             MySqlCommand comando1 = new MySqlCommand(sql1, conexionBD1);
                             comando1.ExecuteNonQuery();
 
-                            conexionBD1.Close();
+                            conexionBD1.Close();*/
 
                             Console.WriteLine("Respuesta (imagen): " + source); //<- Imprimir por consola la respuesta de Eva (url de la imagen)
                             break;

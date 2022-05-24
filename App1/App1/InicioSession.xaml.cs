@@ -1,7 +1,11 @@
-﻿using MySqlConnector;
+﻿using APIEva.Models;
+using MySqlConnector;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,10 +19,12 @@ namespace App1
     public partial class InicioSession : ContentPage
     {
         Cifrado cifrado = new Cifrado();
+        HttpClient client;
         public ImageSource ImageSource { get; private set; }
         public InicioSession()
         {
             InitializeComponent();
+            client = new HttpClient();
         }
 
         private void btnRegistrar_Clicked(object sender, EventArgs e)
@@ -31,59 +37,41 @@ namespace App1
         private void btnIniciar_Clicked(object sender, EventArgs e)
         {
 
-            if (!string.IsNullOrEmpty(User.Text) || !string.IsNullOrEmpty(Pass.Text)){
+            if (!string.IsNullOrEmpty(User.Text) || !string.IsNullOrEmpty(Pass.Text)) {
                 //Si las casillas estan llenas lo guardamos en variables
                 //Lo pasamos todo a LOWER CASE
-                var user = User.Text.ToLower(); 
+                var user = User.Text.ToLower();
                 var pass = Pass.Text.ToLower();
-                MySqlDataReader reader = null;
 
-                string select = "SELECT * FROM users WHERE user LIKE '" + user + "' LIMIT 1";
-                MySqlConnection conexionBD = Conexion.conexion();
-                conexionBD.Open();
-
-                try
-                {
-                    MySqlCommand comando = new MySqlCommand(select, conexionBD);
-                    reader = comando.ExecuteReader();
-                    if (reader.HasRows) //Si reader encuentra algo
-                    {
-                        while (reader.Read())//Leer lineas
-                        {
-                            //Si el usuario existe y los datos son correctos, abre la ventana AdminEleccion
-                            //user.Equals(reader.GetString(0)) && pass.Equals(cifrado.descifrar(reader.GetString(1)))
-                            if (user.Equals(reader.GetString(0)) && pass.Equals(cifrado.descifrar(reader.GetString(1))))
-                            {
-                                //Abrimos la ventana principal
-                                Principal principal = new Principal(user);
-                                this.Navigation.PushModalAsync(principal);
-                            }
-                            else
-                            {
-                                DisplayAlert("Error", "Usuario o contraseña incorrecta", "Cerrar");
-                            }
-                        }
-                    }
-                    else
-                    {
-                        DisplayAlert("Error", "Usuario o contraseña incorrecta", "Cerrar");
-                    }
-                }
-                catch (MySqlException ex)
-                {
-                    DisplayAlert("Error", "No se ha encontrado al usuario", "Cerrar");
-                }
-                finally
-                {
-                    conexionBD.Close();
-                }
-                conexionBD.Close();
+                getAyncUser(user, cifrado.cifrar(pass));
             }
-            else
+                
+
+ 
+
+        }
+
+        private async Task getAyncUser(string user, string pass)
+        {
+            Uri uri = new Uri("https://apieva2022.azurewebsites.net/api/User/"+user);
+
+            HttpResponseMessage response = await client.GetAsync(uri);
+
+            if (response.IsSuccessStatusCode)
             {
-                DisplayAlert("Error", "Tienes que rellenar las casillas", "Cerrar");
-            }
+                string content = await response.Content.ReadAsStringAsync();
 
+                JObject jo = JsonConvert.DeserializeObject<JObject>(content);
+
+                string p = (string)jo.GetValue("pass");
+
+                if (p == pass)
+                {
+                    Principal principal = new Principal((string)jo.GetValue("name_user"));
+                    this.Navigation.PushModalAsync(principal);
+                }
+
+            }
         }
 
 

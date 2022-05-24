@@ -321,7 +321,8 @@
                         FontSize="18"
                         BackgroundColor="White"
                         BorderColor="Black"
-                        Margin="5">
+                        Margin="5"
+                        Clicked="Button_Clicked_2">
                 </Button>
 
                 <Button
@@ -334,7 +335,8 @@
                         FontSize="18"
                         BackgroundColor="White"
                         BorderColor="Black"
-                        Margin="5">
+                        Margin="5"
+                        Clicked="Button_Clicked_3">
                 </Button>
             </StackLayout>
         </ScrollView>
