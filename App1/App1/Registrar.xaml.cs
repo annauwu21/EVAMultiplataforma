@@ -31,15 +31,15 @@ namespace App1
             {
                 //Antes de insertar en la BD lo pasamos todo a LOWER CASE
                 string user = User.Text.ToLower();
-                string pass = Pass.Text.ToLower();
-                string pass2 = Pass2.Text.ToLower();
+                string pass = Pass.Text;
+                string pass2 = Pass2.Text;
 
 
                 if (!user.Equals("") && !pass.Equals("") && !pass2.Equals(""))
                 {
                     if (pass.Equals(pass2))
                     {
-                        postAsyncUser(user, cifrado.cifrar(pass));
+                        postAsyncUserConfiguration(user, cifrado.cifrar(pass));
                     }
                     else
                     {
@@ -58,24 +58,45 @@ namespace App1
             }
         }
 
-        private async Task postAsyncUser(string user, string pass)
+        private async Task postAsyncUserConfiguration(string user, string pass)
         {
-            JObject jo = new JObject();
-            jo.Add("name_user", user);
-            jo.Add("pass", pass);
+            JObject joUser = new JObject();
+            joUser.Add("name_user", user);
+            joUser.Add("pass", pass);
 
-            Uri uri = new Uri("https://apieva2022.azurewebsites.net/api/User");
+            Uri uriUser = new Uri("https://apieva2022.azurewebsites.net/api/User");
 
-            string json = JsonConvert.SerializeObject(jo);
-            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            string jsonUser = JsonConvert.SerializeObject(joUser);
+            StringContent contentUser = new StringContent(jsonUser, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = null;
+            HttpResponseMessage responseUser = null;
 
-            response = await client.PostAsync(uri, content);
+            responseUser = await client.PostAsync(uriUser, contentUser);
 
-            if (response.IsSuccessStatusCode)
+            if (responseUser.IsSuccessStatusCode)
             {
-                DisplayAlert("Mensaje", "Usuario Creado", "Cerrar");
+                JObject joconfiguration = new JObject();
+                joconfiguration.Add("name_user", user);
+                joconfiguration.Add("color", "purple");
+                joconfiguration.Add("showEva", "true");
+                joconfiguration.Add("showEmotions", "true");
+                joconfiguration.Add("sound", "true");
+                joconfiguration.Add("volume", "1.0");
+
+                Uri uriConfiguration = new Uri("https://apieva2022.azurewebsites.net/api/Configuration");
+
+                string jsonConfiguration = JsonConvert.SerializeObject(joconfiguration);
+                StringContent contentConfiguration = new StringContent(jsonConfiguration, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage responseConfiguration = null;
+
+                responseConfiguration = await client.PostAsync(uriConfiguration, contentConfiguration);
+
+                if (responseConfiguration.IsSuccessStatusCode)
+                {
+                    DisplayAlert("Mensaje", "Usuario Creado", "Cerrar");
+                }
+                    
             }
         }
 

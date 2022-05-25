@@ -20,13 +20,18 @@ using NavigationPage = Xamarin.Forms.NavigationPage;
 using Plugin.AudioRecorder;
 using System.Reflection;
 using System.IO;
+using System.Net.Http;
+using Newtonsoft.Json.Linq;
+using APIEva.Models;
 
 namespace App1
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Detail : ContentPage
     {
-        public static string user { get; private set; } //<- Guardar el usuario conectado para aplicar las configuraciones
+        HttpClient client;
+
+        public static string user_name { get; private set; } //<- Guardar el usuario conectado para aplicar las configuraciones
 
 
         public static List<Chat> historial = new List<Chat>(); //<- Lista para guardar los chats (preguntas y respuestas)
@@ -34,6 +39,7 @@ namespace App1
 
         public Color bubbleEva { get; private set; } //<- Guardar el color de fondo de Eva.
         public Color bubbleUser{ get; private set; } //<- Guardar el color de fondo del usuario.
+
 
         //Guardar la configuracines de Eva:
         public bool showEva { get; private set; }
@@ -43,15 +49,21 @@ namespace App1
 
 
         private readonly AudioPlayer audioPlayer = new AudioPlayer();
+
         public Detail(string u)
         {
             InitializeComponent();
 
             NavigationPage.SetHasBackButton(this, false);
 
+            client = new HttpClient();
+
             //Guardar el usuario conectado:
-            user = u;
-            DisplayAlert("Error", u, "Cerrar");
+            user_name = u;
+
+            loadConfigurationsAsync();
+
+            /*
 
             //Buscar por el usuario las configuraciones:
             string select = "SELECT * FROM configurations WHERE user LIKE '" + user + "' LIMIT 1"; //<- Sentencía sql
@@ -208,13 +220,94 @@ namespace App1
             {
                 chat.bubbleEva = this.bubbleEva;
                 chat.bubbleUser = this.bubbleUser;
-            }
+            }*/
 
             //Cargar los chats de esta sessión:
             cv.ItemsSource = historial;
 
         }
-        
+
+        private async Task loadConfigurationsAsync()
+        {
+            Configuration c = await getConfigurationsAsync();
+
+            if (c.showEva == "true")
+            {
+                cp.BackgroundImageSource = "https://i.pinimg.com/originals/d8/6f/92/d86f92c6e76d5a4a84dcb779fb6b6447.jpg";
+                showEva = true;
+            }
+            else
+            {
+                cp.BackgroundImageSource = "";
+                showEva = false;
+            }
+            if (c.showEmotions == "true")
+            {
+                showEmotions = true;
+            }
+            else
+            {
+                showEmotions = false;
+            }
+            if (c.sound == "true")
+            {
+                sound = true;
+            }
+            else
+            {
+                sound = false;
+            }
+
+            volume = float.Parse(c.volume);
+
+            switch (c.color)
+            {
+                case "purple":
+                    bubbleEva = Color.FromHex("#6656bc");
+                    bubbleUser = Color.FromHex("#d1cedd");
+                    break;
+                case "green":
+                    bubbleEva = Color.FromHex("#bae860");
+                    bubbleUser = Color.FromHex("#d8ed96");
+                    break;
+                case "white":
+                    bubbleEva = Color.FromHex("#e5c6db");
+                    bubbleUser = Color.FromHex("#d6d3d6");
+                    break;
+                case "black":
+                    bubbleEva = Color.FromHex("#30383a");
+                    bubbleUser = Color.FromHex("#666d70");
+                    break;
+                case "red":
+                    bubbleEva = Color.FromHex("#f43f4f");
+                    bubbleUser = Color.FromHex("#f9b2b7");
+                    break;
+                case "blue":
+                    bubbleEva = Color.FromHex("#75b2dd");
+                    bubbleUser = Color.FromHex("#c4d8e2");
+                    break;
+            }
+        }
+
+        private async Task<Configuration> getConfigurationsAsync()
+        {
+
+            Uri uri = new Uri("https://apieva2022.azurewebsites.net/api/Configuration/" + user_name);
+
+            HttpResponseMessage response = await client.GetAsync(uri);
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                string content = await response.Content.ReadAsStringAsync();
+                Configuration c = JsonConvert.DeserializeObject<Configuration>(content);
+
+                return c;
+
+            }
+            return null;
+        }
+
         private async void Button_Clicked(object sender, EventArgs e) 
         {
           

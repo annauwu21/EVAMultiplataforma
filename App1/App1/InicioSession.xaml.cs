@@ -34,46 +34,50 @@ namespace App1
             this.Navigation.PushModalAsync(registrar);
         }
 
-        private void btnIniciar_Clicked(object sender, EventArgs e)
+        private async void btnIniciar_Clicked(object sender, EventArgs e)
         {
 
             if (!string.IsNullOrEmpty(User.Text) || !string.IsNullOrEmpty(Pass.Text)) {
                 //Si las casillas estan llenas lo guardamos en variables
+
                 //Lo pasamos todo a LOWER CASE
                 var user = User.Text.ToLower();
-                var pass = Pass.Text.ToLower();
+                var pass = Pass.Text;
 
-                getAyncUser(user, cifrado.cifrar(pass));
-            }
-                
+                User u = await getAyncUser(user);
 
- 
-
-        }
-
-        private async Task getAyncUser(string user, string pass)
-        {
-            Uri uri = new Uri("https://apieva2022.azurewebsites.net/api/User/"+user);
-
-            HttpResponseMessage response = await client.GetAsync(uri);
-
-            if (response.IsSuccessStatusCode)
-            {
-                string content = await response.Content.ReadAsStringAsync();
-
-                JObject jo = JsonConvert.DeserializeObject<JObject>(content);
-
-                string p = (string)jo.GetValue("pass");
-
-                if (p == pass)
+                if (u.pass == cifrado.cifrar(pass))
                 {
-                    Principal principal = new Principal((string)jo.GetValue("name_user"));
+                    Principal principal = new Principal(u.name_user);
                     this.Navigation.PushModalAsync(principal);
+                }
+                else
+                {
+                    DisplayAlert("Error", "Datos erroneos", "Cerrar");
                 }
 
             }
         }
 
+        private async Task<User> getAyncUser(string user_name)
+        {
+    
+            Uri uri = new Uri("https://apieva2022.azurewebsites.net/api/User/"+ user_name);
+
+            HttpResponseMessage response = await client.GetAsync(uri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                
+                string content = await response.Content.ReadAsStringAsync();
+                User u = JsonConvert.DeserializeObject<User>(content);
+
+                return u;
+                
+            }
+            return null;
+
+        }
 
         private void comprobarbtn()
         {
