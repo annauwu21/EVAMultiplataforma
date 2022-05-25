@@ -1,11 +1,16 @@
-﻿using MySqlConnector;
+﻿using APIEva.Models;
+using MySqlConnector;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific.AppCompat;
 using Xamarin.Forms.Xaml;
 
 namespace App1
@@ -14,10 +19,12 @@ namespace App1
     public partial class InicioSession : ContentPage
     {
         Cifrado cifrado = new Cifrado();
+        HttpClient client;
         public ImageSource ImageSource { get; private set; }
         public InicioSession()
         {
             InitializeComponent();
+            client = new HttpClient();
         }
 
         private void btnRegistrar_Clicked(object sender, EventArgs e)
@@ -27,64 +34,50 @@ namespace App1
             this.Navigation.PushModalAsync(registrar);
         }
 
-        private void btnIniciar_Clicked(object sender, EventArgs e)
+        private async void btnIniciar_Clicked(object sender, EventArgs e)
         {
 
-            if (!string.IsNullOrEmpty(User.Text) || !string.IsNullOrEmpty(Pass.Text)){
+            if (!string.IsNullOrEmpty(User.Text) || !string.IsNullOrEmpty(Pass.Text)) {
                 //Si las casillas estan llenas lo guardamos en variables
+
                 //Lo pasamos todo a LOWER CASE
-                var user = User.Text.ToLower(); 
-                var pass = Pass.Text.ToLower();
-                MySqlDataReader reader = null;
+                var user = User.Text.ToLower();
+                var pass = Pass.Text;
 
-                string select = "SELECT * FROM users WHERE user LIKE '" + user + "' LIMIT 1";
-                MySqlConnection conexionBD = Conexion.conexion();
-                conexionBD.Open();
+                User u = await getAyncUser(user);
 
-                try
+                if (u.pass == cifrado.cifrar(pass))
                 {
-                    MySqlCommand comando = new MySqlCommand(select, conexionBD);
-                    reader = comando.ExecuteReader();
-                    if (reader.HasRows) //Si reader encuentra algo
-                    {
-                        while (reader.Read())//Leer lineas
-                        {
-                            //Si el usuario existe y los datos son correctos, abre la ventana AdminEleccion
-                            //user.Equals(reader.GetString(0)) && pass.Equals(cifrado.descifrar(reader.GetString(1)))
-                            if (user.Equals(reader.GetString(0)) && pass.Equals(cifrado.descifrar(reader.GetString(1))))
-                            {
-                                //Abrimos la ventana principal
-                                Principal principal = new Principal();
-                                this.Navigation.PushModalAsync(principal);
-                            }
-                            else
-                            {
-                                DisplayAlert("Error", "Usuario o contraseña incorrecta", "Cerrar");
-                            }
-                        }
-                    }
-                    else
-                    {
-                        DisplayAlert("Error", "Usuario o contraseña incorrecta", "Cerrar");
-                    }
+                    Principal principal = new Principal(u.name_user);
+                    this.Navigation.PushModalAsync(principal);
                 }
-                catch (MySqlException ex)
+                else
                 {
-                    DisplayAlert("Error", "No se ha encontrado al usuario", "Cerrar");
+                    DisplayAlert("Error", "Datos erroneos", "Cerrar");
                 }
-                finally
-                {
-                    conexionBD.Close();
-                }
-                conexionBD.Close();
+
             }
-            else
-            {
-                DisplayAlert("Error", "Tienes que rellenar las casillas", "Cerrar");
-            }
-
         }
 
+        private async Task<User> getAyncUser(string user_name)
+        {
+    
+            Uri uri = new Uri("https://apieva2022.azurewebsites.net/api/User/"+ user_name);
+
+            HttpResponseMessage response = await client.GetAsync(uri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                
+                string content = await response.Content.ReadAsStringAsync();
+                User u = JsonConvert.DeserializeObject<User>(content);
+
+                return u;
+                
+            }
+            return null;
+
+        }
 
         private void comprobarbtn()
         {

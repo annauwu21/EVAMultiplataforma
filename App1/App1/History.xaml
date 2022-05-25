@@ -1,10 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:converters="clr-namespace:App1"
-             x:Class="App1.Detail"
-             x:Name="cp"
-             NavigationPage.HasNavigationBar="false">
-
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.History">
     <ContentPage.Content>
         <StackLayout>
             <Grid 
@@ -14,24 +11,28 @@
               RowSpacing="0"
               ColumnSpacing="0"
               ColumnDefinitions="50,*,50,50">
-                
-                <Label 
+
+                    <Label 
                     Grid.Column="1"
                     FontSize="26">
-                </Label>
+                    </Label>
 
-                <Image  Grid.Column="2"
-                        Source="https://cdn-icons-png.flaticon.com/512/25/25389.png">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer
+                    <Label  Grid.Column="0"
+                        Text="Eva"
+                        TextColor= "black"
+                        HorizontalOptions="Start"
+                        FontSize="30"
+                        VerticalTextAlignment="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
                             Tapped="TapGestureRecognizer_Tapped"
                             NumberOfTapsRequired="1">
-                        </TapGestureRecognizer>
-                    </Image.GestureRecognizers>
-                </Image>
-                
-            </Grid>
-            <CollectionView Grid.Row="0"
+                            </TapGestureRecognizer>
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                </Grid>
+                <CollectionView Grid.Row="0"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             Grid.RowSpan="1"
@@ -110,33 +111,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <Entry  Grid.Row="0"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="3"
-                        Placeholder="Mensaje"
-                        VerticalOptions="Center"
-                        x:Name="Question"/>
-
-                <Button Grid.Row="0"
-                        Grid.Column="3"
-                        Text="Enviar"
-                        VerticalOptions="Center" 
-                        BackgroundColor="White"
-                        TextColor="Black"
-                        BorderColor="Black"
-                        Clicked="Button_Clicked"/>
-            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

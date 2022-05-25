@@ -15,13 +15,13 @@ namespace App1
 {
     public partial class Principal : MasterDetailPage
     {
-        public Principal()
+        public Principal(string user)
         {
             InitializeComponent();
             //Metemos el menu desplegable lateral
             this.Master = new Master();
             //Metemos la pagina principal
-            this.Detail = new NavigationPage(new Detail());
+            this.Detail = new NavigationPage(new Detail(user));
         }
     }
 }
