@@ -137,7 +137,6 @@ namespace App1
 
                     case "text":
 
-
                         Chat Textchat = new Chat(h.question, h.response, "", false, true, false, bubbleEva, bubbleUser); //<- Crear un chat con la pregunta del usuario
                         historial.Add(Textchat); //<- Añadir el chat al historial
 

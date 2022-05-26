@@ -289,6 +289,20 @@
                         WidthRequest="300"
                         HeightRequest="45"
                         CornerRadius="30"
+                        Text="Guardar cambios"
+                        FontSize="18"
+                        BackgroundColor="White"
+                        BorderColor="Black"
+                        Margin="5"
+                        Clicked="Button_Clicked_4">
+                </Button>
+
+                <Button
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        WidthRequest="300"
+                        HeightRequest="45"
+                        CornerRadius="30"
                         Text="Historial"
                         FontSize="18"
                         BackgroundColor="White"
