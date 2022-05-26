@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.Master"
+             Title="Master">
+    <ContentPage.Content>
+        <StackLayout Margin="20">
+            
+            <Label
+                    Text="EVA"
+                    TextColor= "black"
+                    HorizontalOptions="Start"
+                    FontSize="30"
+                    VerticalTextAlignment="Center">
+            </Label>
+                <Label 
+                    Text="News"
+                    TextColor= "black"
+                    FontSize="20"
+                    HorizontalOptions="Start"
+                    VerticalTextAlignment="Center">
+                </Label>
+                <CollectionView>
+                    <CollectionView.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+
+                        <x:String></x:String>
+
+                        <x:String>02/05/2022     ¿Te molesta que Eva muestre 
+                        expresiones? Puedes 
+                        desactivarlas en el
+                        menú  de opciones.
+                            
+                        </x:String>
+
+                        <x:String></x:String>
+
+                        <x:String>01/05/2022     ¿Quieres dejar de ver a Eva?
+                        Ve al menú de opciones 
+                        para quitar su rostro de
+                        la página principal.
+                        </x:String>
+                        
+                        <x:String></x:String>
+                        
+                        <x:String>30/04/2022     Eva puede cambiar el color del 
+                        chat. ¡Pruebalo tu mismo/a en
+                        la página de opciones!
+                            
+                        (pulsa en los tres puntos de 
+                        la esquina superior derecha 
+                        para entrar en el menú de 
+                        opciones)
+                        </x:String>
+
+                        <x:String></x:String>
+
+                        <x:String>28/04/2022   Eva ha aprendido a responder 
+                        más de una cosa a la vez. 
+                        ¿Crees que a Eva le gusten 
+                        los gatos?
+                        </x:String>
+
+                        <x:String></x:String>
+
+                        <x:String> 09/04/2022   ¿Sabias que Eva también puede
+                        mostrar imagenes? Preguntale
+                        que te muestre un unicornio
+                        a ver que sucede...
+                        </x:String>
+
+                        <x:String></x:String>
+
+                        <x:String>06/04/2022    Eva ha aprendido a mostrar
+                        emociones. ¡Habla con ella
+                        y observa sus reacciones!
+                        </x:String>
+
+                        <x:String></x:String>
+                        
+                        <x:String>22/03/2022    Ahora cuando inicias a Eva te
+                        pide iniciar sessión.
+                        ¡También puedes registarte e
+                        invitar a tus amigos!  
+                        </x:String>
+                    </x:Array>
+                </CollectionView.ItemsSource>
+                </CollectionView>
+
+            </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

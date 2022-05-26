@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:converters="clr-namespace:App1"
+             x:Class="App1.Detail"
+             x:Name="cp"
+             NavigationPage.HasNavigationBar="false">
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid 
+              VerticalOptions="StartAndExpand"
+              HeightRequest="50"
+              Padding="10"
+              RowSpacing="0"
+              ColumnSpacing="0"
+              ColumnDefinitions="50,*,50,50">
+                
+                <Label 
+                    Grid.Column="1"
+                    FontSize="26">
+                </Label>
+
+                <Image  Grid.Column="2"
+                        Source="https://cdn-icons-png.flaticon.com/512/25/25389.png">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="TapGestureRecognizer_Tapped"
+                            NumberOfTapsRequired="1">
+                        </TapGestureRecognizer>
+                    </Image.GestureRecognizers>
+                </Image>
+                
+            </Grid>
+            <CollectionView Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Grid.RowSpan="1"
+                            ItemsSource="{Binding Chats}"
+                            BackgroundColor="#00ffffff"
+                            x:Name ="cv"
+                            ItemsUpdatingScrollMode="KeepLastItemInView">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Frame Grid.Row="0"
+                                       Grid.Column="0"
+                                       CornerRadius="30"
+                                       IsVisible="{Binding ResponseVisibility}"
+                                       IsClippedToBounds="True"
+                                       BackgroundColor="{Binding bubbleEva}">
+                                    <Label  
+                                        Text="{Binding Response}"
+                                        TextColor= "black"
+                                        HorizontalOptions="Start"
+                                        LineBreakMode="WordWrap"
+                                        VerticalTextAlignment="Center">
+                                    </Label>
+                                </Frame>
+
+                                <Frame Grid.Row="1"
+                                       Grid.Column="0"
+                                       Grid.RowSpan="1"
+                                       Grid.ColumnSpan="1"
+                                       CornerRadius="30"
+                                       IsClippedToBounds="True"
+                                       BackgroundColor="{Binding bubbleEva}"
+                                       IsVisible="{Binding ImageVisibility}"
+                                       Padding="0"
+                                       Margin="0">
+                                    <Image  
+                                        Source="{Binding Image}"
+                                        HeightRequest="200"
+                                        WidthRequest="200"
+                                        VerticalOptions="CenterAndExpand"
+                                        HorizontalOptions="CenterAndExpand"
+                                        Margin="0"
+                                        >
+                                    </Image>
+                                </Frame>
+
+                                <Frame Grid.Row="0"
+                                       Grid.Column="2"
+                                       CornerRadius="30"
+                                       IsClippedToBounds="True"
+                                       BackgroundColor="{Binding bubbleUser}"
+                                       HorizontalOptions="End"
+                                       IsVisible="{Binding QuestionVisibility}"
+                                       >
+                                    <Label  
+                                        Text="{Binding Question}"
+                                        TextColor="Black"
+                                        HorizontalOptions="End"
+                                        LineBreakMode="WordWrap"
+                                        VerticalTextAlignment="Center">
+                                    </Label>
+                                </Frame>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Entry  Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Placeholder="Mensaje"
+                        VerticalOptions="Center"
+                        x:Name="Question"/>
+
+                <Button Grid.Row="0"
+                        Grid.Column="3"
+                        Text="Enviar"
+                        VerticalOptions="Center" 
+                        BackgroundColor="White"
+                        TextColor="Black"
+                        BorderColor="Black"
+                        Clicked="Button_Clicked"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
