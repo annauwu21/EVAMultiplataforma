@@ -41,7 +41,7 @@ namespace App1
                 //Si las casillas estan llenas lo guardamos en variables
 
                 //Lo pasamos todo a LOWER CASE
-                var user = User.Text.ToLower();
+                var user = User.Text;
                 var pass = Pass.Text;
 
                 User u = await getAyncUser(user);

@@ -30,7 +30,7 @@ namespace App1
             try
             {
                 //Antes de insertar en la BD lo pasamos todo a LOWER CASE
-                string user = User.Text.ToLower();
+                string user = User.Text;
                 string pass = Pass.Text;
                 string pass2 = Pass2.Text;
 
@@ -89,8 +89,6 @@ namespace App1
                 StringContent contentConfiguration = new StringContent(jsonConfiguration, Encoding.UTF8, "application/json");
 
                 HttpResponseMessage responseConfiguration = null;
-
-                responseConfiguration = await client.PostAsync(uriConfiguration, contentConfiguration);
 
                 if (responseConfiguration.IsSuccessStatusCode)
                 {
