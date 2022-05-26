@@ -13,5 +13,14 @@ namespace APIEva.Models
         public string type { get; set; }
         public string timedate { get; set; }
 
+        public History(string n, string q, string r, string t, string d)
+        {
+            name_user = n;
+            question = q;
+            response = r;
+            type = t;
+            timedate = d;
+        }
+
     }
 }

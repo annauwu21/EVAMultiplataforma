@@ -1,5 +1,7 @@
 ﻿using APIEva.Models;
 using MySqlConnector;
+using APIEva.Models;
+using MySqlConnector;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -10,18 +12,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration.AndroidSpecific.AppCompat;
 using Xamarin.Forms.Xaml;
 
 namespace App1
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class InicioSession : ContentPage
+    public partial class Registrar : ContentPage
     {
         Cifrado cifrado = new Cifrado();
         HttpClient client;
-        public ImageSource ImageSource { get; private set; }
-        public InicioSession()
+        public Registrar()
         {
             InitializeComponent();
             client = new HttpClient();
@@ -29,66 +29,74 @@ namespace App1
 
         private void btnRegistrar_Clicked(object sender, EventArgs e)
         {
-            //Abrimos la ventana REGISTRAR
-            Registrar registrar = new Registrar();
-            this.Navigation.PushModalAsync(registrar);
-        }
+            try
+            {
+                //Antes de insertar en la BD lo pasamos todo a LOWER CASE
+                string user = User.Text;
+                string pass = Pass.Text;
+                string pass2 = Pass2.Text;
 
-        private async void btnIniciar_Clicked(object sender, EventArgs e)
-        {
 
-            if (!string.IsNullOrEmpty(User.Text) || !string.IsNullOrEmpty(Pass.Text)) {
-                //Si las casillas estan llenas lo guardamos en variables
-
-                //Lo pasamos todo a LOWER CASE
-                var user = User.Text.ToLower();
-                var pass = Pass.Text;
-
-                User u = await getAyncUser(user);
-
-                if (u.pass == cifrado.cifrar(pass))
+                if (!user.Equals("") && !pass.Equals("") && !pass2.Equals(""))
                 {
-                    Principal principal = new Principal(u.name_user);
-                    this.Navigation.PushModalAsync(principal);
+                    if (pass.Equals(pass2))
+                    {
+                        postAsyncUserConfiguration(user, cifrado.cifrar(pass));
+                    }
+                    else
+                    {
+                        DisplayAlert("Error", "Las dos contraseñas tiene que ser iguales", "Cerrar");
+
+                    }
                 }
                 else
                 {
-                    DisplayAlert("Error", "Datos erroneos", "Cerrar");
+                    DisplayAlert("Error", "Tienes que rellenar todos los datos", "Cerrar");
+                }
+            }
+            catch (MySqlException fex)
+            {
+                DisplayAlert("Error", "Problemas con la conexión: " + fex.Message, "Cerrar");
+            }
+        }
+
+        private async Task postAsyncUserConfiguration(string user, string pass)
+        {
+            JObject joUser = new JObject();
+            joUser.Add("name_user", user);
+            joUser.Add("pass", pass);
+
+            Uri uriUser = new Uri("https://apieva2022.azurewebsites.net/api/User");
+
+            string jsonUser = JsonConvert.SerializeObject(joUser);
+            StringContent contentUser = new StringContent(jsonUser, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage responseUser = null;
+
+            responseUser = await client.PostAsync(uriUser, contentUser);
+
+            if (responseUser.IsSuccessStatusCode)
+            {
+                JObject joconfiguration = new JObject();
+                joconfiguration.Add("name_user", user);
+                joconfiguration.Add("color", "purple");
+                joconfiguration.Add("showEva", "true");
+                joconfiguration.Add("showEmotions", "true");
+                joconfiguration.Add("sound", "true");
+                joconfiguration.Add("volume", "1.0");
+
+                Uri uriConfiguration = new Uri("https://apieva2022.azurewebsites.net/api/Configuration");
+
+                string jsonConfiguration = JsonConvert.SerializeObject(joconfiguration);
+                StringContent contentConfiguration = new StringContent(jsonConfiguration, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage responseConfiguration = null;
+
+                if (responseConfiguration.IsSuccessStatusCode)
+                {
+                    DisplayAlert("Mensaje", "Usuario Creado", "Cerrar");
                 }
 
-            }
-        }
-
-        private async Task<User> getAyncUser(string user_name)
-        {
-    
-            Uri uri = new Uri("https://apieva2022.azurewebsites.net/api/User/"+ user_name);
-
-            HttpResponseMessage response = await client.GetAsync(uri);
-
-            if (response.IsSuccessStatusCode)
-            {
-                
-                string content = await response.Content.ReadAsStringAsync();
-                User u = JsonConvert.DeserializeObject<User>(content);
-
-                return u;
-                
-            }
-            return null;
-
-        }
-
-        private void comprobarbtn()
-        {
-
-            if (!string.IsNullOrEmpty(User.Text) || !string.IsNullOrEmpty(Pass.Text))
-            {
-                btnInicarSessio.IsEnabled = true; //Mostrem el boto iniciar sessio
-            }
-            else
-            {
-                btnInicarSessio.IsEnabled = false;
             }
         }
 
@@ -96,6 +104,53 @@ namespace App1
         {
             User.Text = "";
             Pass.Text = "";
+            Pass2.Text = "";
+        }
+
+        public Boolean comprobarUsuari(String nom)
+        {
+            Boolean ok = false;
+            MySqlDataReader reader = null;
+
+            if (!nom.Equals(""))
+            {
+                string select = "SELECT * FROM usuaris WHERE nom LIKE '" + nom + "';";
+                MySqlConnection conexionBD = Conexion.conexion();
+                conexionBD.Open();
+
+                try
+                {
+                    MySqlCommand comando = new MySqlCommand(select, conexionBD);
+                    reader = comando.ExecuteReader();
+                    if (reader.HasRows) //Si reader encuentra algo
+                    {
+                        ok = true;
+                    }
+                    else
+                    {
+                        DisplayAlert("Error", "No s'ha trobat cap usuari amb el nom: " + nom, "Cerrar");
+                        ok = false;
+                    }
+                }
+                catch (MySqlException ex)
+                {
+
+                    DisplayAlert("Error", "No s'ha pogut cercar l'usuari " + ex.Message, "Cerrar");
+
+                }
+                finally
+                {
+                    conexionBD.Close();
+                }
+            }
+            return ok;
+        }
+
+        private void btnCerrar_Clicked(object sender, EventArgs e)
+        {
+            //Vamos a la ventana de IniciarSession
+            InicioSession ic = new InicioSession();
+            this.Navigation.PushModalAsync(ic);
         }
     }
 }
