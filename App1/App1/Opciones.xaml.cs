@@ -321,6 +321,19 @@ namespace App1
         private void TapGestureRecognizer_Tapped_6(object sender, EventArgs e)
         {
 
+            string show = showEva.IsToggled.ToString();
+            show = show.ToLower();
+
+            string emotions = emotionsEva.IsToggled.ToString();
+            emotions = emotions.ToLower();
+
+            string sounds = sonidos.IsToggled.ToString();
+            sounds = sounds.ToLower();
+
+            string volum = volume.Value.ToString();
+
+            putConfigurationAsync(color, show, emotions, sounds, volum);
+
             Principal principal = new Principal(Detail.user_name);
             this.Navigation.PushModalAsync(principal);
         }
@@ -357,22 +370,6 @@ namespace App1
             conexionBD.Open();
             comando.ExecuteNonQuery();
             conexionBD.Close();
-        }
-
-        private void Button_Clicked_4(object sender, EventArgs e)
-        {
-            string show = showEva.IsToggled.ToString();
-            show = show.ToLower();
-
-            string emotions = emotionsEva.IsToggled.ToString();
-            emotions = emotions.ToLower();
-
-            string sounds = sonidos.IsToggled.ToString();
-            sounds = sounds.ToLower();
-
-            string volum = volume.Value.ToString();
-
-            putConfigurationAsync(color, show, emotions, sounds, volum);
         }
     }
 }

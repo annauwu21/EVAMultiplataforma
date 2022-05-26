@@ -1,7 +1,5 @@
 ﻿using APIEva.Models;
 using MySqlConnector;
-using APIEva.Models;
-using MySqlConnector;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -24,7 +22,7 @@ namespace App1
         public Registrar()
         {
             InitializeComponent();
-            client = new HttpClient();
+            client = new HttpClient ();
         }
 
         private void btnRegistrar_Clicked(object sender, EventArgs e)
@@ -32,7 +30,7 @@ namespace App1
             try
             {
                 //Antes de insertar en la BD lo pasamos todo a LOWER CASE
-                string user = User.Text;
+                string user = User.Text.ToLower();
                 string pass = Pass.Text;
                 string pass2 = Pass2.Text;
 
@@ -46,7 +44,7 @@ namespace App1
                     else
                     {
                         DisplayAlert("Error", "Las dos contraseñas tiene que ser iguales", "Cerrar");
-
+                      
                     }
                 }
                 else
@@ -56,7 +54,7 @@ namespace App1
             }
             catch (MySqlException fex)
             {
-                DisplayAlert("Error", "Problemas con la conexión: " + fex.Message, "Cerrar");
+                DisplayAlert("Error", "Problemas con la conexión: " +fex.Message, "Cerrar");
             }
         }
 
@@ -92,11 +90,13 @@ namespace App1
 
                 HttpResponseMessage responseConfiguration = null;
 
+                responseConfiguration = await client.PostAsync(uriConfiguration, contentConfiguration);
+
                 if (responseConfiguration.IsSuccessStatusCode)
                 {
                     DisplayAlert("Mensaje", "Usuario Creado", "Cerrar");
                 }
-
+                    
             }
         }
 
