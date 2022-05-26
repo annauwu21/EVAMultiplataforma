@@ -308,6 +308,25 @@ namespace App1
             return null;
         }
 
+        private async Task putHistoryAsync(string user_name, string question, string response, string type)
+        {
+            JObject joHistory = new JObject();
+            joHistory.Add("name_user", user_name);
+            joHistory.Add("question", question);
+            joHistory.Add("response", response);
+            joHistory.Add("timedate", "");
+            joHistory.Add("type", type);
+
+            Uri uriHistory = new Uri("https://apieva2022.azurewebsites.net/api/History");
+
+            string jsonHistory = JsonConvert.SerializeObject(joHistory);
+            StringContent contentHistory = new StringContent(jsonHistory, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage responseConfiguration = null;
+
+            responseConfiguration = await client.PostAsync(uriHistory, contentHistory);
+        }
+
         private async void Button_Clicked(object sender, EventArgs e) 
         {
           
@@ -380,6 +399,8 @@ namespace App1
                             {
                                 Chat Spacechat = new Chat(question, response, "", false, false, true, bubbleEva, bubbleUser); //<- Crear un chat de texto de respuesta
                                 historial.Add(Spacechat); //<- Añadir el chat al historial
+
+                                putHistoryAsync(user_name, question, response, "text");
                             }
                             else
                             {
@@ -388,17 +409,11 @@ namespace App1
 
                                 Chat Spacechat = new Chat(question, response, "", false, false, true, bubbleEva, bubbleUser); //<- Crear un chat de texto de respuesta
                                 historial.Add(Spacechat); //<- Añadir el chat al historial
+
+                                putHistoryAsync(user_name, question, response, "text");
                             }
 
-                            /*string sql = "INSERT INTO history (user, question, response, tipe) VALUES ('" + user + "', '" + question + "', '" + response + "', 'text')";
-
-                            MySqlConnection conexionBD = Conexion.conexion();
-                            conexionBD.Open();
-
-                            MySqlCommand comando = new MySqlCommand(sql, conexionBD);
-                            comando.ExecuteNonQuery();
-
-                            conexionBD.Close();*/
+                            
 
                             Console.WriteLine("Respuesta (texto): " + response); //<- Imprimir por consola la respuesta de Eva (mensaje)
                             break;
@@ -410,6 +425,8 @@ namespace App1
                             {
                                 Chat Imagechat = new Chat(question, "", source, true, false, false, bubbleEva, bubbleUser); //<- Crear un chat con imagen de respuesta.
                                 historial.Add(Imagechat); //<- Añadir el chat al historial
+
+                                putHistoryAsync(user_name, question, source, "image");
                             }
                             else
                             {
@@ -419,18 +436,12 @@ namespace App1
                                 Chat Spacechat2 = new Chat(question, "", source, true, false, false, bubbleEva, bubbleUser); //<- Crear un chat con imagen de respuesta.
                                 historial.Add(Spacechat2); //<- Añadir el chat al historial
 
+                                putHistoryAsync(user_name, question, source, "image");
+
                                 //cv.ScrollTo(Spacechat2, position: ScrollToPosition.MakeVisible);
                             }
 
-                            /*string sql1 = "INSERT INTO history (user, question, response, tipe) VALUES ('" + user + "', '" + question + "', '" + source + "', 'image')";
-
-                            MySqlConnection conexionBD1 = Conexion.conexion();
-                            conexionBD1.Open();
-
-                            MySqlCommand comando1 = new MySqlCommand(sql1, conexionBD1);
-                            comando1.ExecuteNonQuery();
-
-                            conexionBD1.Close();*/
+                            
 
                             Console.WriteLine("Respuesta (imagen): " + source); //<- Imprimir por consola la respuesta de Eva (url de la imagen)
                             break;
