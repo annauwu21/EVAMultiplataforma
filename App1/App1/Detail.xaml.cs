@@ -212,13 +212,15 @@ namespace App1
             jo.Add("name_user", user_name);
             jo.Add("question", question);
             jo.Add("response", r);
-            jo.Add("timedate", "");
+            //jo.Add("timedate", "");
             jo.Add("type", type);
 
             string json = JsonConvert.SerializeObject(jo);
-            StringContent contentConfiguration = new StringContent(json, Encoding.UTF8, "application/json");
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = null;
+
+            response = await client.PostAsync(uri, content);
 
             if (response.IsSuccessStatusCode)
             {
