@@ -62,165 +62,14 @@ namespace App1
             user_name = u;
 
             loadConfigurationsAsync();
-
-            /*
-
-            //Buscar por el usuario las configuraciones:
-            string select = "SELECT * FROM configurations WHERE user LIKE '" + user + "' LIMIT 1"; //<- Sentencía sql
-
-            MySqlConnection conexionBD = Conexion.conexion(); //<- Crear connexión
-            conexionBD.Open(); //<- Abrir la conexión
-
-            MySqlCommand comando = new MySqlCommand(select, conexionBD); //<- Executar sentencía
-
-            MySqlDataReader reader = null; //<- Crear reader
-            reader = comando.ExecuteReader(); //<- Ejecutar reader
-
-            //Si reader encuentra algo:
-            if (reader.HasRows) 
-            {
-                //Leer lineas:
-                while (reader.Read())
-                {
-                    //Cambiar los colores dependiendo de las configuraciones del usuario:
-                    switch (reader.GetString("color"))
-                    {
-                        case "purple":
-                            bubbleEva = Color.FromHex("#6656bc");
-                            bubbleUser = Color.FromHex("#d1cedd");
-                            break;
-                        case "green":
-                            bubbleEva = Color.FromHex("#bae860");
-                            bubbleUser = Color.FromHex("#d8ed96");
-                        break;
-                        case "white":
-                            bubbleEva = Color.FromHex("#e5c6db");
-                            bubbleUser = Color.FromHex("#d6d3d6");
-                            break;
-                        case "black":
-                            bubbleEva = Color.FromHex("#30383a");
-                            bubbleUser = Color.FromHex("#666d70");
-                            break;
-                        case "red":
-                            bubbleEva = Color.FromHex("#f43f4f");
-                            bubbleUser = Color.FromHex("#f9b2b7");
-                        break;
-                        case "blue":
-                            bubbleEva = Color.FromHex("#75b2dd");
-                            bubbleUser = Color.FromHex("#c4d8e2");
-                        break;
-                    }
-
-                    //Cambiar la configuraciones de Eva según el usuario:
-                    if (reader.GetString("showEVA") == "true")
-                    {
-                        cp.BackgroundImageSource = "https://i.pinimg.com/originals/d8/6f/92/d86f92c6e76d5a4a84dcb779fb6b6447.jpg";
-                        showEva = true;
-                    }
-                    else
-                    {
-                        cp.BackgroundImageSource = "";
-                        showEva = false;
-                    }
-                    if (reader.GetString("showEmotions") == "true")
-                    {
-                        showEmotions = true;
-                    }
-                    else
-                    {
-                        showEmotions = false;
-                    }
-                    if (reader.GetString("sound") == "true")
-                    {
-                        sound = true;
-                    }
-                    else
-                    {
-                        sound = false;
-                    }
-
-                    volume = float.Parse(reader.GetString("volume"));
-                }
-            }
-            reader.Close();
-            conexionBD.Close(); //<- Cerrar la conexión
-
-            historial.Clear(); //<- borrar el historial de esta sessión
-
-           //Buscar por el usuario el historial:
-           string selectHistory = "SELECT * FROM history WHERE user LIKE '" + u + "' ORDER BY timedate ASC"; //<- Sentencía sql
-           MySqlConnection conexionBDHistory = Conexion.conexion(); //<- Crear connexión
-           conexionBDHistory.Open(); //<- Abrir la conexión
-
-           MySqlCommand comandoHistory = new MySqlCommand(selectHistory, conexionBDHistory); //<- Executar sentencía
-
-           MySqlDataReader readerHistory = null; //<- Crear reader
-           readerHistory = comandoHistory.ExecuteReader(); //<- Ejecutar reader
-
-           String q = "";
-           //Si reader encuentra algo:
-           if (readerHistory.HasRows)
-           {
-               //Leer lineas:
-               while (readerHistory.Read())
-               {
-
-                   switch (readerHistory.GetString("tipe"))
-                   {
-
-                       case "text":
-
-                           //Si la respuesta de Eva es más de una, solo mostrar la pregunta una vez.
-                           if (q == readerHistory.GetString("question"))
-                           {
-                               //DisplayAlert("Error", q, "Cerrar");
-                               //DisplayAlert("Error", readerHistory.GetString("question"), "Cerrar");
-                               Chat Spacechat = new Chat(readerHistory.GetString("question"), readerHistory.GetString("response"), "", false, false, true, bubbleEva, bubbleUser); //<- Crear un chat de texto de respuesta
-                               historial.Add(Spacechat); //<- Añadir el chat al historial
-                           }
-                           else
-                           {
-                               Chat Textchat = new Chat(readerHistory.GetString("question"), readerHistory.GetString("response"), "", false, true, false, bubbleEva, bubbleUser); //<- Crear un chat con la pregunta del usuario
-                               historial.Add(Textchat); //<- Añadir el chat al historial
-
-                               Chat Spacechat = new Chat(readerHistory.GetString("question"), readerHistory.GetString("response"), "", false, false, true, bubbleEva, bubbleUser); //<- Crear un chat de texto de respuesta
-                               historial.Add(Spacechat); //<- Añadir el chat al historial
-
-                           }
-
-                           break;
-                       case "image":
-
-                           //Si la respuesta de Eva es más de una, solo mostrar la pregunta una vez.
-                           if (q == readerHistory.GetString("question"))
-                           {
-                               Chat Imagechat = new Chat(readerHistory.GetString("question"), "", readerHistory.GetString("response"), true, false, false, bubbleEva, bubbleUser); //<- Crear un chat con imagen de respuesta.
-                               historial.Add(Imagechat); //<- Añadir el chat al historial
-                           }
-                           //else
-                           {
-                               Chat Imagechat = new Chat(readerHistory.GetString("question"), "", readerHistory.GetString("response"), false, true, false, bubbleEva, bubbleUser); //<- Crear un chat con la pregunta del usuario.
-                               historial.Add(Imagechat); //<- Añadir el chat al historial
-
-                               Chat Spacechat2 = new Chat(readerHistory.GetString("question"), "", readerHistory.GetString("response"), true, false, false, bubbleEva, bubbleUser); //<- Crear un chat con imagen de respuesta.
-                               historial.Add(Spacechat2); //<- Añadir el chat al historial
-
-                               //cv.ScrollTo(Spacechat2, position: ScrollToPosition.MakeVisible);
-                           }
-                           break;
-                   }
-                   q = readerHistory.GetString("question");
-               }
-           }
-           readerHistory.Close();
-           conexionBDHistory.Close();
+            loadHistoryAsync();
 
             //Cambiar los colores de los chats ya hablados.
             foreach (var chat in historial)
             {
                 chat.bubbleEva = this.bubbleEva;
                 chat.bubbleUser = this.bubbleUser;
-            }*/
+            }
 
             //Cargar los chats de esta sessión:
             cv.ItemsSource = historial;
@@ -287,6 +136,50 @@ namespace App1
                     bubbleUser = Color.FromHex("#c4d8e2");
                     break;
             }
+        }
+
+        private async Task loadHistoryAsync()
+        {
+            List<History> list = await getHistoryAsyc(user_name);
+           
+            foreach (History h in list) {
+                switch (h.type)
+                {
+
+                    case "text": 
+                        Chat Textchat = new Chat(h.question, h.response, "", false, true, false, bubbleEva, bubbleUser); //<- Crear un chat con la pregunta del usuario
+                        historial.Add(Textchat); //<- Añadir el chat al historial
+
+                        Chat Spacechat = new Chat(h.question, h.response, "", false, false, true, bubbleEva, bubbleUser); //<- Crear un chat de texto de respuesta
+                        historial.Add(Spacechat); //<- Añadir el chat al historial
+                        break;
+                    case "image":
+                        Chat Imagechat = new Chat(h.question, "", h.response, false, true, false, bubbleEva, bubbleUser); //<- Crear un chat con la pregunta del usuario.
+                        historial.Add(Imagechat); //<- Añadir el chat al historial
+
+                        Chat Spacechat2 = new Chat(h.question, "", h.response, true, false, false, bubbleEva, bubbleUser); //<- Crear un chat con imagen de respuesta.
+                        historial.Add(Spacechat2); //<- Añadir el chat al historial
+                        break;
+                }
+            }
+        }
+
+        private async Task<List<History>> getHistoryAsyc(string user_name)
+        {
+            Uri uri = new Uri("https://apieva2022.azurewebsites.net/api/History/" + user_name);
+
+            HttpResponseMessage response = await client.GetAsync(uri);
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                string content = await response.Content.ReadAsStringAsync();
+                List<History> list = JsonConvert.DeserializeObject<List<History>>(content);  
+
+                return list;
+
+            }
+            return null;
         }
 
         private async Task<Configuration> getConfigurationsAsync()
