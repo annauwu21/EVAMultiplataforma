@@ -64,13 +64,6 @@ namespace App1
             loadConfigurationsAsync();
             loadHistoryAsync();
 
-            //Cambiar los colores de los chats ya hablados.
-            foreach (var chat in historial)
-            {
-                chat.bubbleEva = this.bubbleEva;
-                chat.bubbleUser = this.bubbleUser;
-            }
-
             //Cargar los chats de esta sessión:
             cv.ItemsSource = historial;
 
@@ -136,6 +129,12 @@ namespace App1
                     bubbleUser = Color.FromHex("#c4d8e2");
                     break;
             }
+            //Cambiar los colores de los chats ya hablados.
+            foreach (var chat in historial)
+            {
+                chat.bubbleEva = this.bubbleEva;
+                chat.bubbleUser = this.bubbleUser;
+            }
         }
 
         private async Task loadHistoryAsync()
@@ -162,6 +161,7 @@ namespace App1
                         break;
                 }
             }
+            cv.ItemsSource = historial;
         }
 
         private async Task<List<History>> getHistoryAsyc(string user_name)
