@@ -57,6 +57,16 @@ namespace App1
 
         }
 
+        private async Task deleteHistoryAsync()
+        {
+            Uri uri = new Uri("https://apieva2022.azurewebsites.net/api/History/" + Detail.user_name);
+            HttpResponseMessage response = await client.DeleteAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                DisplayAlert("Error", "Hisotrial borrado correctamente.", "Cerrar");
+            }
+        }
+
         private async Task<Configuration> getConfigurationsAsync()
         {
 
@@ -333,13 +343,8 @@ namespace App1
 
         private void Button_Clicked_1(object sender, EventArgs e)
         {
-            string delete = "DELETE history WHERE user LIKE '" + Detail.user_name + "';";
-            
-            MySqlConnection conexionBD = Conexion.conexion();
-            MySqlCommand comando = new MySqlCommand(delete, conexionBD);
-            conexionBD.Open();
-            comando.ExecuteNonQuery();
-            conexionBD.Close();
+            deleteHistoryAsync();
+
         }
 
         private void Button_Clicked_2(object sender, EventArgs e)
