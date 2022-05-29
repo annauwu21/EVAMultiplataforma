@@ -46,15 +46,23 @@ namespace App1
 
                 User u = await getAyncUser(user);
 
-                if (u.pass == cifrado.cifrar(pass))
+                if (u != null)
                 {
-                    Principal principal = new Principal(u.name_user);
-                    this.Navigation.PushModalAsync(principal);
+                    if (u.pass == cifrado.cifrar(pass))
+                    {
+                        Principal principal = new Principal(u.name_user);
+                        this.Navigation.PushModalAsync(principal);
+                    }
+                    else
+                    {
+                        DisplayAlert("Error", "Datos erroneos", "Cerrar");
+                    }
                 }
                 else
                 {
                     DisplayAlert("Error", "Datos erroneos", "Cerrar");
                 }
+              
 
             }
         }

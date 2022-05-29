@@ -67,6 +67,16 @@ namespace App1
             }
         }
 
+        private async Task deleteUserAsync()
+        {
+            Uri uri = new Uri("https://apieva2022.azurewebsites.net/api/User/" + Detail.user_name);
+            HttpResponseMessage response = await client.DeleteAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                DisplayAlert("Error", "Usuario borrado correctamente.", "Cerrar");
+            }
+        }
+
         private async Task<Configuration> getConfigurationsAsync()
         {
 
@@ -355,13 +365,9 @@ namespace App1
 
         private void Button_Clicked_3(object sender, EventArgs e)
         {
-            string delete = "DELETE user WHERE user LIKE '" + Detail.user_name + "';";
-
-            MySqlConnection conexionBD = Conexion.conexion();
-            MySqlCommand comando = new MySqlCommand(delete, conexionBD);
-            conexionBD.Open();
-            comando.ExecuteNonQuery();
-            conexionBD.Close();
+            deleteUserAsync();
+            InicioSession s = new InicioSession();
+            this.Navigation.PushModalAsync(s);
         }
 
         private void Button_Clicked_4(object sender, EventArgs e)
