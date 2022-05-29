@@ -320,6 +320,7 @@ namespace App1
 
         private void TapGestureRecognizer_Tapped_6(object sender, EventArgs e)
         {
+            Detail.historial.Clear();
             Principal principal = new Principal(Detail.user_name);
             this.Navigation.PushModalAsync(principal);
         }

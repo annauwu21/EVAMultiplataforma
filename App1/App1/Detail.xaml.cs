@@ -52,9 +52,10 @@ namespace App1
 
         public Detail(string u)
         {
+            //historial.Clear();
             InitializeComponent();
 
-            NavigationPage.SetHasBackButton(this, false);
+            //NavigationPage.SetHasBackButton(this, false);
 
             client = new HttpClient();
 
@@ -65,7 +66,7 @@ namespace App1
             loadHistoryAsync();
 
             //Cargar los chats de esta sessión:
-            cv.ItemsSource = historial;
+            cv.ItemsSource = "";
 
         }
 
@@ -129,19 +130,14 @@ namespace App1
                     bubbleUser = Color.FromHex("#c4d8e2");
                     break;
             }
-            //Cambiar los colores de los chats ya hablados.
-            foreach (var chat in historial)
-            {
-                chat.bubbleEva = this.bubbleEva;
-                chat.bubbleUser = this.bubbleUser;
-            }
+           
         }
 
         private async Task loadHistoryAsync()
         {
-            List<History> list = await getHistoryAsyc(user_name);
+            var list = await getHistoryAsyc(user_name);
            
-            foreach (History h in list) {
+            foreach (var h in list) {
                 switch (h.type)
                 {
 
@@ -161,6 +157,12 @@ namespace App1
                         break;
                 }
             }
+            //Cambiar los colores de los chats ya hablados.
+            foreach (var chat in historial)
+            {
+                chat.bubbleEva = this.bubbleEva;
+                chat.bubbleUser = this.bubbleUser;
+            }
             cv.ItemsSource = historial;
         }
 
@@ -174,7 +176,7 @@ namespace App1
             {
 
                 string content = await response.Content.ReadAsStringAsync();
-                List<History> list = JsonConvert.DeserializeObject<List<History>>(content);  
+                var list = JsonConvert.DeserializeObject<List<History>>(content);  
 
                 return list;
 
@@ -383,12 +385,6 @@ namespace App1
             }
         }
 
-        protected override void OnAppearing()
-        {
-            int scroll = historial.Count()+1;
-            cv.ScrollTo(scroll, null, ScrollToPosition.End, false);
-
-        }
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
             Opciones principal = new Opciones();
