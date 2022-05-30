@@ -2,8 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:converters="clr-namespace:App1"
              x:Class="App1.Detail"
-             x:Name="cp"
-             NavigationPage.HasNavigationBar="false">
+             x:Name="cp">
 
     <ContentPage.Content>
         <StackLayout>

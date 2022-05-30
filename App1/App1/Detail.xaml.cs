@@ -52,10 +52,7 @@ namespace App1
 
         public Detail(string u)
         {
-            //historial.Clear();
             InitializeComponent();
-
-            //NavigationPage.SetHasBackButton(this, false);
 
             client = new HttpClient();
 
