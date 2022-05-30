@@ -365,6 +365,7 @@ namespace App1
 
         private void Button_Clicked_3(object sender, EventArgs e)
         {
+            Detail.historial.Clear();
             deleteUserAsync();
             InicioSession s = new InicioSession();
             this.Navigation.PushModalAsync(s);

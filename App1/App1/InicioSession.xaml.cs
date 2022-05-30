@@ -50,6 +50,7 @@ namespace App1
                 {
                     if (u.pass == cifrado.cifrar(pass))
                     {
+                        Detail.historial.Clear();
                         Principal principal = new Principal(u.name_user);
                         this.Navigation.PushModalAsync(principal);
                     }
