@@ -93,6 +93,7 @@ namespace App1
 
                 responseConfiguration = await client.PostAsync(uriConfiguration, contentConfiguration);
 
+                //Leer respueta del post como hacemos en los get, para asi mostrar mensajes de error
                 if (responseConfiguration.IsSuccessStatusCode)
                 {
                     DisplayAlert("Mensaje", "Usuario Creado", "Cerrar");

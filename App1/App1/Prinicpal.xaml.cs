@@ -23,7 +23,7 @@ namespace App1
             //Metemos la pagina principal
             this.Detail = new NavigationPage(new Detail(user))
             {
-                BarBackgroundColor = Color.FromHex("#a5a0d6"),
+                BarBackgroundColor = Color.FromHex("#6656bc"),
                 BarTextColor = Color.White,
             };
 
