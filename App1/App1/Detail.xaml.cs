@@ -29,18 +29,25 @@ namespace App1
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Detail : ContentPage
     {
+        //Variables creacion session con APi-Watson
+        //Crear la autentificación con nuestra ApiKey:
+        static IamAuthenticator authenticator = new IamAuthenticator(apikey: "_DPGYFyIP4aUykVS53B4JFawtz261nvV4l9GGLUuN4eb");
+
+        //Crear el asistente:
+        static AssistantService assistant = assistant = new AssistantService("2021-06-14", authenticator); //<- Versión y autentificador
+
+        //Crear la sesión con el assistantID:
+        //var jsonSession = null;
+
+        //Convertir json (de sessionID) a objeto:
+        static Session session = null;
+
         HttpClient client;
 
         public static string user_name { get; private set; } //<- Guardar el usuario conectado para aplicar las configuraciones
-
-
         public static List<Chat> historial = new List<Chat>(); //<- Lista para guardar los chats (preguntas y respuestas)
-
-
         public Color bubbleEva { get; private set; } //<- Guardar el color de fondo de Eva.
         public Color bubbleUser{ get; private set; } //<- Guardar el color de fondo del usuario.
-
-
         //Guardar la configuracines de Eva:
         public bool showEva { get; private set; }
         public bool showEmotions { get; private set; }
@@ -64,6 +71,17 @@ namespace App1
 
             //Cargar los chats de esta sessión:
             cv.ItemsSource = "";
+
+            //Creamos asistente y session
+
+            assistant.SetServiceUrl("https://api.eu-de.assistant.watson.cloud.ibm.com"); //<- URL del servicio 
+            assistant.DisableSslVerification(true); //<- Desabilitar verificación SSL
+
+            //Crear la sesión con el assistantID:
+            var jsonSession = assistant.CreateSession(assistantId: "7ca45e38-0155-4856-8c0b-86e574c514b6");
+
+            //Convertir json (de sessionID) a objeto:
+            session = JsonConvert.DeserializeObject<Session>(jsonSession.Response.ToString());
 
         }
 
@@ -137,7 +155,6 @@ namespace App1
             foreach (var h in list) {
                 switch (h.type)
                 {
-
                     case "text": 
                         Chat Textchat = new Chat(h.question, h.response, "", false, true, false, bubbleEva, bubbleUser); //<- Crear un chat con la pregunta del usuario
                         historial.Add(Textchat); //<- Añadir el chat al historial
@@ -171,7 +188,6 @@ namespace App1
 
             if (response.IsSuccessStatusCode)
             {
-
                 string content = await response.Content.ReadAsStringAsync();
                 var list = JsonConvert.DeserializeObject<List<History>>(content);  
 
@@ -189,7 +205,7 @@ namespace App1
             HttpResponseMessage response = await client.GetAsync(uri);
 
             if (response.IsSuccessStatusCode)
-            {
+            { 
 
                 string content = await response.Content.ReadAsStringAsync();
                 Configuration c = JsonConvert.DeserializeObject<Configuration>(content);
@@ -226,20 +242,6 @@ namespace App1
 
             try
             {
-                //Crear la autentificación con nuestra ApiKey:
-                IamAuthenticator authenticator = new IamAuthenticator(apikey: "_DPGYFyIP4aUykVS53B4JFawtz261nvV4l9GGLUuN4eb");
-
-                //Crear el asistente:
-                AssistantService assistant = new AssistantService("2021-06-14", authenticator); //<- Versión y autentificador
-                assistant.SetServiceUrl("https://api.eu-de.assistant.watson.cloud.ibm.com"); //<- URL del servicio 
-                assistant.DisableSslVerification(true); //<- Desabilitar verificación SSL
-
-                //Crear la sesión con el assistantID:
-                var jsonSession = assistant.CreateSession(assistantId: "7ca45e38-0155-4856-8c0b-86e574c514b6");
-
-                //Convertir json (de sessionID) a objeto:
-                Session session = JsonConvert.DeserializeObject<Session>(jsonSession.Response.ToString());
-              
                 //Mandar el mensaje a Eva:
                 var jsonResponse = assistant.Message(
                     assistantId: "7ca45e38-0155-4856-8c0b-86e574c514b6", //<- assistantID
@@ -333,8 +335,6 @@ namespace App1
                                 //cv.ScrollTo(Spacechat2, position: ScrollToPosition.MakeVisible);
                             }
 
-                            
-
                             Console.WriteLine("Respuesta (imagen): " + source); //<- Imprimir por consola la respuesta de Eva (url de la imagen)
                             break;
                     }
@@ -363,7 +363,7 @@ namespace App1
                 cv.ItemsSource = "";
 
                 //Imprimir por consola:
-                Console.WriteLine(jsonSession.Response); //<- sessionID (json)
+                //Console.WriteLine(jsonSession.Response); //<- sessionID (json)
                 Console.WriteLine("Session ID: " + session); //<- sessionID (limpio)
                 Console.WriteLine("Mensaje introducido: " + question); //<- mensaje que envia el usuario
                 Console.WriteLine(jsonResponse.Response); //<- respuesta de Eva (json)
