@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace App1.Logica
+namespace App1
 {
     internal class Cifrado
     {
@@ -13,10 +13,10 @@ namespace App1.Logica
         public string cifrar(string cadena)
         {
             byte[] llave; //Arreglo donde guardaremos la llave para el cifrado 3DES.
-            byte[] arreglo = Encoding.UTF8.GetBytes(cadena); //Arreglo donde guardaremos la cadena descifrada.
+            byte[] arreglo = UTF8Encoding.UTF8.GetBytes(cadena); //Arreglo donde guardaremos la cadena descifrada.
             // Ciframos utilizando el Algoritmo MD5.
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-            llave = md5.ComputeHash(Encoding.UTF8.GetBytes(clave));
+            llave = md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(clave));
             md5.Clear();
             //Ciframos utilizando el Algoritmo 3DES.
             TripleDESCryptoServiceProvider tripledes = new TripleDESCryptoServiceProvider();
@@ -36,7 +36,7 @@ namespace App1.Logica
             byte[] arreglo = Convert.FromBase64String(cadena); // Arreglo donde guardaremos la cadena descovertida.
             // Ciframos utilizando el Algoritmo MD5.
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-            llave = md5.ComputeHash(Encoding.UTF8.GetBytes(clave));
+            llave = md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(clave));
             md5.Clear();
             //Ciframos utilizando el Algoritmo 3DES.
             TripleDESCryptoServiceProvider tripledes = new TripleDESCryptoServiceProvider();
@@ -46,7 +46,7 @@ namespace App1.Logica
             ICryptoTransform convertir = tripledes.CreateDecryptor();
             byte[] resultado = convertir.TransformFinalBlock(arreglo, 0, arreglo.Length);
             tripledes.Clear();
-            string cadena_descifrada = Encoding.UTF8.GetString(resultado); // Obtenemos la cadena
+            string cadena_descifrada = UTF8Encoding.UTF8.GetString(resultado); // Obtenemos la cadena
             return cadena_descifrada; // Devolvemos la cadena
         }
 

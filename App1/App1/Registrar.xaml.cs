@@ -1,5 +1,4 @@
 ﻿using APIEva.Models;
-using App1.Logica;
 using MySqlConnector;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -108,7 +107,6 @@ namespace App1
             Pass2.Text = "";
         }
 
-        /*
         public Boolean comprobarUsuari(String nom)
         {
             Boolean ok = false;
@@ -147,7 +145,6 @@ namespace App1
             }
             return ok;
         }
-        */
 
         private void btnCerrar_Clicked(object sender, EventArgs e)
         {
