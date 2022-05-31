@@ -381,8 +381,9 @@ namespace App1
 
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
-            Opciones principal = new Opciones();
-            this.Navigation.PushModalAsync(principal);
+            NavigationPage opciones = new NavigationPage(new Opciones());
+            this.Navigation.PushModalAsync(opciones);
+      
         }
     }
 }

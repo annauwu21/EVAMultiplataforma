@@ -4,22 +4,19 @@
              x:Class="App1.Opciones"
              HeightRequest="1000"
              WidthRequest="1000">
+    <NavigationPage.TitleView >
+        <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="20,0,0,0" Spacing="0">
+            <ImageButton Source="https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/ChevronLeft-256.png"
+                         HorizontalOptions="Start"
+                         VerticalOptions="Center"
+                         HeightRequest="25"
+                         WidthRequest="25"/>
+            <Label Text="Eva" TextColor="Black" FontSize="25" VerticalTextAlignment="Center"></Label>
+        </StackLayout>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Margin="20">
-                <Label
-                        Text="EVA"
-                        TextColor= "black"
-                        HorizontalOptions="Start"
-                        FontSize="30"
-                        VerticalTextAlignment="Center">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_6"
-                                              NumberOfTapsRequired="1">
-
-                        </TapGestureRecognizer>
-                    </Label.GestureRecognizers>
-                </Label>
                 <Label 
                         Text="Opciones"
                         TextColor= "black"

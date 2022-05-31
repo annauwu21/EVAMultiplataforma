@@ -24,7 +24,6 @@ namespace App1
         public Opciones()
         {
             InitializeComponent();
-
             client = new HttpClient();
 
             user_name = Detail.user_name;

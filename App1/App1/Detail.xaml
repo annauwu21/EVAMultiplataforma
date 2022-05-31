@@ -4,11 +4,10 @@
              x:Class="App1.Detail"
              x:Name="cp">
     <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/MoreHorizontal-256.png" Clicked="ToolbarItem_Clicked"/>
+        <ToolbarItem IconImageSource="https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/MoreHorizontal-256.png" Priority="0" Order="Primary" Clicked="ToolbarItem_Clicked"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
- 
             <CollectionView Grid.Row="0"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
