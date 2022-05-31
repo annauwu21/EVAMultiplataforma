@@ -21,7 +21,13 @@ namespace App1
             //Metemos el menu desplegable lateral
             this.Master = new Master();
             //Metemos la pagina principal
-            this.Detail = new NavigationPage(new Detail(user));
+            this.Detail = new NavigationPage(new Detail(user))
+            {
+                BarBackgroundColor = Color.FromHex("#a5a0d6"),
+                BarTextColor = Color.White,
+            };
+
+           
         }
     }
 }

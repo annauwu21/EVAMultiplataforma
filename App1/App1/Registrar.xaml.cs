@@ -39,6 +39,7 @@ namespace App1
                 {
                     if (pass.Equals(pass2))
                     {
+     
                         postAsyncUserConfiguration(user, cifrado.cifrar(pass));
                     }
                     else

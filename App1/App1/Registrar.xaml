@@ -11,7 +11,7 @@
                FontAttributes="Bold"
                FontSize="30"
                HorizontalTextAlignment="Center"
-               TextColor="#565168"/>
+               TextColor="#a5a0d6"/>
             <Entry Placeholder="Usuario" x:Name="User"
                Keyboard="Text"/>
             <Entry Placeholder="Contraseña" x:Name="Pass"
@@ -19,9 +19,9 @@
             <Entry Placeholder="Contraseña" x:Name="Pass2"
                Keyboard="Text" IsPassword="True"/>
             <Button Text="Registrar-se" Clicked="btnRegistrar_Clicked"
-                BackgroundColor="DarkMagenta" x:Name="btnRegistrar"/>
+                BackgroundColor="#a5a0d6" x:Name="btnRegistrar"/>
             <Button Text="Cerrar" Clicked="btnCerrar_Clicked"
-                BackgroundColor="DarkRed" x:Name="btnCerrar"/>
+                BackgroundColor="#f9b2b7" x:Name="btnCerrar"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

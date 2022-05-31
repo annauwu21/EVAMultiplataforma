@@ -11,15 +11,15 @@
                FontAttributes="Bold"
                FontSize="30"
                HorizontalTextAlignment="Center"
-               TextColor="#565168"/>
+               TextColor="#a5a0d6"/>
             <Entry Placeholder="Usuario" x:Name="User"
                Keyboard="Text"/>
             <Entry Placeholder="Contraseña" x:Name="Pass"
                Keyboard="Text" IsPassword="True"/>
             <Button Text="Iniciar Session" Clicked="btnIniciar_Clicked" 
-                BackgroundColor="DarkMagenta" x:Name="btnInicarSessio" IsEnabled="True"/>
+                BackgroundColor="#a5a0d6" x:Name="btnInicarSessio" IsEnabled="True"/>
             <Button Text="Registrar-se" Clicked="btnRegistrar_Clicked"
-                BackgroundColor="DarkMagenta" x:Name="btnRegistrar"/>
+                BackgroundColor="#a5a0d6" x:Name="btnRegistrar"/>
         </StackLayout>
     </ContentPage.Content>
     

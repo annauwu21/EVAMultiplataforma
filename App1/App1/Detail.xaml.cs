@@ -36,9 +36,6 @@ namespace App1
         //Crear el asistente:
         static AssistantService assistant = assistant = new AssistantService("2021-06-14", authenticator); //<- Versión y autentificador
 
-        //Crear la sesión con el assistantID:
-        //var jsonSession = null;
-
         //Convertir json (de sessionID) a objeto:
         static Session session = null;
 
@@ -73,7 +70,6 @@ namespace App1
             cv.ItemsSource = "";
 
             //Creamos asistente y session
-
             assistant.SetServiceUrl("https://api.eu-de.assistant.watson.cloud.ibm.com"); //<- URL del servicio 
             assistant.DisableSslVerification(true); //<- Desabilitar verificación SSL
 

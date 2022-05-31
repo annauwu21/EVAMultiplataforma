@@ -5,6 +5,18 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
+                <Image WidthRequest="40"
+                       HeightRequest="40"
+                       VerticalOptions="Start"
+                       HorizontalOptions="Start"
+                        Source="https://cdn-icons-png.flaticon.com/512/56/56856.png">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="TapGestureRecognizer_Tapped"
+                            NumberOfTapsRequired="1">
+                        </TapGestureRecognizer>
+                    </Image.GestureRecognizers>
+                </Image>
                 <Label Text="--- CREADORES DE EVA ---"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" 

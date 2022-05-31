@@ -18,7 +18,7 @@ namespace App1
         {
             InitializeComponent();
 
-            var assembly = typeof(App).GetTypeInfo().Assembly;
+            /*var assembly = typeof(App).GetTypeInfo().Assembly;
             Stream audioStream = assembly.GetManifestResourceStream("App1.Sonidos.backgroundMusic.mp3");
             var audio = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
             audio.Loop = true;
@@ -27,7 +27,13 @@ namespace App1
             if (!audio.IsPlaying)
             {
                 audio.Play();
-            }
+            }*/
+        }
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            Opciones p = new Opciones();
+            this.Navigation.PushModalAsync(p);
         }
     }
 }
