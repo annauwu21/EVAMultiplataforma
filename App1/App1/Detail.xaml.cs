@@ -378,7 +378,8 @@ namespace App1
             }
         }
 
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             Opciones principal = new Opciones();
             this.Navigation.PushModalAsync(principal);

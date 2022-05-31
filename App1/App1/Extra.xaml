@@ -5,18 +5,30 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <Image WidthRequest="40"
+                <Grid BackgroundColor="#6656bc"
+              VerticalOptions="StartAndExpand"
+              HeightRequest="30"
+              Padding="10"
+              RowSpacing="0"
+              ColumnSpacing="0"
+              ColumnDefinitions="20,*,20,20">
+
+                    <Image  Grid.Column="1"
+                            WidthRequest="40"
                        HeightRequest="40"
                        VerticalOptions="Start"
                        HorizontalOptions="Start"
-                        Source="https://cdn-icons-png.flaticon.com/512/56/56856.png">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer
+                        Source="https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/ChevronLeft-256.png">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
                             Tapped="TapGestureRecognizer_Tapped"
                             NumberOfTapsRequired="1">
-                        </TapGestureRecognizer>
-                    </Image.GestureRecognizers>
-                </Image>
+                            </TapGestureRecognizer>
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                </Grid>
+                
                 <Label Text="--- CREADORES DE EVA ---"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" 
