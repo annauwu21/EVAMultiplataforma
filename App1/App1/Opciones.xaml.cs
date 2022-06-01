@@ -334,7 +334,10 @@ namespace App1
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            Extra extra = new Extra();
+            NavigationPage extra = new NavigationPage(new Extra())
+            {
+                BarBackgroundColor = Color.FromHex("#6656bc"),
+            };
             this.Navigation.PushModalAsync(extra);
         }
 

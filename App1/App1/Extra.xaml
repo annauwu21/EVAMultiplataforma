@@ -2,33 +2,21 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App1.Extra">
+    <NavigationPage.TitleView >
+        <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="20,0,0,0" Spacing="0">
+            <ImageButton Source="https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/ChevronLeft-256.png"
+                         HorizontalOptions="Start"
+                         VerticalOptions="Center"
+                         HeightRequest="25"
+                         WidthRequest="25" Clicked="TapGestureRecognizer_Tapped"
+                         BackgroundColor="Transparent"/>
+            <Label Text="Eva" TextColor="Black" FontSize="25" VerticalTextAlignment="Center"></Label>
+            <Label Text="Creditos" TextColor="Black" FontSize="20" Margin="0,0,30,0" VerticalTextAlignment="Center" HorizontalOptions="EndAndExpand"></Label>
+        </StackLayout>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <Grid BackgroundColor="#6656bc"
-              VerticalOptions="StartAndExpand"
-              HeightRequest="30"
-              Padding="10"
-              RowSpacing="0"
-              ColumnSpacing="0"
-              ColumnDefinitions="20,*,20,20">
-
-                    <Image  Grid.Column="1"
-                            WidthRequest="40"
-                       HeightRequest="40"
-                       VerticalOptions="Start"
-                       HorizontalOptions="Start"
-                        Source="https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/ChevronLeft-256.png">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer
-                            Tapped="TapGestureRecognizer_Tapped"
-                            NumberOfTapsRequired="1">
-                            </TapGestureRecognizer>
-                        </Image.GestureRecognizers>
-                    </Image>
-
-                </Grid>
-                
                 <Label Text="--- CREADORES DE EVA ---"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" 
