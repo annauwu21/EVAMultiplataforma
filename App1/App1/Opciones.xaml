@@ -10,21 +10,15 @@
                          HorizontalOptions="Start"
                          VerticalOptions="Center"
                          HeightRequest="25"
-                         WidthRequest="25"/>
+                         WidthRequest="25" Clicked="ImageButton_Clicked"
+                         BackgroundColor="Transparent"/>
             <Label Text="Eva" TextColor="Black" FontSize="25" VerticalTextAlignment="Center"></Label>
+            <Label Text="Opciones" TextColor="Black" FontSize="20" Margin="0,0,30,0" VerticalTextAlignment="Center" HorizontalOptions="EndAndExpand"></Label>
         </StackLayout>
     </NavigationPage.TitleView>
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Margin="20">
-                <Label 
-                        Text="Opciones"
-                        TextColor= "black"
-                        FontSize="20"
-                        HorizontalOptions="Start"
-                        VerticalTextAlignment="Center">
-                </Label>
-
                 <Label 
                         Text=" Tema"
                         TextColor= "black"
@@ -35,6 +29,7 @@
 
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
@@ -178,7 +173,17 @@
                         </Grid>
                     </Frame>
 
-                    <Slider Grid.Row="2"
+                    <Label Grid.Row="2"
+                            Grid.Column="0"
+                           Grid.ColumnSpan="5"
+                        Text=" Volumen de la voz de Eva"
+                        TextColor= "black"
+                        FontSize="18"
+                        HorizontalOptions="Start"
+                        VerticalTextAlignment="Center">
+                    </Label>
+
+                    <Slider Grid.Row="3"
                             Grid.Column="0"
                             Grid.ColumnSpan="5"
                             Minimum="0"
@@ -197,7 +202,7 @@
                             Grid.ColumnSpan="5"
                             Padding="10">
 
-                    <Grid>
+                    <Grid BackgroundColor="Transparent">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
@@ -261,22 +266,6 @@
                                 x:Name= "sonidos">
                         </Switch>
 
-                        <Label  Grid.Row="3"
-                                Grid.Column="0"
-                                Text="Colores daltonicos"
-                                TextColor= "black"
-                                FontSize="18"
-                                HorizontalOptions="Start"
-                                VerticalTextAlignment="Center"
-                                Margin="5">
-                        </Label>
-
-                        <Switch Grid.Row="3"
-                                Grid.Column="1"
-                                HorizontalOptions="End"
-                                Margin="5"
-                                x:Name= "daltonico">
-                        </Switch>
                     </Grid>
                 </Frame>
 

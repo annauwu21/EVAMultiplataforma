@@ -381,7 +381,10 @@ namespace App1
 
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
-            NavigationPage opciones = new NavigationPage(new Opciones());
+            NavigationPage opciones = new NavigationPage(new Opciones())
+            {
+                BarBackgroundColor = bubbleEva,
+            };
             this.Navigation.PushModalAsync(opciones);
       
         }

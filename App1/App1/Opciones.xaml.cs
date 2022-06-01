@@ -111,7 +111,6 @@ namespace App1
 
                     showEva.OnColor = Color.FromHex("#a5a0d6");
                     emotionsEva.OnColor = Color.FromHex("#a5a0d6");
-                    daltonico.OnColor = Color.FromHex("#a5a0d6");
                     sonidos.OnColor = Color.FromHex("#a5a0d6");
 
                     break;
@@ -126,7 +125,6 @@ namespace App1
 
                     showEva.OnColor = Color.FromHex("#ceea82");
                     emotionsEva.OnColor = Color.FromHex("#ceea82");
-                    daltonico.OnColor = Color.FromHex("#ceea82");
                     sonidos.OnColor = Color.FromHex("#ceea82");
 
                     break;
@@ -140,7 +138,6 @@ namespace App1
 
                     showEva.OnColor = Color.FromHex("#dbd3d3");
                     emotionsEva.OnColor = Color.FromHex("#dbd3d3");
-                    daltonico.OnColor = Color.FromHex("#dbd3d3");
                     sonidos.OnColor = Color.FromHex("#dbd3d3");
 
                     break;
@@ -154,7 +151,6 @@ namespace App1
 
                     showEva.OnColor = Color.FromHex("#444f51");
                     emotionsEva.OnColor = Color.FromHex("#444f51");
-                    daltonico.OnColor = Color.FromHex("#444f51");
                     sonidos.OnColor = Color.FromHex("#444f51");
 
                     break;
@@ -168,7 +164,6 @@ namespace App1
 
                     showEva.OnColor = Color.FromHex("#fc6675");
                     emotionsEva.OnColor = Color.FromHex("#fc6675");
-                    daltonico.OnColor = Color.FromHex("#fc6675");
                     sonidos.OnColor = Color.FromHex("#fc6675");
 
                     break;
@@ -182,7 +177,6 @@ namespace App1
 
                     showEva.OnColor = Color.FromHex("#a8cee2");
                     emotionsEva.OnColor = Color.FromHex("#a8cee2");
-                    daltonico.OnColor = Color.FromHex("#a8cee2");
                     sonidos.OnColor = Color.FromHex("#a8cee2");
                     break;
             }
@@ -231,7 +225,6 @@ namespace App1
 
             showEva.OnColor = Color.FromHex("#ceea82");
             emotionsEva.OnColor = Color.FromHex("#ceea82");
-            daltonico.OnColor = Color.FromHex("#ceea82");
             sonidos.OnColor = Color.FromHex("#ceea82");
 
             color = "green";
@@ -251,7 +244,6 @@ namespace App1
 
             showEva.OnColor = Color.FromHex("#dbd3d3");
             emotionsEva.OnColor = Color.FromHex("#dbd3d3");
-            daltonico.OnColor = Color.FromHex("#dbd3d3");
             sonidos.OnColor = Color.FromHex("#dbd3d3");
 
             color = "white";
@@ -271,7 +263,6 @@ namespace App1
 
             showEva.OnColor = Color.FromHex("#444f51");
             emotionsEva.OnColor = Color.FromHex("#444f51");
-            daltonico.OnColor = Color.FromHex("#444f51");
             sonidos.OnColor = Color.FromHex("#444f51");
 
             color = "black";
@@ -291,7 +282,6 @@ namespace App1
 
             showEva.OnColor = Color.FromHex("#fc6675");
             emotionsEva.OnColor = Color.FromHex("#fc6675");
-            daltonico.OnColor = Color.FromHex("#fc6675");
             sonidos.OnColor = Color.FromHex("#fc6675");
 
             color = "red";
@@ -311,7 +301,6 @@ namespace App1
 
             showEva.OnColor = Color.FromHex("#a8cee2");
             emotionsEva.OnColor = Color.FromHex("#a8cee2");
-            daltonico.OnColor = Color.FromHex("#a8cee2");
             sonidos.OnColor = Color.FromHex("#a8cee2");
 
             color = "blue";
@@ -331,7 +320,6 @@ namespace App1
 
             showEva.OnColor = Color.FromHex("#a5a0d6");
             emotionsEva.OnColor = Color.FromHex("#a5a0d6");
-            daltonico.OnColor = Color.FromHex("#a5a0d6");
             sonidos.OnColor = Color.FromHex("#a5a0d6");
 
             color = "purple";
@@ -384,6 +372,12 @@ namespace App1
             string volum = volume.Value.ToString();
 
             putConfigurationAsync(color, show, emotions, sounds, volum);
+        }
+
+        private void ImageButton_Clicked(object sender, EventArgs e)
+        {
+            Principal p = new Principal(Detail.user_name);
+            this.Navigation.PushModalAsync(p);
         }
     }
 }
