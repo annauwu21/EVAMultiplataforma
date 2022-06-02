@@ -87,7 +87,8 @@ namespace App1
 
             if (c.showEva == "true")
             {
-                cp.BackgroundImageSource = "https://i.pinimg.com/originals/d8/6f/92/d86f92c6e76d5a4a84dcb779fb6b6447.jpg";
+                //cp.BackgroundImageSource = "https://i.pinimg.com/originals/e0/dc/a3/e0dca3c111c0702c4004778395be124c.jpg";
+                bg.Source = "https://i.pinimg.com/originals/e0/dc/a3/e0dca3c111c0702c4004778395be124c.jpg";
                 showEva = true;
             }
             else
@@ -252,9 +253,10 @@ namespace App1
                 Root r = JsonConvert.DeserializeObject<Root>(jsonResponse.Response.ToString());
 
                 //Guardar distintas expresiones de Eva:
-                var normal = "https://i.pinimg.com/originals/d8/6f/92/d86f92c6e76d5a4a84dcb779fb6b6447.jpg";
-                var happy = "https://www.mundogatos.com/Uploads/mundogatos.com/ImagenesGrandes/como-hacer-a-tu-gato-feliz.jpg";
-                var angry = "https://cdn.wamiz.fr/cdn-cgi/image/quality=80,width=1200,height=675,fit=cover/article/main-picture/61090e4759fdb447112947.jpg";
+                var happy = "https://i.pinimg.com/originals/e0/dc/a3/e0dca3c111c0702c4004778395be124c.jpg";
+                var love = "https://i.pinimg.com/originals/ed/49/fa/ed49fab9694d4aea01aeaa9aef81228c.jpg";
+                var sad = "https://i.pinimg.com/originals/8d/b2/86/8db286b160fc18b6d11225e180048700.jpg";
+                var glitch = "https://i.pinimg.com/originals/b7/0a/39/b70a39455c369f378ebec7fa7a153fbb.jpg";
 
                 /*Recorrer toda la respuesta de Eva:*/
                 for (int i = 0 ; i <= r.output.generic.Count() ; i++)
@@ -272,9 +274,9 @@ namespace App1
                         //Cambiar la expresión de Eva según su Intent:
                         switch (intent)
                         {
-                            case "Insultos": cp.BackgroundImageSource = angry; break;
-                            case "Piropos": cp.BackgroundImageSource = happy; break;
-                            default: cp.BackgroundImageSource = normal; break;
+                            case "Insultos": bg.Source = sad; break;
+                            case "Piropos": bg.Source = love; break;
+                            default: bg.Source = happy; break;
                         }
                     }             
 

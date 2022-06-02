@@ -2,13 +2,26 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:converters="clr-namespace:App1"
              x:Class="App1.Detail"
-             x:Name="cp">
+             x:Name="cp"
+             BackgroundColor="Transparent">
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/MoreHorizontal-256.png" Priority="0" Order="Primary" Clicked="ToolbarItem_Clicked"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
-            <CollectionView Grid.Row="0"
+        <RelativeLayout>
+
+            <Image x:Name="bg"
+              RelativeLayout.WidthConstraint=
+                "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+              RelativeLayout.HeightConstraint=
+                "{ConstraintExpression Type=RelativeToParent, Property=Height}"/>
+            <Grid RelativeLayout.WidthConstraint=
+            "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+          RelativeLayout.HeightConstraint=
+            "{ConstraintExpression Type=RelativeToParent, Property=Height}">
+
+                <StackLayout>
+                    <CollectionView Grid.Row="0"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             Grid.RowSpan="1"
@@ -16,36 +29,36 @@
                             BackgroundColor="#00ffffff"
                             x:Name ="cv"
                             ItemsUpdatingScrollMode="KeepLastItemInView">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame  BackgroundColor="#00ffffff">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame  BackgroundColor="#00ffffff">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
 
-                                <Frame Grid.Row="0"
+                                        <Frame Grid.Row="0"
                                        Grid.Column="0"
                                        CornerRadius="30"
                                        IsVisible="{Binding ResponseVisibility}"
                                        IsClippedToBounds="True"
                                        BackgroundColor="{Binding bubbleEva}">
-                                    <Label  
+                                            <Label  
                                         Text="{Binding Response}"
                                         TextColor= "black"
                                         HorizontalOptions="Start"
                                         LineBreakMode="WordWrap"
                                         VerticalTextAlignment="Center">
-                                    </Label>
-                                </Frame>
+                                            </Label>
+                                        </Frame>
 
-                                <Frame Grid.Row="1"
+                                        <Frame Grid.Row="1"
                                        Grid.Column="0"
                                        Grid.RowSpan="1"
                                        Grid.ColumnSpan="1"
@@ -55,7 +68,7 @@
                                        IsVisible="{Binding ImageVisibility}"
                                        Padding="0"
                                        Margin="0">
-                                    <Image  
+                                            <Image  
                                         Source="{Binding Image}"
                                         HeightRequest="200"
                                         WidthRequest="200"
@@ -63,10 +76,10 @@
                                         HorizontalOptions="CenterAndExpand"
                                         Margin="0"
                                         >
-                                    </Image>
-                                </Frame>
+                                            </Image>
+                                        </Frame>
 
-                                <Frame Grid.Row="0"
+                                        <Frame Grid.Row="0"
                                        Grid.Column="2"
                                        CornerRadius="30"
                                        IsClippedToBounds="True"
@@ -74,38 +87,39 @@
                                        HorizontalOptions="End"
                                        IsVisible="{Binding QuestionVisibility}"
                                        >
-                                    <Label  
+                                            <Label  
                                         Text="{Binding Question}"
                                         TextColor="Black"
                                         HorizontalOptions="End"
                                         LineBreakMode="WordWrap"
                                         VerticalTextAlignment="Center">
-                                    </Label>
+                                            </Label>
+                                        </Frame>
+                                    </Grid>
                                 </Frame>
-                            </Grid>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
 
-                <Entry  Grid.Row="0"
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Entry  Grid.Row="0"
                         Grid.Column="0"
                         Grid.ColumnSpan="3"
                         Placeholder="Mensaje"
                         VerticalOptions="Center"
                         x:Name="Question"/>
 
-                <Button Grid.Row="0"
+                        <Button Grid.Row="0"
                         Grid.Column="3"
                         Text="Enviar"
                         VerticalOptions="Center" 
@@ -113,7 +127,12 @@
                         TextColor="Black"
                         BorderColor="Black"
                         Clicked="Button_Clicked"/>
+                    </Grid>
+                </StackLayout>
+                
             </Grid>
-        </StackLayout>
+            
+            
+        </RelativeLayout>
     </ContentPage.Content>
 </ContentPage>
