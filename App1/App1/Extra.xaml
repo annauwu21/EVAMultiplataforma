@@ -17,250 +17,244 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <Label Text="--- CREADORES DE EVA ---"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" 
-                FontSize="20"
-                FontAttributes="Bold"/>
-
                 <Label Text="" 
                 HorizontalOptions="CenterAndExpand" 
                 FontSize="16"
-                FontAttributes="Bold"/>
+                FontAttributes="Bold" TextColor="Black"/>
 
                 <Label Text="Director" 
                 HorizontalOptions="CenterAndExpand" 
                 FontSize="16"
-                FontAttributes="Bold"/>
+                FontAttributes="Bold"  TextColor="Black"/>
 
                 <Label Text="Adri Vhalro"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16"  TextColor="Black"/>
 
                 <Label Text="" 
                 HorizontalOptions="CenterAndExpand" 
                 FontSize="16"
-                FontAttributes="Bold"/>
+                FontAttributes="Bold"  TextColor="Black"/>
 
                 <Label Text="Programadores God" 
                 HorizontalOptions="CenterAndExpand" 
                 FontSize="16"
-                FontAttributes="Bold"/>
+                FontAttributes="Bold"  TextColor="Black"/>
 
                 <Label Text="Anna Gargallo"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16"  TextColor="Black"/>
 
                 <Label Text="Jonathan Granado"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16"  TextColor="Black"/>
 
                 <Label Text="" 
                 HorizontalOptions="CenterAndExpand" 
                 FontSize="16"
-                FontAttributes="Bold"/>
+                FontAttributes="Bold"  TextColor="Black"/>
                 
                 <Label Text="Planeación" 
                 HorizontalOptions="CenterAndExpand" 
                 FontSize="16"
-                FontAttributes="Bold"/>
+                FontAttributes="Bold"  TextColor="Black"/>
 
                 <Label Text="Adri Vhalro"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Julia Llongeras"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="" 
                 HorizontalOptions="CenterAndExpand" 
                 FontSize="16"
-                FontAttributes="Bold"/>
+                FontAttributes="Bold" TextColor="Black"/>
 
                 <Label Text="Ilustración"
                 HorizontalOptions="CenterAndExpand" 
                 FontSize="16"
-                FontAttributes="Bold"/>
+                FontAttributes="Bold" TextColor="Black"/>
 
                 <Label Text="Claudia Valero"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Uri Menta"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="@rabbitshollow"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
                 
                 <Label Text="" 
                 HorizontalOptions="CenterAndExpand" 
                 FontSize="16"
-                FontAttributes="Bold"/>
+                FontAttributes="Bold" TextColor="Black"/>
 
                 <Label Text="Musicos"
                 HorizontalOptions="CenterAndExpand" 
                 FontSize="16"
-                FontAttributes="Bold"/>
+                FontAttributes="Bold" TextColor="Black"/>
 
                 <Label Text="Adri Vhalro"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Lucas Gonzalvo"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Marc Valañá"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Nuria Mestre"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Sergi Guisenx"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="" 
                 HorizontalOptions="CenterAndExpand" 
                 FontSize="16"
-                FontAttributes="Bold"/>
+                FontAttributes="Bold" TextColor="Black"/>
 
                 <Label Text="Asesoramiento"
                 HorizontalOptions="CenterAndExpand" 
                 FontSize="16"
-                FontAttributes="Bold"/>
+                FontAttributes="Bold" TextColor="Black"/>
 
                 <Label Text="Carles Bonet"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Gonzalo Blanca"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="" 
                 HorizontalOptions="CenterAndExpand" 
                 FontSize="16"
-                FontAttributes="Bold"/>
+                FontAttributes="Bold" TextColor="Black"/>
 
                 <Label Text="*Especial Gracias*"
                 HorizontalOptions="CenterAndExpand" 
                 FontSize="16"
-                FontAttributes="Bold"/>
+                FontAttributes="Bold" TextColor="Black"/>
 
                 <Label Text="Adrian Valero"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Ainoa Kujo"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
                 
 
                 <Label Text="Alva Majo"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Blanca Arenas"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Brad Fiedel"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Celia Gonzalvo"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
                 
                 <Label Text="DeValen"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Francisco Mesas"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Georgina Vidal"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Gerard Abat"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Ginxu"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Gisela Boj"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Hideaki Anno"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Hirohiko Araki"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="John Buscema "
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Jose"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Julia Alujas"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Nina Romero"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Paula Romero"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Ricardo Rafael"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Roy Thomas"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Sergi Mestre"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Spike Jonze"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Hax"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Aki"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Toby Fox "
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
                 <Label Text="Toi Vhalro"
                 HorizontalOptions="CenterAndExpand" 
-                FontSize="16"/>
+                FontSize="16" TextColor="Black"/>
 
 
 

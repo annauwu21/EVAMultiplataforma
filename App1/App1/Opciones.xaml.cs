@@ -332,11 +332,36 @@ namespace App1
             this.Navigation.PushModalAsync(principal);
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private async void Button_Clicked(object sender, EventArgs e)
         {
+            Color c = new Color();
+            Configuration config = await getConfigurationsAsync();
+
+            switch (config.color)
+            {
+                case "purple":
+                    c = Color.FromHex("#6656bc");
+                    break;
+                case "green":
+                    c = Color.FromHex("#bae860");
+                    break;
+                case "white":
+                    c = Color.FromHex("#e5c6db");
+                    break;
+                case "black":
+                    c = Color.FromHex("#30383a");
+                    break;
+                case "red":
+                    c = Color.FromHex("#f43f4f");
+                    break;
+                case "blue":
+                    c = Color.FromHex("#75b2dd");
+                    break;
+            }
+
             NavigationPage extra = new NavigationPage(new Extra())
             {
-                BarBackgroundColor = Color.FromHex("#6656bc"),
+                BarBackgroundColor = c,
             };
             this.Navigation.PushModalAsync(extra);
         }
