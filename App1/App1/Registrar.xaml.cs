@@ -29,8 +29,7 @@ namespace App1
         {
             try
             {
-                //Antes de insertar en la BD lo pasamos todo a LOWER CASE
-                string user = User.Text.ToLower();
+                string user = User.Text;
                 string pass = Pass.Text;
                 string pass2 = Pass2.Text;
 
@@ -59,47 +58,81 @@ namespace App1
             }
         }
 
-        private async Task postAsyncUserConfiguration(string user, string pass)
+        private async Task postAsyncUserConfiguration(string user_name, string pass)
         {
             JObject joUser = new JObject();
-            joUser.Add("name_user", user);
-            joUser.Add("pass", pass);
+            joUser.Add("name_user", user_name);
+            joUser.Add("pass", pass); 
 
-            Uri uriUser = new Uri("https://apieva2022.azurewebsites.net/api/User");
+            if (await comprovarUsuario(user_name) == false) {
+                Uri uriUser = new Uri("https://apieva2022.azurewebsites.net/api/User");
+                string jsonUser = JsonConvert.SerializeObject(joUser);
+                StringContent contentUser = new StringContent(jsonUser, Encoding.UTF8, "application/json");
+                HttpResponseMessage responseUser = await client.PostAsync(uriUser, contentUser);
+                Boolean rRegistrar = Convert.ToBoolean(await responseUser.Content.ReadAsStringAsync());
 
-            string jsonUser = JsonConvert.SerializeObject(joUser);
-            StringContent contentUser = new StringContent(jsonUser, Encoding.UTF8, "application/json");
-
-            HttpResponseMessage responseUser = null;
-
-            responseUser = await client.PostAsync(uriUser, contentUser);
-
-            if (responseUser.IsSuccessStatusCode)
-            {
-                JObject joconfiguration = new JObject();
-                joconfiguration.Add("name_user", user);
-                joconfiguration.Add("color", "purple");
-                joconfiguration.Add("showEva", "true");
-                joconfiguration.Add("showEmotions", "true");
-                joconfiguration.Add("sound", "true");
-                joconfiguration.Add("volume", "1.0");
-
-                Uri uriConfiguration = new Uri("https://apieva2022.azurewebsites.net/api/Configuration");
-
-                string jsonConfiguration = JsonConvert.SerializeObject(joconfiguration);
-                StringContent contentConfiguration = new StringContent(jsonConfiguration, Encoding.UTF8, "application/json");
-
-                HttpResponseMessage responseConfiguration = null;
-
-                responseConfiguration = await client.PostAsync(uriConfiguration, contentConfiguration);
-
-                //Leer respueta del post como hacemos en los get, para asi mostrar mensajes de error
-                if (responseConfiguration.IsSuccessStatusCode)
+                if (rRegistrar == true)
                 {
-                    DisplayAlert("Mensaje", "Usuario Creado", "Cerrar");
+
+                    //Mensage de Usuario Creado
+                    DisplayAlert("Mensaje", "Usuario Creado con Exito", "Cerrar");
+
+                    JObject joconfiguration = new JObject();
+                    joconfiguration.Add("name_user", user_name);
+                    joconfiguration.Add("color", "purple");
+                    joconfiguration.Add("showEva", "true");
+                    joconfiguration.Add("showEmotions", "true");
+                    joconfiguration.Add("sound", "true");
+                    joconfiguration.Add("volume", "1.0");
+
+                    Uri uriConfiguration = new Uri("https://apieva2022.azurewebsites.net/api/Configuration");
+
+                    string jsonConfiguration = JsonConvert.SerializeObject(joconfiguration);
+                    StringContent contentConfiguration = new StringContent(jsonConfiguration, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage responseConfig = await client.PostAsync(uriConfiguration, contentConfiguration);
+
+                    Boolean rConfig = Convert.ToBoolean(await responseConfig.Content.ReadAsStringAsync());
+
+                    //Leer respueta del post como hacemos en los get, para asi mostrar mensajes de error
+
+                    if (rConfig == false)
+                    {
+                        DisplayAlert("Mensaje", "Configuracion del usuario no creada", "Cerrar");
+                    }
+
                 }
-                    
+                else if (rRegistrar == false)
+                {
+                    //Mensage de ERROR
+                    DisplayAlert("Mensaje", "Usuario no creado", "Cerrar");
+                }
+            }else{
+                //Mensage de ERROR
+                DisplayAlert("Mensaje", "Ya existe un usuario con ese nombre, pruebe con otro", "Cerrar");
             }
+
+
+        }
+
+        public async Task<bool> comprovarUsuario(String user_name)
+        {
+            Uri uri = new Uri("https://apieva2022.azurewebsites.net/api/User/" + user_name);
+
+            HttpResponseMessage response = await client.GetAsync(uri);
+          
+            String rUser = await response.Content.ReadAsStringAsync();
+
+            DisplayAlert("Mensaje", rUser, "Cerrar"); 
+
+            if (!rUser.Equals("null"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }   
         }
 
         private void limpiar()
@@ -109,44 +142,8 @@ namespace App1
             Pass2.Text = "";
         }
 
-        public Boolean comprobarUsuari(String nom)
-        {
-            Boolean ok = false;
-            MySqlDataReader reader = null;
 
-            if (!nom.Equals(""))
-            {
-                string select = "SELECT * FROM usuaris WHERE nom LIKE '" + nom + "';";
-                MySqlConnection conexionBD = Conexion.conexion();
-                conexionBD.Open();
 
-                try
-                {
-                    MySqlCommand comando = new MySqlCommand(select, conexionBD);
-                    reader = comando.ExecuteReader();
-                    if (reader.HasRows) //Si reader encuentra algo
-                    {
-                        ok = true;
-                    }
-                    else
-                    {
-                        DisplayAlert("Error", "No s'ha trobat cap usuari amb el nom: " + nom, "Cerrar");
-                        ok = false;
-                    }
-                }
-                catch (MySqlException ex)
-                {
-
-                    DisplayAlert("Error", "No s'ha pogut cercar l'usuari " + ex.Message, "Cerrar");
-
-                }
-                finally
-                {
-                    conexionBD.Close();
-                }
-            }
-            return ok;
-        }
 
         private void btnCerrar_Clicked(object sender, EventArgs e)
         {

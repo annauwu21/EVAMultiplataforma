@@ -37,11 +37,10 @@ namespace App1
         private async void btnIniciar_Clicked(object sender, EventArgs e)
         {
 
-            if (!string.IsNullOrEmpty(User.Text) || !string.IsNullOrEmpty(Pass.Text)) {
+            if (!string.IsNullOrEmpty(User.Text) && !string.IsNullOrEmpty(Pass.Text)) {
                 //Si las casillas estan llenas lo guardamos en variables
 
-                //Lo pasamos todo a LOWER CASE
-                var user = User.Text.ToLower();
+                var user = User.Text;
                 var pass = Pass.Text;
 
                 User u = await getAyncUser(user);
@@ -63,8 +62,31 @@ namespace App1
                 {
                     DisplayAlert("Error", "Datos erroneos", "Cerrar");
                 }
-              
+                
 
+            }
+            else {
+                DisplayAlert("Error", "Rellena todos los campos", "Cerrar");
+            }
+        }
+
+        public async Task<bool> comprovarUsuario(String user_name)
+        {
+            Uri uri = new Uri("https://apieva2022.azurewebsites.net/api/User/" + user_name);
+
+            HttpResponseMessage response = await client.GetAsync(uri);
+
+            String rUser = await response.Content.ReadAsStringAsync();
+
+            DisplayAlert("Mensaje", rUser, "Cerrar");
+
+            if (!rUser.Equals("null"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
