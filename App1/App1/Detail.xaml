@@ -28,7 +28,8 @@
                             ItemsSource="{Binding Chats}"
                             BackgroundColor="#00ffffff"
                             x:Name ="cv"
-                            ItemsUpdatingScrollMode="KeepLastItemInView">
+                            ItemsUpdatingScrollMode="KeepLastItemInView"
+                            Scrolled="cv_Scrolled">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Frame  BackgroundColor="#00ffffff">

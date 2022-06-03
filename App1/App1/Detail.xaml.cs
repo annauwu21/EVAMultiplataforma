@@ -390,5 +390,18 @@ namespace App1
             this.Navigation.PushModalAsync(opciones);
       
         }
+
+        private void cv_Scrolled(object sender, ItemsViewScrolledEventArgs e)
+        {
+           
+            if (e.VerticalDelta < 0)
+            {
+                bg.TranslateTo( bg.TranslationX, (bg.TranslationY - 0.2), 5);
+            }
+            else
+            {
+                bg.TranslateTo( bg.TranslationX , (bg.TranslationY + 0.2), 5);
+            }
+        }
     }
 }
