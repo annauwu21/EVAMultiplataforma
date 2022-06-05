@@ -8,6 +8,8 @@ using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Plugin.SimpleAudioPlayer;
+using Xamarin.Forms;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -24,7 +26,7 @@ namespace App1
 
             client = new HttpClient();
 
-            /*var assembly = typeof(App).GetTypeInfo().Assembly;
+            var assembly = typeof(App).GetTypeInfo().Assembly;
             Stream audioStream = assembly.GetManifestResourceStream("App1.Sonidos.backgroundMusic.mp3");
             var audio = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
             audio.Loop = true;
@@ -33,7 +35,7 @@ namespace App1
             if (!audio.IsPlaying)
             {
                 audio.Play();
-            }*/
+            }
         }
 
         private async Task<Configuration> getConfigurationsAsync()
