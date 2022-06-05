@@ -147,26 +147,46 @@ namespace App1
 
         private async Task loadHistoryAsync()
         {
+            String q = "";
             var list = await getHistoryAsyc(user_name);
            
             foreach (var h in list) {
                 switch (h.type)
                 {
-                    case "text": 
-                        Chat Textchat = new Chat(h.question, h.response, "", false, true, false, bubbleEva, bubbleUser); //<- Crear un chat con la pregunta del usuario
-                        historial.Add(Textchat); //<- Añadir el chat al historial
+                    case "text":
+                        if (q == h.question)
+                        {
+                            Chat Spacechat = new Chat(h.question, h.response, "", false, false, true, bubbleEva, bubbleUser); //<- Crear un chat de texto de respuesta
+                            historial.Add(Spacechat); //<- Añadir el chat al historial
+                        }
+                        else
+                        {
+                            Chat Textchat = new Chat(h.question, h.response, "", false, true, false, bubbleEva, bubbleUser); //<- Crear un chat con la pregunta del usuario
+                            historial.Add(Textchat); //<- Añadir el chat al historial
 
-                        Chat Spacechat = new Chat(h.question, h.response, "", false, false, true, bubbleEva, bubbleUser); //<- Crear un chat de texto de respuesta
-                        historial.Add(Spacechat); //<- Añadir el chat al historial
+                            Chat Spacechat = new Chat(h.question, h.response, "", false, false, true, bubbleEva, bubbleUser); //<- Crear un chat de texto de respuesta
+                            historial.Add(Spacechat); //<- Añadir el chat al historial
+                        }
+                       
                         break;
                     case "image":
-                        Chat Imagechat = new Chat(h.question, "", h.response, false, true, false, bubbleEva, bubbleUser); //<- Crear un chat con la pregunta del usuario.
-                        historial.Add(Imagechat); //<- Añadir el chat al historial
+                        if (q == h.question)
+                        {
+                            Chat Imagechat = new Chat(h.question, "", h.response, true, false, false, bubbleEva, bubbleUser); //<- Crear un chat con imagen de respuesta.
+                            historial.Add(Imagechat); //<- Añadir el chat al historial
+                        }
+                        else
+                        {
+                            Chat Imagechat = new Chat(h.question, "", h.response, false, true, false, bubbleEva, bubbleUser); //<- Crear un chat con la pregunta del usuario.
+                            historial.Add(Imagechat); //<- Añadir el chat al historial
 
-                        Chat Spacechat2 = new Chat(h.question, "", h.response, true, false, false, bubbleEva, bubbleUser); //<- Crear un chat con imagen de respuesta.
-                        historial.Add(Spacechat2); //<- Añadir el chat al historial
+                            Chat Spacechat2 = new Chat(h.question, "", h.response, true, false, false, bubbleEva, bubbleUser); //<- Crear un chat con imagen de respuesta.
+                            historial.Add(Spacechat2); //<- Añadir el chat al historial
+                        }
+                       
                         break;
                 }
+                q = h.question;
             }
             //Cambiar los colores de los chats ya hablados.
             foreach (var chat in historial)
