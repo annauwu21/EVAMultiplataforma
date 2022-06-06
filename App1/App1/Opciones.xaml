@@ -338,6 +338,20 @@
                         Margin="5"
                         Clicked="Button_Clicked_3">
                 </Button>
+
+                <Button
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        WidthRequest="300"
+                        HeightRequest="45"
+                        CornerRadius="30"
+                        Text="Twilight Zone"
+                        FontSize="18"
+                        BackgroundColor="White"
+                        BorderColor="Black"
+                        Margin="5"
+                        Clicked="Button_Clicked_5">
+                </Button>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

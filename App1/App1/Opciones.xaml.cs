@@ -407,5 +407,40 @@ namespace App1
             Principal p = new Principal(Detail.user_name);
             this.Navigation.PushModalAsync(p);
         }
+
+        private async void Button_Clicked_5(object sender, EventArgs e)
+        {
+            Color c = new Color();
+            Configuration config = await getConfigurationsAsync();
+
+            switch (config.color)
+            {
+                case "purple":
+                    c = Color.FromHex("#6656bc");
+                    break;
+                case "green":
+                    c = Color.FromHex("#bae860");
+                    break;
+                case "white":
+                    c = Color.FromHex("#e5c6db");
+                    break;
+                case "black":
+                    c = Color.FromHex("#30383a");
+                    break;
+                case "red":
+                    c = Color.FromHex("#f43f4f");
+                    break;
+                case "blue":
+                    c = Color.FromHex("#75b2dd");
+                    break;
+            }
+
+            NavigationPage tz = new NavigationPage(new TwilightZone(c))
+            {
+                BarBackgroundColor = c,
+            };
+            this.Navigation.PushModalAsync(tz);
+
+        }
     }
 }

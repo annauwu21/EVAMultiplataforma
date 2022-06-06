@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.TwilightZone">
+    <NavigationPage.TitleView >
+        <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="20,0,0,0" Spacing="0">
+            <ImageButton Source="https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/ChevronLeft-256.png"
+                         HorizontalOptions="Start"
+                         VerticalOptions="Center"
+                         HeightRequest="25"
+                         WidthRequest="25" Clicked="ImageButton_Clicked"
+                         BackgroundColor="Transparent"/>
+            <Label Text="Eva" TextColor="Black" FontSize="25" VerticalTextAlignment="Center"></Label>
+            <Label Text="Twilight Zone" TextColor="Black" FontSize="20" Margin="0,0,30,0" VerticalTextAlignment="Center" HorizontalOptions="EndAndExpand"></Label>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout  Margin="20">
+                <Label Text="¿Te gustan los gatos?" TextColor="Black" FontSize="16"/>
+                <Label Text="Muéstrame un unicornio" TextColor="Black" FontSize="16"/>
+                <Label Text="¿Qué sabes hacer actualmente?" TextColor="Black" FontSize="16"/>
+                <Label Text="¿Qué harás en un futuro?" TextColor="Black" FontSize="16"/>
+            </StackLayout>
+        </ScrollView>
+            
+    </ContentPage.Content>
+</ContentPage>
