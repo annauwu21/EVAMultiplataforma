@@ -29,7 +29,7 @@ namespace App1
 
             loadDetailPageAsync(user_name, tipo);
 
-            loadPage(user_name, tipo);
+            loadPage(user_name, "Nada");
 
 
 

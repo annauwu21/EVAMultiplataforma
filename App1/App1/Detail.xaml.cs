@@ -66,28 +66,36 @@ namespace App1
             //Vacar el recurso:
             cv.ItemsSource = "";
 
-            //Cargar las configuracioens del usuario:
-            loadConfigurationsAsync();
-
-            if (tipo.Equals("InicioSesion"))
+            if (!tipo.Equals("Nada"))
+                
             {
-                //Cargar el historial del usuario:
-                loadHistoryAsync();
+                //Cargar las configuracioens del usuario:
+                loadConfigurationsAsync(tipo);
 
-                //Creamos asistente y session
-                assistant.SetServiceUrl("https://api.eu-de.assistant.watson.cloud.ibm.com"); //<- URL del servicio 
-                assistant.DisableSslVerification(true); //<- Desabilitar verificación SSL
+                if (tipo.Equals("InicioSesion"))
+                {
 
-                //Crear la sesión con el assistantID:
-                var jsonSession = assistant.CreateSession(assistantId: "7ca45e38-0155-4856-8c0b-86e574c514b6");
+                    //Vacar el recurso:
+                    cv.ItemsSource = "";
 
-                //Convertir json (de sessionID) a objeto:
-                session = JsonConvert.DeserializeObject<Session>(jsonSession.Response.ToString());
+                    //Cargar el historial del usuario:
+                    loadHistoryAsync();
 
+                    //Creamos asistente y session
+                    assistant.SetServiceUrl("https://api.eu-de.assistant.watson.cloud.ibm.com"); //<- URL del servicio 
+                    assistant.DisableSslVerification(true); //<- Desabilitar verificación SSL
+
+                    //Crear la sesión con el assistantID:
+                    var jsonSession = assistant.CreateSession(assistantId: "7ca45e38-0155-4856-8c0b-86e574c514b6");
+
+                    //Convertir json (de sessionID) a objeto:
+                    session = JsonConvert.DeserializeObject<Session>(jsonSession.Response.ToString());
+                }
             }
+           
         }
 
-        private async Task loadConfigurationsAsync()
+        private async Task loadConfigurationsAsync(string tipo)
         {
             //Buscar las configuraciones el la API:
             Configuration c = await getConfigurationsAsync();
@@ -122,7 +130,6 @@ namespace App1
 
             volume = float.Parse(c.volume);
 
-            //
             switch (c.color)
             {
                 case "purple":
@@ -150,13 +157,17 @@ namespace App1
                     bubbleUser = Color.FromHex("#c4d8e2");
                     break;
             }
+
             //Cambiar los colores de los chats ya hablados.
             foreach (var chat in historial)
             {
                 chat.bubbleEva = this.bubbleEva;
                 chat.bubbleUser = this.bubbleUser;
             }
-            cv.ItemsSource = historial;
+            if (!tipo.Equals("InicioSesion"))
+            {
+                cv.ItemsSource = historial;
+            }
 
         }
 
@@ -203,12 +214,7 @@ namespace App1
                 }
                 q = h.question;
             }
-            //Cambiar los colores de los chats ya hablados.
-            foreach (var chat in historial)
-            {
-                chat.bubbleEva = this.bubbleEva;
-                chat.bubbleUser = this.bubbleUser;
-            }
+            
             cv.ItemsSource = historial;
         }
 
