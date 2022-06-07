@@ -19,26 +19,27 @@ namespace App1
     {
         HttpClient client;
         public Color barcolor { get; private set; }
-        public Principal(string user)
+
+        public Principal(string user, string tipo)
         {
             InitializeComponent();
 
             client = new HttpClient();
             string user_name = user;
 
-            loadDetailPageAsync(user_name);
+            loadDetailPageAsync(user_name, tipo);
 
-            loadPage(user_name);
+            loadPage(user_name, tipo);
 
 
 
         }
-        private void loadPage(string user_name){
+        private void loadPage(string user_name, string tipo){
             //Metemos el menu desplegable lateral
             this.Master = new Master();
 
             //Metemos la pagina principal
-            this.Detail = new NavigationPage(new Detail(user_name))
+            this.Detail = new NavigationPage(new Detail(user_name, tipo))
             {
                 BarBackgroundColor = barcolor,
                 BarTextColor = Color.White,
@@ -64,7 +65,7 @@ namespace App1
             return null;
         }
 
-        private async Task loadDetailPageAsync(string user_name)
+        private async Task loadDetailPageAsync(string user_name, string tipo)
         {
             Configuration c = await getConfigurationsAsync(user_name);
 
@@ -89,7 +90,7 @@ namespace App1
                     barcolor = Color.FromHex("#75b2dd");
                     break;
             }
-            loadPage(user_name);
+            loadPage(user_name, tipo);
 
         }
     }

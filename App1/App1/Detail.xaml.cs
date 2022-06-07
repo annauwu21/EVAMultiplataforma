@@ -54,7 +54,7 @@ namespace App1
 
         private readonly AudioPlayer audioPlayer = new AudioPlayer();
 
-        public Detail(string u)
+        public Detail(string u, string tipo)
         {
             InitializeComponent();
 
@@ -63,31 +63,38 @@ namespace App1
             //Guardar el usuario conectado:
             user_name = u;
 
-            loadConfigurationsAsync();
-            loadHistoryAsync();
-
-            //Cargar los chats de esta sessión:
+            //Vacar el recurso:
             cv.ItemsSource = "";
 
-            //Creamos asistente y session
-            assistant.SetServiceUrl("https://api.eu-de.assistant.watson.cloud.ibm.com"); //<- URL del servicio 
-            assistant.DisableSslVerification(true); //<- Desabilitar verificación SSL
+            //Cargar las configuracioens del usuario:
+            loadConfigurationsAsync();
 
-            //Crear la sesión con el assistantID:
-            var jsonSession = assistant.CreateSession(assistantId: "7ca45e38-0155-4856-8c0b-86e574c514b6");
+            if (tipo.Equals("InicioSesion"))
+            {
+                //Cargar el historial del usuario:
+                loadHistoryAsync();
 
-            //Convertir json (de sessionID) a objeto:
-            session = JsonConvert.DeserializeObject<Session>(jsonSession.Response.ToString());
+                //Creamos asistente y session
+                assistant.SetServiceUrl("https://api.eu-de.assistant.watson.cloud.ibm.com"); //<- URL del servicio 
+                assistant.DisableSslVerification(true); //<- Desabilitar verificación SSL
 
+                //Crear la sesión con el assistantID:
+                var jsonSession = assistant.CreateSession(assistantId: "7ca45e38-0155-4856-8c0b-86e574c514b6");
+
+                //Convertir json (de sessionID) a objeto:
+                session = JsonConvert.DeserializeObject<Session>(jsonSession.Response.ToString());
+
+            }
         }
 
         private async Task loadConfigurationsAsync()
         {
+            //Buscar las configuraciones el la API:
             Configuration c = await getConfigurationsAsync();
 
+            //Guardar las configuraciones en variables:
             if (c.showEva == "true")
             {
-                //cp.BackgroundImageSource = "https://i.pinimg.com/originals/e0/dc/a3/e0dca3c111c0702c4004778395be124c.jpg";
                 bg.Source = "https://i.pinimg.com/originals/e0/dc/a3/e0dca3c111c0702c4004778395be124c.jpg";
                 showEva = true;
             }
@@ -115,6 +122,7 @@ namespace App1
 
             volume = float.Parse(c.volume);
 
+            //
             switch (c.color)
             {
                 case "purple":
@@ -142,7 +150,14 @@ namespace App1
                     bubbleUser = Color.FromHex("#c4d8e2");
                     break;
             }
-           
+            //Cambiar los colores de los chats ya hablados.
+            foreach (var chat in historial)
+            {
+                chat.bubbleEva = this.bubbleEva;
+                chat.bubbleUser = this.bubbleUser;
+            }
+            cv.ItemsSource = historial;
+
         }
 
         private async Task loadHistoryAsync()

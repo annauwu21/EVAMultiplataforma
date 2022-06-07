@@ -328,7 +328,7 @@ namespace App1
         private void TapGestureRecognizer_Tapped_6(object sender, EventArgs e)
         {
             Detail.historial.Clear();
-            Principal principal = new Principal(Detail.user_name);
+            Principal principal = new Principal(Detail.user_name, "Opciones");
             this.Navigation.PushModalAsync(principal);
         }
 
@@ -404,7 +404,7 @@ namespace App1
 
         private void ImageButton_Clicked(object sender, EventArgs e)
         {
-            Principal p = new Principal(Detail.user_name);
+            Principal p = new Principal(Detail.user_name, "Opciones");
             this.Navigation.PushModalAsync(p);
         }
 
