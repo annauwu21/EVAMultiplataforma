@@ -20,6 +20,8 @@ namespace App1
     public partial class Extra : ContentPage
     {
         HttpClient client;
+
+        static ISimpleAudioPlayer audio = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
         public Extra()
         {
             InitializeComponent();
@@ -28,8 +30,8 @@ namespace App1
 
             var assembly = typeof(App).GetTypeInfo().Assembly;
             Stream audioStream = assembly.GetManifestResourceStream("App1.Sonidos.backgroundMusic.mp3");
-            var audio = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
-            audio.Loop = true;
+            //var audio = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
+            //audio.Loop = true;
             audio.Load(audioStream);
 
             if (!audio.IsPlaying)
@@ -40,6 +42,7 @@ namespace App1
 
         private async Task<Configuration> getConfigurationsAsync()
         {
+            audio.Stop();
 
             Uri uri = new Uri("https://apieva2022.azurewebsites.net/api/Configuration/" + Detail.user_name);
 
