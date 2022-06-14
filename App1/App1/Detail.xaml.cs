@@ -75,11 +75,12 @@ namespace App1
                 if (tipo.Equals("InicioSesion"))
                 {
 
-                    //Vacar el recurso:
-                    cv.ItemsSource = "";
+                    //Vaciar el recurso:
+                    //cv.ItemsSource = "";
 
                     //Cargar el historial del usuario:
                     loadHistoryAsync();
+                    
 
                     //Creamos asistente y session
                     assistant.SetServiceUrl("https://api.eu-de.assistant.watson.cloud.ibm.com"); //<- URL del servicio 
@@ -91,7 +92,10 @@ namespace App1
                     //Convertir json (de sessionID) a objeto:
                     session = JsonConvert.DeserializeObject<Session>(jsonSession.Response.ToString());
                 }
+               
             }
+
+
            
         }
 
@@ -275,7 +279,6 @@ namespace App1
 
         private async void Button_Clicked(object sender, EventArgs e) 
         {
-          
             var question = Question.Text.ToString(); //<- Guardar el mensaje que envia el usuario
 
             try
@@ -383,7 +386,7 @@ namespace App1
 
                     //Poner en el recurso el historial:
                     cv.ItemsSource = historial;
-
+                   
                     //Vaciar el campo de texto para escribir un mensaje:
                     Question.Text = "";
 
@@ -399,7 +402,7 @@ namespace App1
                 }
 
                 //Limpiar el recurso:
-                cv.ItemsSource = "";
+                //cv.ItemsSource = "";
 
                 //Imprimir por consola:
                 //Console.WriteLine(jsonSession.Response); //<- sessionID (json)
@@ -444,5 +447,11 @@ namespace App1
                 bg.TranslateTo( bg.TranslationX , (bg.TranslationY + 0.2), 5);
             }
         }
+
+        private void ImageButton_Clicked(object sender, EventArgs e)
+        {
+            cv.ScrollTo(historial.Count() - 1);
+        }
+
     }
 }

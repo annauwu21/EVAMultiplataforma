@@ -123,8 +123,6 @@ namespace App1
           
             String rUser = await response.Content.ReadAsStringAsync();
 
-            DisplayAlert("Mensaje", rUser, "Cerrar"); 
-
             if (!rUser.Equals("null"))
             {
                 return true;

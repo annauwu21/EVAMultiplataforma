@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:converters="clr-namespace:App1"
              x:Class="App1.Detail"
              x:Name="cp"
-             BackgroundColor="Transparent">
+             BackgroundColor="#ffffff">
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/MoreHorizontal-256.png" Priority="0" Order="Primary" Clicked="ToolbarItem_Clicked"/>
     </ContentPage.ToolbarItems>
@@ -26,7 +26,7 @@
                             Grid.ColumnSpan="2"
                             Grid.RowSpan="1"
                             ItemsSource="{Binding Chats}"
-                            BackgroundColor="#00ffffff"
+                            BackgroundColor="Transparent"
                             x:Name ="cv"
                             ItemsUpdatingScrollMode="KeepLastItemInView"
                             Scrolled="cv_Scrolled">
@@ -105,6 +105,7 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
@@ -113,14 +114,25 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
-                        <Entry  Grid.Row="0"
+                        <ImageButton    Grid.Row="0"
+                                        Grid.Column="0"
+                                        Source="https://cdn1.iconfinder.com/data/icons/arrows-vol-1-5/24/dropdown_arrow2-256.png"
+                                        HorizontalOptions="Start"
+                                        VerticalOptions="Center"
+                                        HeightRequest="25"
+                                        WidthRequest="25"
+                                        BackgroundColor="Transparent"
+                                        Clicked="ImageButton_Clicked"
+                                        Margin="10"/>
+                        
+                        <Entry  Grid.Row="1"
                         Grid.Column="0"
                         Grid.ColumnSpan="3"
                         Placeholder="Mensaje"
                         VerticalOptions="Center"
                         x:Name="Question"/>
 
-                        <Button Grid.Row="0"
+                        <Button Grid.Row="1"
                         Grid.Column="3"
                         Text="Enviar"
                         VerticalOptions="Center" 
